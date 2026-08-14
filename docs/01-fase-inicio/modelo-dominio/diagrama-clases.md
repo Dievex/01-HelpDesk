@@ -56,21 +56,21 @@ classDiagram
     AgenteSoporte <|-- Supervisor
     Usuario <|-- Administrador
 
-    Usuario "1" --> "0..*" Ticket : reporta (solicitante)
-    AgenteSoporte "0..1" --> "0..*" Ticket : atiende
-    Ticket "*" --> "1" Categoria : pertenece a
-    Ticket "*" --> "1" Prioridad : tiene
-    Prioridad "1" --> "1" SLA : define
+    Usuario  -->  Ticket : reporta (solicitante)
+    AgenteSoporte  -->  Ticket : atiende
+    Ticket  -->  Categoria : pertenece a
+    Ticket  -->  Prioridad : tiene
+    Prioridad  -->  SLA : define
 
-    Ticket "1" *-- "0..*" Comentario : contiene
-    Ticket "1" *-- "0..*" Adjunto : incluye
-    Ticket "1" *-- "1..*" EventoAuditoria : registra
-    Ticket "0..*" --> "0..*" ArticuloConocimiento : se resuelve con
+    Ticket  *--  Comentario : contiene
+    Ticket  *--  Adjunto : incluye
+    Ticket  *-- "1..*" EventoAuditoria : registra
+    Ticket  -->  ArticuloConocimiento : se resuelve con
 
-    Comentario "*" --> "1" Usuario : autor
-    EventoAuditoria "*" --> "1" Usuario : autor
-    EventoAuditoria "1" --> "0..*" Notificacion : genera
-    Notificacion "*" --> "1" Usuario : destinatario
+    Comentario  -->  Usuario : autor
+    EventoAuditoria  -->  Usuario : autor
+    EventoAuditoria  -->  Notificacion : genera
+    Notificacion  -->  Usuario : destinatario
 ```
 
 ## Decisiones de modelado (y por qué)
