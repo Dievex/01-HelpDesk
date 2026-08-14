@@ -21,6 +21,11 @@ La estructura de `Notificacion` (generada por `EventoAuditoria`, dirigida a un `
 - Al cerrarse un ticket, se notifica al Supervisor.
 - Al asignarse un ticket a un Agente, se le notifica a ese Agente.
 
+`ArticuloConocimiento.visibilidad` (Público / Interno) ya existe como atributo; el filtrado por rol es una regla a implementar en el flujo, no un cambio de estructura:
+
+- Un Solicitante solo puede Ver/Listar artículos con visibilidad Público.
+- Agente, Supervisor y Administrador pueden Ver/Listar todos los artículos (Público e Interno), por ser personal técnico.
+
 ## Pendiente para Elaboración
 
 Este modelo se usará como insumo, no como resultado final. En Elaboración, cada caso de uso arquitectónicamente significativo pasará por análisis de robustez y podrá:
