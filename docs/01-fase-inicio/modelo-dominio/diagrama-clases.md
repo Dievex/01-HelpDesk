@@ -5,51 +5,61 @@
 ```mermaid
 %%{init: {"class": {"hideEmptyMembersBox": true}}}%%
 classDiagram
-    class Usuario {
-        +nombre
-        +correo
+    namespace Usuarios_Roles {
+        class Usuario {
+            +nombre
+            +correo
+        }
+        class AgenteSoporte {
+            +nivel
+        }
+        class Supervisor
+        class Administrador
     }
-    class AgenteSoporte {
-        +nivel
-    }
-    class Supervisor
-    class Administrador
 
-    class Ticket {
-        +titulo
-        +descripcion
-        +estado
-        +fechaCreacion
-        +fechaResolucion
+    namespace Gestion_Tickets {
+        class Ticket {
+            +titulo
+            +descripcion
+            +estado
+            +fechaCreacion
+            +fechaResolucion
+        }
+        class Categoria {
+            +nombre
+        }
+        class Prioridad {
+            +nombre
+        }
+        class SLA {
+            +tiempoPrimeraRespuesta
+            +tiempoResolucion
+        }
+        class Comentario {
+            +texto
+            +fecha
+        }
+        class Adjunto {
+            +nombreArchivo
+        }
+        class EventoAuditoria {
+            +tipoEvento
+            +fecha
+        }
     }
-    class Categoria {
-        +nombre
+
+    namespace Base_de_Conocimiento {
+        class ArticuloConocimiento {
+            +titulo
+            +contenido
+        }
     }
-    class Prioridad {
-        +nombre
-    }
-    class SLA {
-        +tiempoPrimeraRespuesta
-        +tiempoResolucion
-    }
-    class Comentario {
-        +texto
-        +fecha
-    }
-    class Adjunto {
-        +nombreArchivo
-    }
-    class ArticuloConocimiento {
-        +titulo
-        +contenido
-    }
-    class Notificacion {
-        +mensaje
-        +fechaEnvio
-    }
-    class EventoAuditoria {
-        +tipoEvento
-        +fecha
+
+    namespace Notificaciones {
+        class Notificacion {
+            +mensaje
+            +fechaEnvio
+        }
     }
 
     Usuario <|-- AgenteSoporte
