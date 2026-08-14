@@ -64,7 +64,7 @@ classDiagram
 
     Ticket  *--  Comentario : contiene
     Ticket  *--  Adjunto : incluye
-    Ticket  *-- "1..*" EventoAuditoria : registra
+    Ticket  *--  EventoAuditoria : registra
     Ticket  -->  ArticuloConocimiento : se resuelve con
 
     Comentario  -->  Usuario : autor
