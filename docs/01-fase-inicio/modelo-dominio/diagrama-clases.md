@@ -43,13 +43,13 @@ classDiagram
         +titulo
         +contenido
     }
-    class EventoAuditoria {
-        +tipoEvento
-        +fecha
-    }
     class Notificacion {
         +mensaje
         +fechaEnvio
+    }
+    class EventoAuditoria {
+        +tipoEvento
+        +fecha
     }
 
     Usuario <|-- AgenteSoporte
@@ -67,10 +67,10 @@ classDiagram
     Ticket  *--  EventoAuditoria : registra
     Ticket  -->  ArticuloConocimiento : se resuelve con
 
+    Notificacion  -->  Usuario : destinatario
     Comentario  -->  Usuario : autor
     EventoAuditoria  -->  Usuario : autor
     EventoAuditoria  -->  Notificacion : genera
-    Notificacion  -->  Usuario : destinatario
 ```
 
 ## Decisiones de modelado (y por qué)
