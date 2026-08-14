@@ -55,6 +55,7 @@ classDiagram
         class ArticuloConocimiento {
             +titulo
             +contenido
+            +visibilidad
         }
     }
 
@@ -101,3 +102,4 @@ classDiagram
 - **`Equipo` agrupa agentes; el `Supervisor` no tiene una relación "supervisa" aparte.** Como `Supervisor` ya hereda de `AgenteSoporte` (y por lo tanto hereda "pertenece a `Equipo`"), el equipo que supervisa es el mismo al que pertenece. Agregar una relación de supervisión aparte hubiera sido redundante.
 - **La pertenencia a `Equipo` es opcional (`0..1`) tanto para `AgenteSoporte` como para `Categoria`.** Un agente puede existir antes de asignársele equipo, y una categoría puede no tener aún un equipo definido que la atienda — no queremos forzar esa asignación en el momento de crear cualquiera de los dos.
 - **`Categoria` se conecta a `Equipo`, no `Ticket` directamente.** El enrutamiento a un equipo es una propiedad de la categoría (qué equipo la atiende), no algo que se decide ticket por ticket — así, todos los tickets de una categoría heredan el mismo enrutamiento sin duplicarlo.
+- **`ArticuloConocimiento.visibilidad` (Público / Interno) es un atributo, no una relación con actores.** No todo artículo debe ser visible para cualquier Solicitante — algunos son contenido interno para personal técnico (Agente, Supervisor, Administrador). Es un atributo simple porque solo hay dos valores posibles y no tienen relaciones propias; modelarlo como clase aparte hubiera sido sobre-ingeniería para lo que en el fondo es una bandera.
