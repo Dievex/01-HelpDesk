@@ -1,0 +1,245 @@
+[HelpDesk](../README.md) / [Fase de Inicio](README.md)
+
+# Modelo de Casos de Uso
+
+Listado de actores y casos de uso a nivel de nombre y objetivo. Sin flujos ni escenarios todavía — eso corresponde al detalle de casos de uso en Elaboración, una vez priorizados los arquitectónicamente significativos.
+
+## Actores
+
+| Actor | Descripción | Generaliza a |
+|---|---|---|
+| Solicitante | Cualquier persona que reporta o da seguimiento a sus propias solicitudes. Rol base: todo actor humano del sistema puede actuar como Solicitante. | — |
+| Agente de Soporte | Atiende y resuelve tickets asignados. Pertenece a un Equipo. El nivel (N1/N2/N3) es un dato del agente, no un actor distinto: todos ejecutan los mismos casos de uso, lo que cambia es a quién se le puede escalar un ticket. | Solicitante |
+| Supervisor | Vigila carga de trabajo y cumplimiento de SLA del Equipo al que pertenece (heredado de Agente de Soporte). Además de atender tickets como cualquier agente, puede asignarlos y reasignarlos dentro de su equipo. | Agente de Soporte |
+| Administrador del Sistema | Configura categorías, equipos, prioridades, SLA, usuarios y permisos de la instancia. | Solicitante |
+
+
+## Casos de uso
+
+Agrupados por el actor que los introduce. Un actor que generaliza a otro (ver tabla de arriba) también puede ejecutar **todos** los casos de uso de ese actor, sin que se repitan en su lista — se indica al inicio de cada sección qué hereda.
+
+Convención de nombres: **Ver** = detalle de una instancia, **Listar** = colección. Aplicada pareja en todo el catálogo para que el nombre ya diga si es detalle o listado, sin usar verbos paraguas como "Consultar" o "Gestionar".
+
+Cada actor tiene su diagrama con los casos de uso que introduce (no repite los heredados — mismo criterio que las tablas). Nota técnica: Mermaid no tiene un tipo de diagrama de casos de uso dedicado (a diferencia de PlantUML), así que las elipses se aproximan con nodos tipo *stadium* (`([texto])`) de `flowchart`, y la generalización entre actores se muestra como una flecha etiquetada "hereda de" en vez del triángulo hueco UML estándar.
+
+### Solicitante
+
+```mermaid
+flowchart LR
+    Solicitante((Solicitante))
+    UC01([Iniciar Sesión])
+    UC02([Cerrar Sesión])
+    UC03([Crear Ticket])
+    UC04([Ver Ticket])
+    UC05([Listar Tickets Propios])
+    UC06([Comentar Ticket])
+    UC07([Confirmar Cierre de Ticket])
+    UC08([Reabrir Ticket])
+    UC09([Ver Artículo de Conocimiento])
+    UC10([Listar Artículos de Conocimiento])
+
+    Solicitante --- UC01
+    Solicitante --- UC02
+    Solicitante --- UC03
+    Solicitante --- UC04
+    Solicitante --- UC05
+    Solicitante --- UC06
+    Solicitante --- UC07
+    Solicitante --- UC08
+    Solicitante --- UC09
+    Solicitante --- UC10
+```
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-01 | Iniciar Sesión | Autenticarse en el sistema |
+| UC-02 | Cerrar Sesión | Finalizar la sesión activa |
+| UC-03 | Crear Ticket | Reportar una incidencia o solicitud |
+| UC-04 | Ver Ticket | Ver el detalle de un ticket propio |
+| UC-05 | Listar Tickets Propios | Ver el listado de tickets que reportó |
+| UC-06 | Comentar Ticket | Agregar información adicional a un ticket propio |
+| UC-07 | Confirmar Cierre de Ticket | Aceptar que la solución resolvió el problema |
+| UC-08 | Reabrir Ticket | Rechazar una solución y devolver el ticket a atención |
+| UC-09 | Ver Artículo de Conocimiento | Ver el contenido de un artículo con visibilidad Público |
+| UC-10 | Listar Artículos de Conocimiento | Buscar, entre los artículos con visibilidad Público, uno que resuelva su problema |
+
+### Agente de Soporte
+
+*Hereda todo lo de Solicitante (UC-01 a UC-10) — incluye Ver/Listar Artículo de Conocimiento (UC-09, UC-10), solo que al ejecutarlos como Agente el alcance es mayor: ve artículos Público **e** Interno, por ser personal técnico. Aquí se agrega además lo que puede hacer con ellos (crearlos, editarlos).*
+
+```mermaid
+flowchart LR
+    Solicitante((Solicitante))
+    Agente((Agente de Soporte))
+    Agente -->|hereda de| Solicitante
+
+    UC11([Tomar Ticket])
+    UC12([Resolver Ticket])
+    UC13([Escalar Ticket])
+    UC14([Listar Cola de Tickets])
+    UC15([Crear Artículo de Conocimiento])
+    UC16([Editar Artículo de Conocimiento])
+    UC17([Eliminar Artículo de Conocimiento])
+
+    Agente --- UC11
+    Agente --- UC12
+    Agente --- UC13
+    Agente --- UC14
+    Agente --- UC15
+    Agente --- UC16
+    Agente --- UC17
+```
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-11 | Tomar Ticket | Asignarse un ticket disponible de la cola |
+| UC-12 | Resolver Ticket | Marcar un ticket como resuelto |
+| UC-13 | Escalar Ticket | Transferirlo a un agente de nivel superior |
+| UC-14 | Listar Cola de Tickets | Ver los tickets sin asignar de su Equipo y los que tiene asignados a él |
+| UC-15 | Crear Artículo de Conocimiento | Documentar una solución reutilizable, definiendo su visibilidad |
+| UC-16 | Editar Artículo de Conocimiento | Actualizar un artículo existente, incluida su visibilidad |
+| UC-17 | Eliminar Artículo de Conocimiento | Retirar un artículo obsoleto |
+
+### Supervisor
+
+*Hereda todo lo de Agente de Soporte (UC-11 a UC-17) y, transitivamente, de Solicitante (UC-01 a UC-10).*
+
+```mermaid
+flowchart LR
+    Agente((Agente de Soporte))
+    Supervisor((Supervisor))
+    Supervisor -->|hereda de| Agente
+
+    UC18([Asignar Ticket])
+    UC19([Reasignar Ticket])
+    UC20([Ver Dashboard de Métricas])
+
+    Supervisor --- UC18
+    Supervisor --- UC19
+    Supervisor --- UC20
+```
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-18 | Asignar Ticket | Asignar un ticket sin asignar a un agente específico de su Equipo |
+| UC-19 | Reasignar Ticket | Mover un ticket ya asignado de un agente a otro |
+| UC-20 | Ver Dashboard de Métricas | Ver KPIs de volumen, tiempos y cumplimiento de SLA |
+
+### Administrador del Sistema
+
+*Hereda todo lo de Solicitante (UC-01 a UC-10).*
+
+```mermaid
+flowchart LR
+    Solicitante((Solicitante))
+    Admin((Administrador del Sistema))
+    Admin -->|hereda de| Solicitante
+
+    subgraph Categoria [Categoría]
+        UC21([Crear Categoría])
+        UC22([Ver Categoría])
+        UC23([Listar Categorías])
+        UC24([Editar Categoría])
+        UC25([Eliminar Categoría])
+    end
+
+    subgraph Equipo [Equipo]
+        UC26([Crear Equipo])
+        UC27([Ver Equipo])
+        UC28([Listar Equipos])
+        UC29([Editar Equipo])
+        UC30([Eliminar Equipo])
+    end
+
+    subgraph Prioridad [Prioridad]
+        UC31([Crear Prioridad])
+        UC32([Ver Prioridad])
+        UC33([Listar Prioridades])
+        UC34([Editar Prioridad])
+        UC35([Eliminar Prioridad])
+    end
+
+    subgraph UsuarioG [Usuario]
+        UC36([Crear Usuario])
+        UC37([Ver Usuario])
+        UC38([Listar Usuarios])
+        UC39([Editar Usuario])
+        UC40([Eliminar Usuario])
+    end
+
+    Admin --- UC21
+    Admin --- UC22
+    Admin --- UC23
+    Admin --- UC24
+    Admin --- UC25
+    Admin --- UC26
+    Admin --- UC27
+    Admin --- UC28
+    Admin --- UC29
+    Admin --- UC30
+    Admin --- UC31
+    Admin --- UC32
+    Admin --- UC33
+    Admin --- UC34
+    Admin --- UC35
+    Admin --- UC36
+    Admin --- UC37
+    Admin --- UC38
+    Admin --- UC39
+    Admin --- UC40
+```
+
+#### Categoría
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-21 | Crear Categoría | Dar de alta una categoría de ticket |
+| UC-22 | Ver Categoría | Ver el detalle de una categoría, incluido el Equipo que la atiende |
+| UC-23 | Listar Categorías | Ver el catálogo completo de categorías |
+| UC-24 | Editar Categoría | Modificar una categoría o el Equipo que la atiende |
+| UC-25 | Eliminar Categoría | Dar de baja una categoría |
+
+#### Equipo
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-26 | Crear Equipo | Dar de alta un equipo de soporte |
+| UC-27 | Ver Equipo | Ver el detalle de un equipo y sus miembros |
+| UC-28 | Listar Equipos | Ver el catálogo completo de equipos |
+| UC-29 | Editar Equipo | Modificar el nombre de un equipo |
+| UC-30 | Eliminar Equipo | Dar de baja un equipo |
+
+#### Prioridad (incluye su SLA — ver decisiones)
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-31 | Crear Prioridad | Dar de alta un nivel de prioridad con sus tiempos de SLA |
+| UC-32 | Ver Prioridad | Ver el detalle de una prioridad y su SLA |
+| UC-33 | Listar Prioridades | Ver el catálogo completo de prioridades |
+| UC-34 | Editar Prioridad | Modificar una prioridad o sus tiempos de SLA |
+| UC-35 | Eliminar Prioridad | Dar de baja un nivel de prioridad |
+
+#### Usuario
+
+| ID | Caso de uso | Objetivo |
+|---|---|---|
+| UC-36 | Crear Usuario | Dar de alta un usuario y asignarle un rol |
+| UC-37 | Ver Usuario | Ver el detalle de un usuario, su rol y su Equipo (si aplica) |
+| UC-38 | Listar Usuarios | Ver el catálogo completo de usuarios |
+| UC-39 | Editar Usuario | Modificar datos, rol o Equipo de un usuario |
+| UC-40 | Eliminar Usuario | Dar de baja un usuario |
+
+## Decisiones de modelado (y por qué)
+
+- **`Solicitante` es actor aunque no sea clase del dominio.** Actor y clase de dominio son vistas distintas: un actor es un rol de interacción con el sistema, no necesariamente una entidad persistida. Esto es consistente con la decisión ya tomada en el [Modelo de Dominio](modelo-dominio/README.md) de que Solicitante es un rol, no una clase.
+- **Se usa generalización de actores (`Solicitante ← Agente de Soporte ← Supervisor`, `Solicitante ← Administrador`) en vez de repetir casos de uso.** Evita listar "Crear Ticket" cuatro veces — un Agente también puede reportar sus propios problemas, un Administrador también es empleado. La generalización expresa eso sin duplicación, igual que en el diagrama de clases.
+- **No se separan actores "Agente N1" y "Agente N2/N3".** Ambos ejecutan exactamente los mismos casos de uso; el nivel solo determina el destino de un escalamiento (ver decisión de `nivel` en el Diagrama de Clases), no cambia qué puede hacer el actor.
+- **No hay un caso de uso "Recibir Notificación".** Recibir una notificación no es un objetivo que el actor persigue activamente — es una consecuencia de otro caso de uso (Crear Ticket, Resolver Ticket, Asignar/Tomar Ticket). Las reglas de notificación ya capturadas en el Modelo de Dominio se modelarán como extensiones de esos casos de uso cuando se detallen sus flujos, no como casos de uso propios.
+- **Ningún caso de uso se llama "Gestionar X".** "Gestionar" no es un objetivo verificable de un actor, es una etiqueta que esconde varios casos de uso distintos (crear, ver, listar, editar, eliminar). Cada uno se lista por separado, siguiendo el mismo criterio que el ejemplo de referencia.
+- **Se eliminó "Atender Ticket".** Por el mismo motivo: era una etiqueta vaga que en realidad ya cubren Tomar, Comentar, Resolver y Escalar Ticket por separado. No aportaba un objetivo propio.
+- **`SLA` no tiene CRUD propio.** No existe independiente de una `Prioridad` (relación 1 a 1 en el Modelo de Dominio) — se crea y edita como parte de Crear/Editar Prioridad, no como recurso propio.
+- **`Iniciar Sesión` / `Cerrar Sesión` se agregan como base de `Solicitante`**, no como actor "no logueado" aparte. Todo actor necesita autenticarse antes de lo demás; separarlo en un actor propio (como en el ejemplo de referencia) es válido pero implica modelar la extensión condicional por rol tras el login, que es detalle de flujo — se deja para cuando se detalle ese caso de uso, no en esta fase de solo listar.
+- **`Equipo` tiene CRUD propio bajo Administrador, no bajo Supervisor.** Crear/editar/eliminar equipos es configuración estructural de la instancia (como Categoría o Prioridad), coherente con que Administrador ya es quien gestiona esas entidades. El Supervisor opera *dentro* de su equipo (asigna, reasigna), no lo estructura.
+- **La pertenencia de un agente a un Equipo se edita desde Editar Usuario, no desde un caso de uso propio de Equipo.** Es un dato del agente (ver decisión equivalente en el Modelo de Dominio), así que se administra donde se administra el resto de sus datos, evitando dos caminos distintos para lo mismo.
+- **`Asignar Ticket` y `Reasignar Ticket` son casos de uso distintos, no uno solo.** Tienen precondiciones distintas: Asignar parte de un ticket sin dueño (viene de la cola del equipo), Reasignar parte de un ticket que ya tiene un agente asignado. Fusionarlos hubiera vuelto a caer en un caso de uso ambiguo, lo mismo que se evitó con "Gestionar" y "Atender".
+- **`Ver`/`Listar Artículo de Conocimiento` no se duplican por rol.** El alcance (solo Público vs. Público+Interno) depende de quién ejecuta el mismo caso de uso, no de un caso de uso distinto por actor — es una regla de negocio del flujo (ya capturada en el [Modelo de Dominio](modelo-dominio/README.md)), no una razón para crear "Ver Artículo de Conocimiento (Interno)" aparte.
