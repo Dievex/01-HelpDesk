@@ -8,7 +8,7 @@ Vocabulario común del dominio. Sirve de base directa para el [Modelo de Dominio
 | --- | --- |
 | Administrador del Sistema | Usuario responsable de configurar categorías, equipos, SLA, usuarios y permisos dentro de una instancia. |
 | Agente de Soporte | Usuario responsable de atender y resolver tickets asignados. Se clasifica por nivel (N1, N2, N3) según la complejidad que puede resolver, y pertenece a un Equipo. |
-| Artículo de Conocimiento | Documento reutilizable que describe la solución a un problema común, vinculable a uno o varios tickets. |
+| Artículo de Conocimiento | Documento reutilizable que describe la solución a un problema común, vinculable a uno o varios tickets. Tiene una visibilidad: Público (cualquier Solicitante) o Interno (solo personal técnico: Agente, Supervisor, Administrador). |
 | Auditoría (Evento de Auditoría) | Registro inmutable de un cambio ocurrido sobre un ticket: autor, fecha y tipo de cambio. |
 | Base de Conocimiento | Colección de Artículos de Conocimiento disponible para agentes. |
 | Categoría | Clasificación temática de un ticket (ej. Hardware, Software, Red, Cuentas de usuario). Determina el Equipo que la atiende. |
