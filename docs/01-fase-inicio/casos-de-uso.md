@@ -20,35 +20,16 @@ Agrupados por el actor que los introduce. Un actor que generaliza a otro (ver ta
 
 Convención de nombres: **Ver** = detalle de una instancia, **Listar** = colección. Aplicada pareja en todo el catálogo para que el nombre ya diga si es detalle o listado, sin usar verbos paraguas como "Consultar" o "Gestionar".
 
-Cada actor tiene su diagrama con los casos de uso que introduce (no repite los heredados — mismo criterio que las tablas). Nota técnica: Mermaid no tiene un tipo de diagrama de casos de uso dedicado (a diferencia de PlantUML), así que las elipses se aproximan con nodos tipo *stadium* (`([texto])`) de `flowchart`, y la generalización entre actores se muestra como una flecha etiquetada "hereda de" en vez del triángulo hueco UML estándar.
+Cada actor tiene su diagrama con los casos de uso que introduce (no repite los heredados — mismo criterio que las tablas), hecho en PlantUML.
 
 ### Solicitante
 
-```mermaid
-flowchart LR
-    Solicitante((Solicitante))
-    UC01([Iniciar Sesión])
-    UC02([Cerrar Sesión])
-    UC03([Crear Ticket])
-    UC04([Ver Ticket])
-    UC05([Listar Tickets Propios])
-    UC06([Comentar Ticket])
-    UC07([Confirmar Cierre de Ticket])
-    UC08([Reabrir Ticket])
-    UC09([Ver Artículo de Conocimiento])
-    UC10([Listar Artículos de Conocimiento])
-
-    Solicitante --- UC01
-    Solicitante --- UC02
-    Solicitante --- UC03
-    Solicitante --- UC04
-    Solicitante --- UC05
-    Solicitante --- UC06
-    Solicitante --- UC07
-    Solicitante --- UC08
-    Solicitante --- UC09
-    Solicitante --- UC10
-```
+<table>
+<tr><td align="center">
+<img src="../../puml/01-fase-inicio/casos-de-uso/actor-solicitante.svg" alt="Casos de uso — Solicitante">
+</td></tr>
+<tr><td align="center"><i><a href="../../puml/01-fase-inicio/casos-de-uso/actor-solicitante.puml">Código fuente</a></i></td></tr>
+</table>
 
 | ID | Caso de uso | Objetivo |
 |---|---|---|
@@ -67,28 +48,12 @@ flowchart LR
 
 *Hereda todo lo de Solicitante (UC-01 a UC-10) — incluye Ver/Listar Artículo de Conocimiento (UC-09, UC-10), solo que al ejecutarlos como Agente el alcance es mayor: ve artículos Público **e** Interno, por ser personal técnico. Aquí se agrega además lo que puede hacer con ellos (crearlos, editarlos).*
 
-```mermaid
-flowchart LR
-    Solicitante((Solicitante))
-    Agente((Agente de Soporte))
-    Agente -->|hereda de| Solicitante
-
-    UC11([Tomar Ticket])
-    UC12([Resolver Ticket])
-    UC13([Escalar Ticket])
-    UC14([Listar Cola de Tickets])
-    UC15([Crear Artículo de Conocimiento])
-    UC16([Editar Artículo de Conocimiento])
-    UC17([Eliminar Artículo de Conocimiento])
-
-    Agente --- UC11
-    Agente --- UC12
-    Agente --- UC13
-    Agente --- UC14
-    Agente --- UC15
-    Agente --- UC16
-    Agente --- UC17
-```
+<table>
+<tr><td align="center">
+<img src="../../puml/01-fase-inicio/casos-de-uso/actor-agente-soporte.svg" alt="Casos de uso — Agente de Soporte">
+</td></tr>
+<tr><td align="center"><i><a href="../../puml/01-fase-inicio/casos-de-uso/actor-agente-soporte.puml">Código fuente</a></i></td></tr>
+</table>
 
 | ID | Caso de uso | Objetivo |
 |---|---|---|
@@ -104,20 +69,12 @@ flowchart LR
 
 *Hereda todo lo de Agente de Soporte (UC-11 a UC-17) y, transitivamente, de Solicitante (UC-01 a UC-10).*
 
-```mermaid
-flowchart LR
-    Agente((Agente de Soporte))
-    Supervisor((Supervisor))
-    Supervisor -->|hereda de| Agente
-
-    UC18([Asignar Ticket])
-    UC19([Reasignar Ticket])
-    UC20([Ver Dashboard de Métricas])
-
-    Supervisor --- UC18
-    Supervisor --- UC19
-    Supervisor --- UC20
-```
+<table>
+<tr><td align="center">
+<img src="../../puml/01-fase-inicio/casos-de-uso/actor-supervisor.svg" alt="Casos de uso — Supervisor">
+</td></tr>
+<tr><td align="center"><i><a href="../../puml/01-fase-inicio/casos-de-uso/actor-supervisor.puml">Código fuente</a></i></td></tr>
+</table>
 
 | ID | Caso de uso | Objetivo |
 |---|---|---|
@@ -129,65 +86,12 @@ flowchart LR
 
 *Hereda todo lo de Solicitante (UC-01 a UC-10).*
 
-```mermaid
-flowchart LR
-    Solicitante((Solicitante))
-    Admin((Administrador del Sistema))
-    Admin -->|hereda de| Solicitante
-
-    subgraph Categoria [Categoría]
-        UC21([Crear Categoría])
-        UC22([Ver Categoría])
-        UC23([Listar Categorías])
-        UC24([Editar Categoría])
-        UC25([Eliminar Categoría])
-    end
-
-    subgraph Equipo [Equipo]
-        UC26([Crear Equipo])
-        UC27([Ver Equipo])
-        UC28([Listar Equipos])
-        UC29([Editar Equipo])
-        UC30([Eliminar Equipo])
-    end
-
-    subgraph Prioridad [Prioridad]
-        UC31([Crear Prioridad])
-        UC32([Ver Prioridad])
-        UC33([Listar Prioridades])
-        UC34([Editar Prioridad])
-        UC35([Eliminar Prioridad])
-    end
-
-    subgraph UsuarioG [Usuario]
-        UC36([Crear Usuario])
-        UC37([Ver Usuario])
-        UC38([Listar Usuarios])
-        UC39([Editar Usuario])
-        UC40([Eliminar Usuario])
-    end
-
-    Admin --- UC21
-    Admin --- UC22
-    Admin --- UC23
-    Admin --- UC24
-    Admin --- UC25
-    Admin --- UC26
-    Admin --- UC27
-    Admin --- UC28
-    Admin --- UC29
-    Admin --- UC30
-    Admin --- UC31
-    Admin --- UC32
-    Admin --- UC33
-    Admin --- UC34
-    Admin --- UC35
-    Admin --- UC36
-    Admin --- UC37
-    Admin --- UC38
-    Admin --- UC39
-    Admin --- UC40
-```
+<table>
+<tr><td align="center">
+<img src="../../puml/01-fase-inicio/casos-de-uso/actor-administrador.svg" alt="Casos de uso — Administrador del Sistema">
+</td></tr>
+<tr><td align="center"><i><a href="../../puml/01-fase-inicio/casos-de-uso/actor-administrador.puml">Código fuente</a></i></td></tr>
+</table>
 
 #### Categoría
 

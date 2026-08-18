@@ -1,0 +1,72 @@
+@startuml actor-administrador
+left to right direction
+
+' El orden del texto en la asociación controla el lado: "paquete -- Actor"
+' lo deja a la izquierda; "Actor -- paquete" a la derecha.
+
+actor Solicitante
+actor "Administrador del Sistema" as Admin
+Solicitante <|-- Admin
+
+note left of Solicitante
+  Admin hereda todos los
+  casos de uso de Solicitante
+  (ver actor-solicitante.puml)
+end note
+
+package Categoría {
+  usecase "Crear Categoría" as UC21
+  usecase "Ver Categoría" as UC22
+  usecase "Listar Categorías" as UC23
+  usecase "Editar Categoría" as UC24
+  usecase "Eliminar Categoría" as UC25
+}
+
+package Equipo {
+  usecase "Crear Equipo" as UC26
+  usecase "Ver Equipo" as UC27
+  usecase "Listar Equipos" as UC28
+  usecase "Editar Equipo" as UC29
+  usecase "Eliminar Equipo" as UC30
+}
+
+package Prioridad {
+  usecase "Crear Prioridad" as UC31
+  usecase "Ver Prioridad" as UC32
+  usecase "Listar Prioridades" as UC33
+  usecase "Editar Prioridad" as UC34
+  usecase "Eliminar Prioridad" as UC35
+}
+
+package Usuario {
+  usecase "Crear Usuario" as UC36
+  usecase "Ver Usuario" as UC37
+  usecase "Listar Usuarios" as UC38
+  usecase "Editar Usuario" as UC39
+  usecase "Eliminar Usuario" as UC40
+}
+
+UC21 -- Admin
+UC22 -- Admin
+UC23 -- Admin
+UC24 -- Admin
+UC25 -- Admin
+
+UC26 --- Admin
+UC27 --- Admin
+UC28 --- Admin
+UC29 --- Admin
+UC30 --- Admin
+
+Admin -- UC31
+Admin -- UC32
+Admin -- UC33
+Admin -- UC34
+Admin -- UC35
+
+Admin --- UC36
+Admin --- UC37
+Admin --- UC38
+Admin --- UC39
+Admin --- UC40
+@enduml

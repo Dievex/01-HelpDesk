@@ -1,0 +1,30 @@
+@startuml actor-supervisor
+left to right direction
+
+' El orden del texto en la asociación controla el lado: "paquete -- Actor"
+' lo deja a la izquierda; "Actor -- paquete" a la derecha.
+
+actor "Agente de Soporte" as Agente
+actor Supervisor
+Agente <|-- Supervisor
+
+note left of Agente
+  Supervisor hereda todos los
+  casos de uso de Agente de Soporte
+  (y transitivamente de Solicitante)
+end note
+
+package Reportes {
+  usecase "Ver Dashboard de Métricas" as UC20
+}
+
+package Tickets {
+  usecase "Asignar Ticket" as UC18
+  usecase "Reasignar Ticket" as UC19
+}
+
+UC20 -- Supervisor
+
+Supervisor -- UC18
+Supervisor -- UC19
+@enduml

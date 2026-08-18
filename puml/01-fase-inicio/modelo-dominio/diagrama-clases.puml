@@ -1,0 +1,91 @@
+@startuml diagrama-clases
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam nodesep 45
+skinparam ranksep 70
+skinparam packagePadding 25
+skinparam linetype polyline
+
+package "Usuarios y Roles" {
+  class Usuario {
+    +nombre
+    +correo
+  }
+  class AgenteSoporte {
+    +nivel
+  }
+  class Supervisor
+  class Administrador
+  class Equipo {
+    +nombre
+  }
+}
+
+package "Gestión de Tickets" {
+  class Ticket {
+    +titulo
+    +descripcion
+    +estado
+    +fechaCreacion
+    +fechaResolucion
+  }
+  class Categoria {
+    +nombre
+  }
+  class Prioridad {
+    +nombre
+  }
+  class SLA {
+    +tiempoPrimeraRespuesta
+    +tiempoResolucion
+  }
+  class Comentario {
+    +texto
+    +fecha
+  }
+  class Adjunto {
+    +nombreArchivo
+  }
+  class EventoAuditoria {
+    +tipoEvento
+    +fecha
+  }
+}
+
+package "Base de Conocimiento" {
+  class ArticuloConocimiento {
+    +titulo
+    +contenido
+    +visibilidad
+  }
+}
+
+package "Notificaciones" {
+  class Notificacion {
+    +mensaje
+    +fechaEnvio
+  }
+}
+
+Usuario <|-- AgenteSoporte
+AgenteSoporte <|-- Supervisor
+Usuario <|-- Administrador
+
+Usuario  -->  Ticket : reporta (solicitante)
+AgenteSoporte  -->  Ticket : atiende
+AgenteSoporte  -->  Equipo : pertenece a
+Ticket  -->  Categoria : pertenece a
+Ticket  -->  Prioridad : tiene
+Prioridad  -->  SLA : define
+Categoria  -->  Equipo : es atendida por
+
+Ticket  *--  Comentario : contiene
+Ticket  *--  Adjunto : incluye
+Ticket  *--  EventoAuditoria : registra
+Ticket  -->  ArticuloConocimiento : se resuelve con
+
+Notificacion  -->  Usuario : destinatario
+Comentario  -->  Usuario : autor
+EventoAuditoria  -->  Usuario : autor
+EventoAuditoria  -->  Notificacion : genera
+@enduml

@@ -1,0 +1,15 @@
+@startuml diagrama-estados
+hide empty description
+
+[*] --> Abierto : Solicitante crea el ticket
+Abierto --> Asignado : Agente N1 toma el ticket
+Asignado --> EnProgreso : Agente inicia atención
+EnProgreso --> Escalado : Agente escala a N2/N3
+Escalado --> EnProgreso : Agente de nivel superior retoma
+EnProgreso --> Resuelto : Agente marca solución
+Escalado --> Resuelto : Agente de nivel superior resuelve
+Resuelto --> Cerrado : Solicitante confirma o vence el plazo de reapertura
+Resuelto --> Reabierto : Solicitante rechaza la solución
+Reabierto --> EnProgreso : Se retoma la atención
+Cerrado --> [*]
+@enduml

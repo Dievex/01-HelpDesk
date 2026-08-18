@@ -1,0 +1,39 @@
+@startuml actor-solicitante
+left to right direction
+
+' El orden del texto en la asociación controla el lado: "paquete -- Actor"
+' lo deja a la izquierda; "Actor -- paquete" a la derecha.
+
+actor Solicitante
+
+package Acceso {
+  usecase "Iniciar Sesión" as UC01
+  usecase "Cerrar Sesión" as UC02
+}
+
+package "Base de Conocimiento" {
+  usecase "Ver Artículo de Conocimiento" as UC09
+  usecase "Listar Artículos de Conocimiento" as UC10
+}
+
+package Tickets {
+  usecase "Crear Ticket" as UC03
+  usecase "Ver Ticket" as UC04
+  usecase "Listar Tickets Propios" as UC05
+  usecase "Comentar Ticket" as UC06
+  usecase "Confirmar Cierre de Ticket" as UC07
+  usecase "Reabrir Ticket" as UC08
+}
+
+UC01 -- Solicitante
+UC02 -- Solicitante
+UC09 -- Solicitante
+UC10 -- Solicitante
+
+Solicitante -- UC03
+Solicitante -- UC04
+Solicitante -- UC05
+Solicitante -- UC06
+Solicitante -- UC07
+Solicitante -- UC08
+@enduml

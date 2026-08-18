@@ -2,92 +2,12 @@
 
 # Diagrama de Clases — Modelo de Dominio
 
-```mermaid
-%%{init: {"class": {"hideEmptyMembersBox": true}}}%%
-classDiagram
-    namespace Usuarios_Roles {
-        class Usuario {
-            +nombre
-            +correo
-        }
-        class AgenteSoporte {
-            +nivel
-        }
-        class Supervisor
-        class Administrador
-        class Equipo {
-            +nombre
-        }
-    }
-
-    namespace Gestion_Tickets {
-        class Ticket {
-            +titulo
-            +descripcion
-            +estado
-            +fechaCreacion
-            +fechaResolucion
-        }
-        class Categoria {
-            +nombre
-        }
-        class Prioridad {
-            +nombre
-        }
-        class SLA {
-            +tiempoPrimeraRespuesta
-            +tiempoResolucion
-        }
-        class Comentario {
-            +texto
-            +fecha
-        }
-        class Adjunto {
-            +nombreArchivo
-        }
-        class EventoAuditoria {
-            +tipoEvento
-            +fecha
-        }
-    }
-
-    namespace Base_de_Conocimiento {
-        class ArticuloConocimiento {
-            +titulo
-            +contenido
-            +visibilidad
-        }
-    }
-
-    namespace Notificaciones {
-        class Notificacion {
-            +mensaje
-            +fechaEnvio
-        }
-    }
-
-    Usuario <|-- AgenteSoporte
-    AgenteSoporte <|-- Supervisor
-    Usuario <|-- Administrador
-
-    Usuario  -->  Ticket : reporta (solicitante)
-    AgenteSoporte  -->  Ticket : atiende
-    AgenteSoporte  -->  Equipo : pertenece a
-    Ticket  -->  Categoria : pertenece a
-    Ticket  -->  Prioridad : tiene
-    Prioridad  -->  SLA : define
-    Categoria  -->  Equipo : es atendida por
-
-    Ticket  *--  Comentario : contiene
-    Ticket  *--  Adjunto : incluye
-    Ticket  *--  EventoAuditoria : registra
-    Ticket  -->  ArticuloConocimiento : se resuelve con
-
-    Notificacion  -->  Usuario : destinatario
-    Comentario  -->  Usuario : autor
-    EventoAuditoria  -->  Usuario : autor
-    EventoAuditoria  -->  Notificacion : genera
-```
+<table>
+<tr><td align="center">
+<img src="../../../puml/01-fase-inicio/modelo-dominio/diagrama-clases.svg" alt="Diagrama de Clases del Modelo de Dominio">
+</td></tr>
+<tr><td align="center"><i><a href="../../../puml/01-fase-inicio/modelo-dominio/diagrama-clases.puml">Código fuente</a></i></td></tr>
+</table>
 
 ## Decisiones de modelado (y por qué)
 

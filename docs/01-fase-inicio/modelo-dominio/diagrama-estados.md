@@ -4,20 +4,12 @@
 
 Complementa el [Diagrama de Clases](diagrama-clases.md): cómo cambia el atributo `estado` de un `Ticket` a lo largo del tiempo.
 
-```mermaid
-stateDiagram-v2
-    [*] --> Abierto : Solicitante crea el ticket
-    Abierto --> Asignado : Agente N1 toma el ticket
-    Asignado --> EnProgreso : Agente inicia atención
-    EnProgreso --> Escalado : Agente escala a N2/N3
-    Escalado --> EnProgreso : Agente de nivel superior retoma
-    EnProgreso --> Resuelto : Agente marca solución
-    Escalado --> Resuelto : Agente de nivel superior resuelve
-    Resuelto --> Cerrado : Solicitante confirma o vence el plazo de reapertura
-    Resuelto --> Reabierto : Solicitante rechaza la solución
-    Reabierto --> EnProgreso : Se retoma la atención
-    Cerrado --> [*]
-```
+<table>
+<tr><td align="center">
+<img src="../../../puml/01-fase-inicio/modelo-dominio/diagrama-estados.svg" alt="Diagrama de Estados del Ticket">
+</td></tr>
+<tr><td align="center"><i><a href="../../../puml/01-fase-inicio/modelo-dominio/diagrama-estados.puml">Código fuente</a></i></td></tr>
+</table>
 
 ## Decisiones de modelado (y por qué)
 

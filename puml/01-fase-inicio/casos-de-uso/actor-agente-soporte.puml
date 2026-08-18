@@ -1,0 +1,38 @@
+@startuml actor-agente-soporte
+left to right direction
+
+' El orden del texto en la asociación controla el lado: "paquete -- Actor"
+' lo deja a la izquierda; "Actor -- paquete" a la derecha.
+
+actor Solicitante
+actor "Agente de Soporte" as Agente
+Solicitante <|-- Agente
+
+note left of Solicitante
+  Agente hereda todos los
+  casos de uso de Solicitante
+  (ver actor-solicitante.puml)
+end note
+
+package "Base de Conocimiento" {
+  usecase "Crear Artículo de Conocimiento" as UC15
+  usecase "Editar Artículo de Conocimiento" as UC16
+  usecase "Eliminar Artículo de Conocimiento" as UC17
+}
+
+package Tickets {
+  usecase "Tomar Ticket" as UC11
+  usecase "Resolver Ticket" as UC12
+  usecase "Escalar Ticket" as UC13
+  usecase "Listar Cola de Tickets" as UC14
+}
+
+UC15 -- Agente
+UC16 -- Agente
+UC17 -- Agente
+
+Agente -- UC11
+Agente -- UC12
+Agente -- UC13
+Agente -- UC14
+@enduml
