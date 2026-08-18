@@ -28,6 +28,7 @@ package "Gestión de Tickets" {
     +estado
     +fechaCreacion
     +fechaResolucion
+    +prioridadConfirmada
   }
   class Categoria {
     +nombre

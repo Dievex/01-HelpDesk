@@ -26,6 +26,12 @@ La estructura de `Notificacion` (generada por `EventoAuditoria`, dirigida a un `
 - Un Solicitante solo puede Ver/Listar artículos con visibilidad Público.
 - Agente, Supervisor y Administrador pueden Ver/Listar todos los artículos (Público e Interno), por ser personal técnico.
 
+`Ticket.Prioridad` no la elige el Solicitante al crear el ticket — quien reporta tiende a percibir todo como urgente. Regla capturada al detallar el flujo en Elaboración (ver [Especificación de Casos de Uso — Tickets](../../02-fase-elaboracion/especificacion-casos-uso/tickets.md)):
+
+- Todo `Ticket` se crea con Prioridad `Baja` por defecto.
+- El Supervisor confirma o ajusta la Prioridad real (caso de uso `Priorizar Ticket`), lo que recalcula el SLA aplicable.
+- Un ticket **sí** puede asignarse (`Asignar Ticket`) antes de que el Supervisor lo priorice — mientras tanto opera con la Prioridad `Baja` por defecto. No es una precondición bloqueante entre casos de uso; queda para aplicar cuando se detallen `Asignar Ticket` y `Listar Cola de Tickets`.
+
 ## Pendiente para Elaboración
 
 Este modelo se usará como insumo, no como resultado final. En Elaboración, cada caso de uso arquitectónicamente significativo pasará por análisis de robustez y podrá:
