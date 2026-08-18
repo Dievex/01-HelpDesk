@@ -1,0 +1,13 @@
+@startuml UC03-crear-ticket
+hide empty description
+
+state "SIN_TICKET" as Pre
+state "crearTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_ABIERTO" as Post
+
+Pre --> UC : <b>Solicitante</b> completa el formulario\n(título, descripción, categoría) y lo envía
+UC --> Post : <b>Sistema</b> valida, crea el Ticket\n(estado Abierto, Prioridad Baja por defecto)\ny notifica al Supervisor del Equipo
+@enduml

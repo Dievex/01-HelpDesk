@@ -1,0 +1,13 @@
+@startuml UC41-priorizar-ticket
+hide empty description
+
+state "PRIORIDAD_SIN_CONFIRMAR" as Pre
+state "priorizarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "PRIORIDAD_CONFIRMADA" as Post
+
+Pre --> UC : <b>Supervisor</b> revisa el ticket\ny elige la Prioridad real
+UC --> Post : <b>Sistema</b> actualiza la Prioridad\ny recalcula el SLA aplicable
+@enduml
