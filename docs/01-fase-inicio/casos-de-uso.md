@@ -81,6 +81,7 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 | UC-18 | Asignar Ticket | Asignar un ticket sin asignar a un agente específico de su Equipo |
 | UC-19 | Reasignar Ticket | Mover un ticket ya asignado de un agente a otro |
 | UC-20 | Ver Dashboard de Métricas | Ver KPIs de volumen, tiempos y cumplimiento de SLA |
+| UC-41 | Priorizar Ticket | Confirmar o ajustar la Prioridad real de un ticket recién creado, fijando el SLA aplicable |
 
 ### Administrador del Sistema
 
@@ -147,3 +148,4 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 - **La pertenencia de un agente a un Equipo se edita desde Editar Usuario, no desde un caso de uso propio de Equipo.** Es un dato del agente (ver decisión equivalente en el Modelo de Dominio), así que se administra donde se administra el resto de sus datos, evitando dos caminos distintos para lo mismo.
 - **`Asignar Ticket` y `Reasignar Ticket` son casos de uso distintos, no uno solo.** Tienen precondiciones distintas: Asignar parte de un ticket sin dueño (viene de la cola del equipo), Reasignar parte de un ticket que ya tiene un agente asignado. Fusionarlos hubiera vuelto a caer en un caso de uso ambiguo, lo mismo que se evitó con "Gestionar" y "Atender".
 - **`Ver`/`Listar Artículo de Conocimiento` no se duplican por rol.** El alcance (solo Público vs. Público+Interno) depende de quién ejecuta el mismo caso de uso, no de un caso de uso distinto por actor — es una regla de negocio del flujo (ya capturada en el [Modelo de Dominio](modelo-dominio/README.md)), no una razón para crear "Ver Artículo de Conocimiento (Interno)" aparte.
+- **`UC-41 Priorizar Ticket` (Supervisor) se agregó al detallar el flujo de `Crear Ticket` en Elaboración**, no se detectó en el listado inicial. Quedó numerado fuera de secuencia (después de UC-40) para no tener que renumerar y re-renderizar los otros 20 casos de uso ya cerrados — la lista de casos de uso es un artefacto vivo, no se congela tras la primera pasada. El motivo de fondo: el Solicitante no debe elegir la Prioridad de su propio ticket (todo le parece urgente); la fija el Supervisor al triar. Ver [Especificación — Tickets](../02-fase-elaboracion/especificacion-casos-uso/tickets.md).

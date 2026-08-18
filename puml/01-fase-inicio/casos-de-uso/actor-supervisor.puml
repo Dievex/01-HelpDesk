@@ -21,10 +21,12 @@ package Reportes {
 package Tickets {
   usecase "Asignar Ticket" as UC18
   usecase "Reasignar Ticket" as UC19
+  usecase "Priorizar Ticket" as UC41
 }
 
 UC20 -- Supervisor
 
 Supervisor -- UC18
 Supervisor -- UC19
+Supervisor -- UC41
 @enduml
