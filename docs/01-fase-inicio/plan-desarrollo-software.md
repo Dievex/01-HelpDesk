@@ -52,3 +52,5 @@ El resto del catálogo (CRUDs de Equipo/Prioridad/Usuario siguiendo la plantilla
 ### Criterio de éxito de la segunda iteración
 
 Se considera cerrada cuando estos 7 casos de uso (UC-04, 06, 07, 08, 09, 10, 42) tengan flujo básico, diagrama de flujo y decisiones de diseño documentadas, y cuando quede resuelto si el almacenamiento de adjuntos (UC-42) exige una actualización de la Decisión de Arquitectura o de la Lista de Riesgos.
+
+**Cerrada.** El almacenamiento de adjuntos se resolvió como addendum a la [Decisión de Arquitectura](../02-fase-elaboracion/arquitectura.md) (volumen de Docker local). R-07 se reescaló en la [Lista de Riesgos](lista-riesgos.md): escalamiento y visibilidad quedaron validados, solo el cálculo de SLA queda pendiente para cuando se detalle UC-20.
