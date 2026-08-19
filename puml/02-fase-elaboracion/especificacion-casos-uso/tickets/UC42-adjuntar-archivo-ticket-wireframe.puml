@@ -1,0 +1,13 @@
+@startsalt UC42-adjuntar-archivo-ticket-wireframe
+{
+  <b>Ticket #124 — En Progreso
+  ..
+  <b>Adjuntos
+  { "captura-anterior.png" }
+  ..
+  [Elegir Archivo] "captura-error.png"
+  Máximo 10 MB — imágenes, PDF, texto
+  ..
+  [Adjuntar]
+}
+@endsalt

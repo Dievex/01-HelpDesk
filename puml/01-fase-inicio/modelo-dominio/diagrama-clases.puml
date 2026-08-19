@@ -47,6 +47,7 @@ package "Gestión de Tickets" {
   }
   class Adjunto {
     +nombreArchivo
+    +fecha
   }
   class EventoAuditoria {
     +tipoEvento
@@ -88,6 +89,7 @@ Ticket  -->  ArticuloConocimiento : se resuelve con
 
 Notificacion  -->  Usuario : destinatario
 Comentario  -->  Usuario : autor
+Adjunto  -->  Usuario : autor
 EventoAuditoria  -->  Usuario : autor
 EventoAuditoria  -->  Notificacion : genera
 @enduml

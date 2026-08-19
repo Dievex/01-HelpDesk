@@ -19,4 +19,4 @@ Casos de uso del ciclo de vida del `Ticket`: Solicitante (UC-03 a UC-08, UC-42),
 | UC-18 | Asignar Ticket | Supervisor | Pendiente |
 | UC-19 | Reasignar Ticket | Supervisor | Pendiente |
 | [UC-41](UC-41-priorizar-ticket.md) | Priorizar Ticket | Supervisor | Detallado |
-| UC-42 | Adjuntar Archivo a Ticket | Solicitante | Pendiente |
+| [UC-42](UC-42-adjuntar-archivo-ticket.md) | Adjuntar Archivo a Ticket | Solicitante | Detallado |

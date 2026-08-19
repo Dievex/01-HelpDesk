@@ -6,8 +6,10 @@ actor "Usuario" as User
 node "Instancia self-hosted (Docker Compose)" {
   component "App\nNode + Express\nAPI REST + build de React (Vite)" as App
   database "PostgreSQL" as DB
+  folder "Volumen adjuntos" as Vol
 }
 
 User --> App : HTTPS
 App --> DB : SQL (Prisma)
+App --> Vol : Adjuntos de Ticket
 @enduml

@@ -1,0 +1,13 @@
+@startuml UC42-adjuntar-archivo-ticket
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "adjuntarArchivoTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "ADJUNTO_AGREGADO" as Post
+
+Pre --> UC : <b>Actor</b> selecciona un archivo del ticket
+UC --> Post : <b>Sistema</b> guarda el archivo y agrega el Adjunto
+@enduml
