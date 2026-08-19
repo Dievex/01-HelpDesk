@@ -1,0 +1,13 @@
+@startuml UC16-editar-articulo-conocimiento
+hide empty description
+
+state "ARTICULO_EXISTENTE" as Pre
+state "editarArticulo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "ARTICULO_ACTUALIZADO" as Post
+
+Pre --> UC : <b>Agente</b> modifica título, contenido y/o visibilidad
+UC --> Post : <b>Sistema</b> sobrescribe los valores del artículo
+@enduml

@@ -1,0 +1,13 @@
+@startsalt UC43-vincular-articulo-ticket-wireframe
+{
+  <b>Ticket #118 — Vincular Artículo
+  ..
+  Buscar artículo | "contraseña VPN"
+  {
+    "Cómo restablecer una contraseña de VPN" | [Vincular]
+    "Configurar acceso remoto a VPN" | [Vincular]
+  }
+  ..
+  [Cerrar]
+}
+@endsalt

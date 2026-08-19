@@ -1,0 +1,13 @@
+@startuml UC43-vincular-articulo-ticket
+hide empty description
+
+state "TICKET_ASIGNADO" as Pre
+state "vincularArticulo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_CON_ARTICULO_VINCULADO" as Post
+
+Pre --> UC : <b>Agente</b> elige un Artículo de Conocimiento
+UC --> Post : <b>Sistema</b> vincula el artículo al ticket y registra el evento
+@enduml

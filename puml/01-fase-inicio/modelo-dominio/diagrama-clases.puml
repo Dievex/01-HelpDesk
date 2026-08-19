@@ -91,5 +91,6 @@ Notificacion  -->  Usuario : destinatario
 Comentario  -->  Usuario : autor
 Adjunto  -->  Usuario : autor
 EventoAuditoria  -->  Usuario : autor
+ArticuloConocimiento  -->  Usuario : autor
 EventoAuditoria  -->  Notificacion : genera
 @enduml

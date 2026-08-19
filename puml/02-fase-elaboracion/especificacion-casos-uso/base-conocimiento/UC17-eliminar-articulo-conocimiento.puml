@@ -1,0 +1,13 @@
+@startuml UC17-eliminar-articulo-conocimiento
+hide empty description
+
+state "ARTICULO_EXISTENTE" as Pre
+state "eliminarArticulo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "ARTICULO_ELIMINADO" as Post
+
+Pre --> UC : <b>Agente</b> confirma la eliminación
+UC --> Post : <b>Sistema</b> elimina el artículo y sus vínculos con tickets
+@enduml

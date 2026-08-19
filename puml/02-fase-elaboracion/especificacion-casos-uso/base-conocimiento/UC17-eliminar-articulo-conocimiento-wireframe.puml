@@ -1,0 +1,9 @@
+@startsalt UC17-eliminar-articulo-conocimiento-wireframe
+{
+  <b>Eliminar Artículo
+  ..
+  ¿Eliminar "Cómo restablecer una contraseña de VPN"? Esta acción no se puede deshacer.
+  ..
+  [Cancelar] | [Eliminar Artículo]
+}
+@endsalt

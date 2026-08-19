@@ -1,0 +1,13 @@
+@startuml UC15-crear-articulo-conocimiento
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "crearArticulo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "ARTICULO_CREADO" as Post
+
+Pre --> UC : <b>Agente</b> completa título, contenido y visibilidad
+UC --> Post : <b>Sistema</b> crea el artículo con autor = el Agente
+@enduml

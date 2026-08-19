@@ -1,0 +1,13 @@
+@startsalt UC16-editar-articulo-conocimiento-wireframe
+{
+  <b>Editar Artículo
+  ..
+  {
+    Título      | "Cómo restablecer una contraseña de VPN"
+    Contenido   | "..."
+    Visibilidad | (X)Público ()Interno
+  }
+  ..
+  [Cancelar] | [Guardar Cambios]
+}
+@endsalt

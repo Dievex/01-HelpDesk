@@ -12,7 +12,7 @@ Cada caso de uso tiene su propio diagrama de flujo en PlantUML (precondición �
 |---|---|---|
 | [Acceso](acceso/README.md) | UC-01, UC-02 | En curso (UC-01) |
 | [Tickets](tickets/README.md) | UC-03 a UC-08, UC-11 a UC-14, UC-18, UC-19, UC-41, UC-42 | Completo |
-| [Base de Conocimiento](base-conocimiento/README.md) | UC-09, UC-10, UC-15 a UC-17, UC-43 | En curso (UC-09, UC-10; pendiente: UC-15 a UC-17, UC-43) |
+| [Base de Conocimiento](base-conocimiento/README.md) | UC-09, UC-10, UC-15 a UC-17, UC-43 | Completo |
 | [Reportes](reportes/README.md) | UC-20 | Pendiente |
 | [Categoría](categoria/README.md) | UC-21 a UC-25 | En curso (UC-21) |
 | [Equipo](equipo/README.md) | UC-26 a UC-30 | Pendiente |
