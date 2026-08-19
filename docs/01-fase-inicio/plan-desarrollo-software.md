@@ -34,3 +34,21 @@ Además de estos 8 casos de uso, la primera iteración también debe producir la
 ## Criterio de éxito de la primera iteración
 
 Se considera cerrada cuando estos 8 casos de uso (UC-01, 03, 11, 12, 13, 14, 21, 41) tengan: flujo básico detallado, diagrama de flujo, y las decisiones de diseño que exijan (en particular, la de R-03 sobre autenticación) documentadas — no hace falta código todavía, eso es Construcción. La decisión de arquitectura de despliegue (R-10) se considera parte del mismo criterio de cierre.
+
+## Segunda iteración de Elaboración
+
+La primera iteración validó el flujo de vida "feliz" del `Ticket` (crear → tomar/escalar → resolver) y la arquitectura base. Quedaron sin ejercitar tres cosas que sí son arquitectónicamente significativas — la segunda iteración ataca esas, no las más fáciles del catálogo:
+
+| Caso de uso | Por qué entra en la segunda iteración |
+|---|---|
+| UC-04 Ver Ticket | Ningún caso de uso detallado hasta ahora renderiza `Comentario`, `Adjunto` y `EventoAuditoria` juntos — las tres composiciones (`*--`) de `Ticket` en el Modelo de Dominio. Es la vista central del sistema y la primera que las ejercita todas a la vez |
+| UC-06 Comentar Ticket | Precondición de contenido para UC-04 (sin comentarios no hay nada que listar en su vista) y completa un ciclo de vida simple por sí mismo |
+| UC-07 Confirmar Cierre de Ticket / UC-08 Reabrir Ticket | Cierran las transiciones del Diagrama de Estados que la primera iteración no tocó (`Resuelto → Cerrado`/`Reabierto`). UC-07 en particular obliga a resolver cómo conviven el cierre explícito del Solicitante con el cierre automático por **Plazo de Reapertura** que ya está modelado mas no ejercitado por ningún flujo |
+| UC-42 Adjuntar Archivo a Ticket | Introduce una decisión de arquitectura que la primera iteración no cubrió: dónde y cómo se almacenan los archivos adjuntos en un despliegue self-hosted (¿volumen de Docker, límite de tamaño?) — la [Decisión de Arquitectura](../02-fase-elaboracion/arquitectura.md) todavía no lo dice |
+| UC-09 Ver Artículo de Conocimiento / UC-10 Listar Artículos de Conocimiento | Es la parte de R-07 que la primera iteración dejó sin validar: la regla de visibilidad (Público/Interno) de `ArticuloConocimiento`, que hasta ahora solo existe en papel |
+
+El resto del catálogo (CRUDs de Equipo/Prioridad/Usuario siguiendo la plantilla de `UC-21 Crear Categoría`, y los casos de uso restantes de Tickets/Base de Conocimiento/Reportes) se detalla en iteraciones posteriores — no aportan incertidumbre nueva, son repeticiones del mismo patrón ya validado.
+
+### Criterio de éxito de la segunda iteración
+
+Se considera cerrada cuando estos 7 casos de uso (UC-04, 06, 07, 08, 09, 10, 42) tengan flujo básico, diagrama de flujo y decisiones de diseño documentadas, y cuando quede resuelto si el almacenamiento de adjuntos (UC-42) exige una actualización de la Decisión de Arquitectura o de la Lista de Riesgos.
