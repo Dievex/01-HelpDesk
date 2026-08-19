@@ -29,7 +29,7 @@ RUP recomienda atacar primero lo que reduce más riesgo, no lo más fácil. Cruz
 
 El resto del catálogo (total del catálogo menos estos 8 — ver el conteo vigente en [Casos de Uso](casos-de-uso.md), para no volver a desincronizar este número cada vez que se agregue uno) se detalla en iteraciones posteriores de Elaboración/Construcción, reutilizando la plantilla que salga de este primer lote — no hace falta re-descubrir el flujo básico de un CRUD tantas veces.
 
-Además de estos 8 casos de uso, la primera iteración también debe producir la **decisión de arquitectura de despliegue** que resuelve R-10 (self-hosted, evaluar containerización) — no es un caso de uso, es parte de la arquitectura baseline que exige el hito LCAM, pero es el riesgo de mayor exposición de toda la lista y no puede quedar fuera del alcance de esta iteración solo porque no encaja en la tabla de casos de uso.
+Además de estos 8 casos de uso, la primera iteración también debe producir la **decisión de arquitectura de despliegue** que resuelve R-10 (self-hosted, evaluar containerización) — no es un caso de uso, es parte de la arquitectura baseline que exige el hito LCAM, pero es el riesgo de mayor exposición de toda la lista y no puede quedar fuera del alcance de esta iteración solo porque no encaja en la tabla de casos de uso. Este párrafo se agregó tras la segunda auditoría externa (ver [`audit/auditoria-fase-inicio-2026-08-19.md`](../../audit/auditoria-fase-inicio-2026-08-19.md)), que señaló que R-10 prometía resolverse "en la primera iteración" sin que el Plan lo mencionara en ningún lado.
 
 ## Criterio de éxito de la primera iteración
 

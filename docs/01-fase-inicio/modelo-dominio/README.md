@@ -34,6 +34,10 @@ La estructura de `Notificacion` (generada por `EventoAuditoria`, dirigida a un `
 - El Supervisor confirma o ajusta la Prioridad real (caso de uso `Priorizar Ticket`), lo que recalcula el SLA aplicable.
 - Un ticket **sí** puede asignarse (`Asignar Ticket`) antes de que el Supervisor lo priorice — mientras tanto opera con la Prioridad `Baja` por defecto. No es una precondición bloqueante entre casos de uso; queda para aplicar cuando se detallen `Asignar Ticket` y `Listar Cola de Tickets`.
 
+Un `Ticket` `Resuelto` no siempre se cierra por acción de un actor. Ya está modelado en el atributo `Ticket.fechaLimiteReapertura`, el término **Plazo de Reapertura** del [Glosario](../glosario.md) y la transición del [Diagrama de Estados](diagrama-estados.md) — se repite aquí porque es la regla a tener presente al detallar `Confirmar Cierre de Ticket` (UC-07) en Elaboración:
+
+- Si el **Plazo de Reapertura** vence sin que el Solicitante confirme el cierre ni reabra el ticket, el propio Sistema lo cierra — no requiere acción de ningún actor.
+
 ## Pendiente para Elaboración
 
 Este modelo se usará como insumo, no como resultado final. En Elaboración, cada caso de uso arquitectónicamente significativo pasará por análisis de robustez y podrá:
