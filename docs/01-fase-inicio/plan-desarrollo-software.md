@@ -54,3 +54,20 @@ El resto del catálogo (CRUDs de Equipo/Prioridad/Usuario siguiendo la plantilla
 Se considera cerrada cuando estos 7 casos de uso (UC-04, 06, 07, 08, 09, 10, 42) tengan flujo básico, diagrama de flujo y decisiones de diseño documentadas, y cuando quede resuelto si el almacenamiento de adjuntos (UC-42) exige una actualización de la Decisión de Arquitectura o de la Lista de Riesgos.
 
 **Cerrada.** El almacenamiento de adjuntos se resolvió como addendum a la [Decisión de Arquitectura](../02-fase-elaboracion/arquitectura.md) (volumen de Docker local). R-07 se reescaló en la [Lista de Riesgos](lista-riesgos.md): escalamiento y visibilidad quedaron validados, solo el cálculo de SLA queda pendiente para cuando se detalle UC-20.
+
+## Tercera iteración de Elaboración
+
+La segunda iteración validó el ciclo de vida completo del `Ticket` visto por el Solicitante y la regla de visibilidad de la Base de Conocimiento. Quedan dos frentes sin ejercitar que sí tocan decisiones de diseño pendientes, no solo repeticiones de un patrón ya validado: la asignación explícita de tickets por parte del Supervisor (que hoy solo existe como regla de notificación en el Modelo de Dominio, sin ningún caso de uso que la recorra) y el ciclo de escritura de la Base de Conocimiento, que la segunda iteración dejó solo del lado de lectura.
+
+| Caso de uso | Por qué entra en la tercera iteración |
+|---|---|
+| UC-05 Listar Tickets Propios | Consulta del Solicitante sobre su propio historial de tickets; mismo patrón de filtrado que UC-14, pero sin él el Solicitante no tiene forma de verlos fuera de una notificación puntual |
+| UC-18 Asignar Ticket / UC-19 Reasignar Ticket | Primera vez que se ejercita la vista del Supervisor sobre el `Equipo`; validan la decisión ya tomada en el catálogo de mantenerlos como dos casos de uso distintos (Asignar parte de un ticket sin dueño, Reasignar de uno ya asignado). No existe clase `HistorialAsignacion` — hay que confirmar cómo queda registrado el cambio |
+| UC-15 Crear / UC-16 Editar / UC-17 Eliminar Artículo de Conocimiento | Cierran el ciclo de escritura de la Base de Conocimiento, que la segunda iteración dejó solo del lado de lectura (UC-09/UC-10). Obligan a decidir si `ArticuloConocimiento` genera `EventoAuditoria` (a diferencia de las entidades de catálogo puro como `Categoría`) y si necesita historial de versiones |
+| UC-43 Vincular Artículo de Conocimiento a Ticket | Única asociación del Modelo de Dominio (`Ticket — ArticuloConocimiento`) que ningún caso de uso detallado hasta ahora ejercita |
+
+El resto del catálogo (CRUDs de Equipo, Prioridad y Usuario siguiendo la plantilla de `UC-21 Crear Categoría`, y `UC-20 Ver Dashboard de Métricas`) queda diferido a una iteración posterior o a Construcción: los CRUDs de catálogo no aportan incertidumbre nueva sobre el patrón ya validado, y UC-20 depende de resolver antes el cálculo de cumplimiento de SLA. Ningún riesgo activo de la [Lista de Riesgos](lista-riesgos.md) está ligado a los 7 casos de uso de esta iteración; su valor es validar diseño, no cerrar un riesgo puntual.
+
+### Criterio de éxito de la tercera iteración
+
+Se considera cerrada cuando estos 7 casos de uso (UC-05, 15, 16, 17, 18, 19, 43) tengan flujo básico, diagrama de flujo y wireframe documentados, y cuando queden resueltas explícitamente estas dos decisiones de diseño: cómo se registra en `EventoAuditoria` el cambio de UC-18/UC-19, y si `ArticuloConocimiento` genera `EventoAuditoria` y necesita historial de versiones.
