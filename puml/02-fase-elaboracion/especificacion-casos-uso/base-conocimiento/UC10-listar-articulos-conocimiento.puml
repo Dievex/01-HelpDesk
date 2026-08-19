@@ -1,0 +1,13 @@
+@startuml UC10-listar-articulos-conocimiento
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "listarArticulosConocimiento()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "LISTADO_VISIBLE" as Post
+
+Pre --> UC : <b>Actor</b> abre la Base de Conocimiento (texto opcional)
+UC --> Post : <b>Sistema</b> muestra los artículos accesibles para su rol
+@enduml

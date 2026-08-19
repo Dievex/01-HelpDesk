@@ -1,0 +1,13 @@
+@startsalt UC10-listar-articulos-conocimiento-wireframe
+{
+  <b>Base de Conocimiento
+  ..
+  "Buscar..."
+  ..
+  {#
+    Título | Visibilidad
+    "Cómo restablecer tu acceso al correo" | Público
+    "Configurar impresora de red" | Público
+  }
+}
+@endsalt

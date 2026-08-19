@@ -1,0 +1,13 @@
+@startuml UC09-ver-articulo-conocimiento
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "verArticuloConocimiento()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CONTENIDO_VISIBLE" as Post
+
+Pre --> UC : <b>Actor</b> abre un artículo desde el listado
+UC --> Post : <b>Sistema</b> muestra el contenido si la visibilidad lo permite
+@enduml
