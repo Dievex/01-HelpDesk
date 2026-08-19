@@ -16,6 +16,15 @@
 <tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/especificacion-casos-uso/tickets/UC41-priorizar-ticket.puml">Código fuente</a></i></td></tr>
 </table>
 
+### Wireframe
+
+<table>
+<tr><td align="center">
+<img src="../../../../puml/02-fase-elaboracion/especificacion-casos-uso/tickets/UC41-priorizar-ticket-wireframe.svg" alt="Wireframe — Priorizar Ticket">
+</td></tr>
+<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/especificacion-casos-uso/tickets/UC41-priorizar-ticket-wireframe.puml">Código fuente</a></i></td></tr>
+</table>
+
 ### Flujo básico
 
 1. El Supervisor abre un ticket de su Equipo.

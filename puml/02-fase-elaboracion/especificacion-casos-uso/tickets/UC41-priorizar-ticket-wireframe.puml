@@ -1,0 +1,15 @@
+@startsalt UC41-priorizar-ticket-wireframe
+{
+  <b>Ticket #124 — Priorizar
+  ..
+  {#
+    Título            | "No puedo acceder al correo"
+    Categoría         | Cuentas
+    Prioridad actual  | Baja (sin confirmar)
+  }
+  ..
+  Prioridad | ()Baja ()Media ()Alta ()Crítica
+  ..
+  [Cancelar] | [Confirmar Prioridad]
+}
+@endsalt
