@@ -1,0 +1,13 @@
+@startsalt UC11-tomar-ticket-wireframe
+{
+  <b>Ticket #124 — Sin asignar
+  ..
+  {#
+    Título     | "No puedo acceder al correo"
+    Categoría  | Cuentas
+    Prioridad  | Baja
+  }
+  ..
+  [Volver a la cola] | [Tomar Ticket]
+}
+@endsalt

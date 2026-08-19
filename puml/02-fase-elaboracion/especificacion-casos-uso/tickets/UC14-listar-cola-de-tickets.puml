@@ -1,0 +1,13 @@
+@startuml UC14-listar-cola-de-tickets
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "listarColaDeTickets()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "COLA_VISIBLE" as Post
+
+Pre --> UC : <b>Agente</b> selecciona "Mi Cola"
+UC --> Post : <b>Sistema</b> muestra sin asignar del Equipo + asignados al Agente
+@enduml

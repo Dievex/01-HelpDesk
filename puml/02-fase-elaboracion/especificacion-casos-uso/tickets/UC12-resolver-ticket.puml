@@ -1,0 +1,13 @@
+@startuml UC12-resolver-ticket
+hide empty description
+
+state "TICKET_EN_PROGRESO" as Pre
+state "resolverTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_RESUELTO" as Post
+
+Pre --> UC : <b>Agente</b> confirma la resolución (comentario opcional)
+UC --> Post : <b>Sistema</b> marca Resuelto y notifica al Solicitante
+@enduml

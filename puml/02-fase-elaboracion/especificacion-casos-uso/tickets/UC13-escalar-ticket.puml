@@ -1,0 +1,13 @@
+@startuml UC13-escalar-ticket
+hide empty description
+
+state "TICKET_EN_PROGRESO" as Pre
+state "escalarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_ESCALADO" as Post
+
+Pre --> UC : <b>Agente</b> indica el motivo y confirma
+UC --> Post : <b>Sistema</b> libera la asignación y notifica al Supervisor
+@enduml

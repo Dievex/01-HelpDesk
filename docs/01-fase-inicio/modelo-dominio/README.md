@@ -20,13 +20,15 @@ La estructura de `Notificacion` (generada por `EventoAuditoria`, dirigida a un `
 - Al crearse un ticket, se notifica al Supervisor.
 - Al cerrarse un ticket, se notifica al Supervisor.
 - Al asignarse un ticket a un Agente, se le notifica a ese Agente.
+- Al resolverse un ticket, se notifica al Solicitante — detectado al detallar [UC-12 Resolver Ticket](../../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-12-resolver-ticket.md); sin esto el Solicitante no tendría forma de saber que puede confirmar el cierre o reabrirlo.
+- Al escalarse un ticket, se notifica al Supervisor — detectado al detallar [UC-13 Escalar Ticket](../../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-13-escalar-ticket.md).
 
 `ArticuloConocimiento.visibilidad` (Público / Interno) ya existe como atributo; el filtrado por rol es una regla a implementar en el flujo, no un cambio de estructura:
 
 - Un Solicitante solo puede Ver/Listar artículos con visibilidad Público.
 - Agente, Supervisor y Administrador pueden Ver/Listar todos los artículos (Público e Interno), por ser personal técnico.
 
-`Ticket.Prioridad` no la elige el Solicitante al crear el ticket — quien reporta tiende a percibir todo como urgente. Regla capturada al detallar el flujo en Elaboración (ver [Especificación de Casos de Uso — Tickets](../../02-fase-elaboracion/especificacion-casos-uso/tickets.md)):
+`Ticket.Prioridad` no la elige el Solicitante al crear el ticket — quien reporta tiende a percibir todo como urgente. Regla capturada al detallar el flujo en Elaboración (ver [Especificación de Casos de Uso — Tickets](../../02-fase-elaboracion/especificacion-casos-uso/tickets/README.md)):
 
 - Todo `Ticket` se crea con Prioridad `Baja` por defecto.
 - El Supervisor confirma o ajusta la Prioridad real (caso de uso `Priorizar Ticket`), lo que recalcula el SLA aplicable.

@@ -1,0 +1,13 @@
+@startuml UC11-tomar-ticket
+hide empty description
+
+state "TICKET_SIN_ASIGNAR" as Pre
+state "tomarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_ASIGNADO" as Post
+
+Pre --> UC : <b>Agente</b> selecciona un ticket de la cola y confirma
+UC --> Post : <b>Sistema</b> lo asigna al Agente y cambia su estado
+@enduml

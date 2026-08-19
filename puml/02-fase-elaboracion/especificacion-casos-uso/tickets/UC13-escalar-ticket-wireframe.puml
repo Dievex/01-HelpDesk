@@ -1,0 +1,18 @@
+@startsalt UC13-escalar-ticket-wireframe
+{
+  <b>Ticket #124 — En Progreso
+  ..
+  {#
+    Título      | "No puedo acceder al correo"
+    Categoría   | Cuentas
+    Prioridad   | Media
+    Tu nivel    | N1
+  }
+  ..
+  Motivo del escalamiento
+  "                                        "
+  "                                        "
+  ..
+  [Volver] | [Escalar Ticket]
+}
+@endsalt

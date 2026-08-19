@@ -1,0 +1,18 @@
+@startsalt UC14-listar-cola-de-tickets-wireframe
+{
+  <b>Cola de Tickets — Equipo Infraestructura
+  ..
+  <b>Sin asignar
+  {#
+    Título | Categoría | Prioridad | Estado
+    "No puedo acceder al correo" | Cuentas | Baja | Abierto
+    "Servidor caído" | Infraestructura | Alta | Escalado
+  }
+  ..
+  <b>Asignados a mí
+  {#
+    Título | Categoría | Prioridad | Estado
+    "Impresora no responde" | Hardware | Media | Asignado
+  }
+}
+@endsalt

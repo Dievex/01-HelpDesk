@@ -1,0 +1,17 @@
+@startsalt UC12-resolver-ticket-wireframe
+{
+  <b>Ticket #124 — En Progreso
+  ..
+  {#
+    Título     | "No puedo acceder al correo"
+    Categoría  | Cuentas
+    Prioridad  | Media
+  }
+  ..
+  Comentario de solución (opcional)
+  "                                        "
+  "                                        "
+  ..
+  [Volver] | [Resolver Ticket]
+}
+@endsalt
