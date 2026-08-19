@@ -61,6 +61,8 @@ HelpDesk es un producto **self-hosted**: cada organización que lo adopta despli
 | Supervisor de Mesa de Ayuda | Supervisa carga de trabajo, reasigna tickets, revisa métricas y SLA | Jefatura del equipo de soporte |
 | Administrador del Sistema | Configura categorías, SLA, usuarios y permisos de la instancia | TI de la organización adoptante |
 
+> "Agente de Soporte N1" y "N2/N3" se describen aquí como dos perfiles de negocio porque tienen necesidades distintas, pero en el Modelo de Casos de Uso se resuelven como un único actor (`Agente de Soporte`), diferenciado solo por un atributo de nivel — no como actores de sistema separados.
+
 ### 3.3 Entorno de usuario
 Acceso vía navegador web estándar, sin cliente de escritorio. La instancia corre en la infraestructura que decida la organización adoptante (on-premise o cloud propio); ese detalle de despliegue se resuelve en la fase de Elaboración.
 
@@ -107,7 +109,7 @@ Producto nuevo e independiente. En esta fase **no se fija arquitectura ni stack 
 
 Nivel alto, sin detalle de flujo (eso vive en los Casos de Uso):
 
-1. **Gestión de tickets**: alta, edición, cambio de estado, cierre.
+1. **Gestión de tickets**: alta, seguimiento por comentarios, cambio de estado, cierre. (Los datos del ticket no se editan tras crearlo — ver Modelo de Casos de Uso.)
 2. **Categorización y priorización**: tipo de incidencia/solicitud, urgencia, impacto.
 3. **Asignación y escalado**: manual y por reglas (N1 → N2 → N3).
 4. **Gestión de SLA**: tiempos objetivo por prioridad/categoría, alertas de incumplimiento.
