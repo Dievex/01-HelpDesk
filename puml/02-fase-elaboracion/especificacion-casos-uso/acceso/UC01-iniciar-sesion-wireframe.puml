@@ -1,0 +1,12 @@
+@startsalt UC01-iniciar-sesion-wireframe
+{
+  <b>Iniciar Sesión
+  ..
+  {#
+    Correo       | "                              "
+    Contraseña   | "                              "
+  }
+  ..
+  [Iniciar Sesión]
+}
+@endsalt

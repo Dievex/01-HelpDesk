@@ -1,0 +1,13 @@
+@startuml UC01-iniciar-sesion
+hide empty description
+
+state "NO_AUTENTICADO" as Pre
+state "iniciarSesion()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "SESION_ACTIVA" as Post
+
+Pre --> UC : <b>Actor</b> ingresa correo y contraseña, envía
+UC --> Post : <b>Sistema</b> valida credenciales y crea la sesión
+@enduml
