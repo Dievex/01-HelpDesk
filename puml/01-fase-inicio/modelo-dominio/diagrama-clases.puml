@@ -29,6 +29,7 @@ package "Gestión de Tickets" {
     +fechaCreacion
     +fechaResolucion
     +prioridadConfirmada
+    +fechaLimiteReapertura
   }
   class Categoria {
     +nombre
@@ -74,11 +75,11 @@ Usuario <|-- Administrador
 
 Usuario  -->  Ticket : reporta (solicitante)
 AgenteSoporte  -->  Ticket : atiende
-AgenteSoporte  -->  Equipo : pertenece a
+AgenteSoporte  ..>  Equipo : pertenece a
 Ticket  -->  Categoria : pertenece a
 Ticket  -->  Prioridad : tiene
 Prioridad  -->  SLA : define
-Categoria  -->  Equipo : es atendida por
+Categoria  ..>  Equipo : es atendida por
 
 Ticket  *--  Comentario : contiene
 Ticket  *--  Adjunto : incluye
