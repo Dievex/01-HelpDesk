@@ -1,0 +1,12 @@
+@startsalt UC05-listar-tickets-propios-wireframe
+{
+  <b>Mis Tickets
+  ..
+  {#
+    Título | Categoría | Prioridad | Estado
+    "No puedo acceder al correo" | Cuentas | Baja | Asignado
+    "Impresora no responde" | Hardware | Media | Resuelto
+    "Solicito acceso a VPN" | Accesos | Baja | Cerrado
+  }
+}
+@endsalt

@@ -8,7 +8,7 @@ Casos de uso del ciclo de vida del `Ticket`: Solicitante (UC-03 a UC-08, UC-42),
 |---|---|---|---|
 | [UC-03](UC-03-crear-ticket.md) | Crear Ticket | Solicitante | Detallado |
 | [UC-04](UC-04-ver-ticket.md) | Ver Ticket | Solicitante | Detallado |
-| UC-05 | Listar Tickets Propios | Solicitante | Pendiente |
+| [UC-05](UC-05-listar-tickets-propios.md) | Listar Tickets Propios | Solicitante | Detallado |
 | [UC-06](UC-06-comentar-ticket.md) | Comentar Ticket | Solicitante | Detallado |
 | [UC-07](UC-07-confirmar-cierre-ticket.md) | Confirmar Cierre de Ticket | Solicitante | Detallado |
 | [UC-08](UC-08-reabrir-ticket.md) | Reabrir Ticket | Solicitante | Detallado |
@@ -16,7 +16,7 @@ Casos de uso del ciclo de vida del `Ticket`: Solicitante (UC-03 a UC-08, UC-42),
 | [UC-12](UC-12-resolver-ticket.md) | Resolver Ticket | Agente de Soporte | Detallado |
 | [UC-13](UC-13-escalar-ticket.md) | Escalar Ticket | Agente de Soporte | Detallado |
 | [UC-14](UC-14-listar-cola-de-tickets.md) | Listar Cola de Tickets | Agente de Soporte | Detallado |
-| UC-18 | Asignar Ticket | Supervisor | Pendiente |
-| UC-19 | Reasignar Ticket | Supervisor | Pendiente |
+| [UC-18](UC-18-asignar-ticket.md) | Asignar Ticket | Supervisor | Detallado |
+| [UC-19](UC-19-reasignar-ticket.md) | Reasignar Ticket | Supervisor | Detallado |
 | [UC-41](UC-41-priorizar-ticket.md) | Priorizar Ticket | Supervisor | Detallado |
 | [UC-42](UC-42-adjuntar-archivo-ticket.md) | Adjuntar Archivo a Ticket | Solicitante | Detallado |

@@ -1,0 +1,13 @@
+@startuml UC19-reasignar-ticket
+hide empty description
+
+state "TICKET_ASIGNADO" as Pre
+state "reasignarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_REASIGNADO" as Post
+
+Pre --> UC : <b>Supervisor</b> elige un ticket asignado y un nuevo Agente de su Equipo
+UC --> Post : <b>Sistema</b> cambia el Agente del ticket sin tocar su estado
+@enduml

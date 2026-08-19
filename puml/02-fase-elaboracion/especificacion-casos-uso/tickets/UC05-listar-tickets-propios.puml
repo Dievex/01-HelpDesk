@@ -1,0 +1,13 @@
+@startuml UC05-listar-tickets-propios
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "listarTicketsPropios()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "LISTADO_VISIBLE" as Post
+
+Pre --> UC : <b>Solicitante</b> selecciona "Mis Tickets"
+UC --> Post : <b>Sistema</b> muestra los tickets creados por el actor
+@enduml

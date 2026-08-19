@@ -1,0 +1,13 @@
+@startuml UC18-asignar-ticket
+hide empty description
+
+state "TICKET_SIN_ASIGNAR" as Pre
+state "asignarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_ASIGNADO" as Post
+
+Pre --> UC : <b>Supervisor</b> elige un ticket sin asignar y un Agente de su Equipo
+UC --> Post : <b>Sistema</b> asigna el ticket al Agente elegido y cambia su estado
+@enduml

@@ -1,0 +1,14 @@
+@startsalt UC19-reasignar-ticket-wireframe
+{
+  <b>Ticket #118 — Asignado a Marta López
+  ..
+  {#
+    Título     | "Servidor caído"
+    Categoría  | Infraestructura
+    Prioridad  | Alta
+  }
+  ..
+  Reasignar a | ^Agente^
+  [Cancelar] | [Reasignar Ticket]
+}
+@endsalt
