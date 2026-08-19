@@ -1,0 +1,13 @@
+@startuml arquitectura-despliegue
+skinparam componentStyle rectangle
+
+actor "Usuario" as User
+
+node "Instancia self-hosted (Docker Compose)" {
+  component "App\nNode + Express\nAPI REST + build de React (Vite)" as App
+  database "PostgreSQL" as DB
+}
+
+User --> App : HTTPS
+App --> DB : SQL (Prisma)
+@enduml

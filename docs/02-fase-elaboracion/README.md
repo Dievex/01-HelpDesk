@@ -8,6 +8,6 @@ Punto de partida: [Lista de Riesgos](../01-fase-inicio/lista-riesgos.md) y [Plan
 
 ## Artefactos
 
-- [Especificación de Casos de Uso](especificacion-casos-uso/README.md)
+- [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — primera iteración completa (UC-01, 03, 11 a 14, 21)
+- [Decisión de Arquitectura y Stack Tecnológico](arquitectura.md)
 - Modelo de Análisis/Diseño — pendiente
-- Decisión de arquitectura y stack tecnológico — pendiente
