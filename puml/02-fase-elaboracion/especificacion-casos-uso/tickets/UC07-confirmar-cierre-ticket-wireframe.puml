@@ -1,0 +1,17 @@
+@startsalt UC07-confirmar-cierre-ticket-wireframe
+{
+  <b>Ticket #124 — Resuelto
+  ..
+  {#
+    Título     | "No puedo acceder al correo"
+    Resuelto   | 10/08 10:20
+  }
+  ..
+  <b>Solución
+  "Reinicié el acceso, probá de nuevo."
+  ..
+  ¿La solución resolvió tu problema?
+  ..
+  [Reabrir Ticket] | [Confirmar Cierre]
+}
+@endsalt

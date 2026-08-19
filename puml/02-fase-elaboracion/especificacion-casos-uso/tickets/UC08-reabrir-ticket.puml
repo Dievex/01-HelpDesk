@@ -1,0 +1,13 @@
+@startuml UC08-reabrir-ticket
+hide empty description
+
+state "TICKET_RESUELTO" as Pre
+state "reabrirTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_REABIERTO" as Post
+
+Pre --> UC : <b>Solicitante</b> rechaza la solución (motivo)
+UC --> Post : <b>Sistema</b> reabre el Ticket y notifica al Agente asignado
+@enduml

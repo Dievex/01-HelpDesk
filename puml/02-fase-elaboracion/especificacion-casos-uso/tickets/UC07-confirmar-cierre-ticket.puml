@@ -1,0 +1,13 @@
+@startuml UC07-confirmar-cierre-ticket
+hide empty description
+
+state "TICKET_RESUELTO" as Pre
+state "confirmarCierreTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "TICKET_CERRADO" as Post
+
+Pre --> UC : <b>Solicitante</b> confirma la solución (o vence el Plazo de Reapertura)
+UC --> Post : <b>Sistema</b> cierra el Ticket y notifica al Supervisor
+@enduml

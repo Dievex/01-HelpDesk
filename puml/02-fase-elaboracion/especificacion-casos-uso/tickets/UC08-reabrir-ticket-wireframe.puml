@@ -1,0 +1,19 @@
+@startsalt UC08-reabrir-ticket-wireframe
+{
+  <b>Ticket #124 — Resuelto
+  ..
+  {#
+    Título     | "No puedo acceder al correo"
+    Resuelto   | 10/08 10:20
+  }
+  ..
+  <b>Solución
+  "Reinicié el acceso, probá de nuevo."
+  ..
+  Motivo por el que no resolvió el problema
+  "                                        "
+  "                                        "
+  ..
+  [Cancelar] | [Reabrir Ticket]
+}
+@endsalt

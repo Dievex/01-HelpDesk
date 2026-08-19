@@ -7,11 +7,11 @@ Casos de uso del ciclo de vida del `Ticket`: Solicitante (UC-03 a UC-08, UC-42),
 | ID | Caso de uso | Actor | Estado |
 |---|---|---|---|
 | [UC-03](UC-03-crear-ticket.md) | Crear Ticket | Solicitante | Detallado |
-| UC-04 | Ver Ticket | Solicitante | Pendiente |
+| [UC-04](UC-04-ver-ticket.md) | Ver Ticket | Solicitante | Detallado |
 | UC-05 | Listar Tickets Propios | Solicitante | Pendiente |
-| UC-06 | Comentar Ticket | Solicitante | Pendiente |
-| UC-07 | Confirmar Cierre de Ticket | Solicitante | Pendiente |
-| UC-08 | Reabrir Ticket | Solicitante | Pendiente |
+| [UC-06](UC-06-comentar-ticket.md) | Comentar Ticket | Solicitante | Detallado |
+| [UC-07](UC-07-confirmar-cierre-ticket.md) | Confirmar Cierre de Ticket | Solicitante | Detallado |
+| [UC-08](UC-08-reabrir-ticket.md) | Reabrir Ticket | Solicitante | Detallado |
 | [UC-11](UC-11-tomar-ticket.md) | Tomar Ticket | Agente de Soporte | Detallado |
 | [UC-12](UC-12-resolver-ticket.md) | Resolver Ticket | Agente de Soporte | Detallado |
 | [UC-13](UC-13-escalar-ticket.md) | Escalar Ticket | Agente de Soporte | Detallado |

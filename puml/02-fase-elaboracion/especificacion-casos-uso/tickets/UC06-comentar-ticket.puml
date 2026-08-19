@@ -1,0 +1,13 @@
+@startuml UC06-comentar-ticket
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "comentarTicket()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "COMENTARIO_AGREGADO" as Post
+
+Pre --> UC : <b>Actor</b> escribe y confirma un comentario
+UC --> Post : <b>Sistema</b> agrega el Comentario al historial del Ticket
+@enduml

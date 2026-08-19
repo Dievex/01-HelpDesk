@@ -1,0 +1,16 @@
+@startsalt UC06-comentar-ticket-wireframe
+{
+  <b>Ticket #124 — En Progreso
+  ..
+  <b>Comentarios
+  {
+    "solicitante — 10/08 09:02" | "No puedo acceder al correo desde el portal."
+  }
+  ..
+  Nuevo comentario
+  "                                        "
+  "                                        "
+  ..
+  [Comentar]
+}
+@endsalt

@@ -38,7 +38,7 @@
 
 ### Flujos alternativos
 
-- **FA-1 — Agente agrega comentario de solución (paso 4):** si el Agente escribe un comentario antes de confirmar, el Sistema lo registra como `Comentario` (mismo mecanismo que [UC-06 Comentar Ticket](../../../01-fase-inicio/casos-de-uso.md)) asociado al ticket, antes de cambiar el estado.
+- **FA-1 — Agente agrega comentario de solución (paso 4):** si el Agente escribe un comentario antes de confirmar, el Sistema lo registra como `Comentario` (mismo mecanismo que [UC-06 Comentar Ticket](UC-06-comentar-ticket.md)) asociado al ticket, antes de cambiar el estado.
 
 ### Reglas de negocio relacionadas
 

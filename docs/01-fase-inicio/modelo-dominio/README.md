@@ -22,6 +22,7 @@ La estructura de `Notificacion` (generada por `EventoAuditoria`, dirigida a un `
 - Al asignarse un ticket a un Agente, se le notifica a ese Agente.
 - Al resolverse un ticket, se notifica al Solicitante — detectado al detallar [UC-12 Resolver Ticket](../../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-12-resolver-ticket.md); sin esto el Solicitante no tendría forma de saber que puede confirmar el cierre o reabrirlo.
 - Al escalarse un ticket, se notifica al Supervisor — detectado al detallar [UC-13 Escalar Ticket](../../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-13-escalar-ticket.md).
+- Al reabrirse un ticket, se notifica al Agente asignado — detectado al detallar [UC-08 Reabrir Ticket](../../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-08-reabrir-ticket.md); sin esto, el Agente no se enteraría de que su solución no funcionó.
 
 `ArticuloConocimiento.visibilidad` (Público / Interno) ya existe como atributo; el filtrado por rol es una regla a implementar en el flujo, no un cambio de estructura:
 

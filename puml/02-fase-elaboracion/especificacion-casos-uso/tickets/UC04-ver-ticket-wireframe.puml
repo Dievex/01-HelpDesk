@@ -1,0 +1,27 @@
+@startsalt UC04-ver-ticket-wireframe
+{
+  <b>Ticket #124 — Resuelto
+  ..
+  {#
+    Categoría | Cuentas
+    Prioridad | Media
+    Agente    | jsmith
+    Creado    | 2026-08-10
+  }
+  ..
+  <b>Descripción
+  "No puedo acceder al correo desde el portal."
+  ..
+  <b>Comentarios
+  {
+    "solicitante — 10/08 09:02" | "No puedo acceder al correo desde el portal."
+    "jsmith — 10/08 10:15"      | "Reinicié el acceso, probá de nuevo."
+  }
+  ..
+  <b>Adjuntos
+  { "captura.png" }
+  ..
+  <b>Historial
+  { "Creado — 10/08 09:00" | "Resuelto — 10/08 10:20" }
+}
+@endsalt
