@@ -1,0 +1,12 @@
+@startsalt UC21-crear-categoria-wireframe
+{
+  <b>Crear Categoría
+  ..
+  {#
+    Nombre  | "                              "
+    Equipo  | ^Sin asignar^
+  }
+  ..
+  [Cancelar] | [Crear Categoría]
+}
+@endsalt

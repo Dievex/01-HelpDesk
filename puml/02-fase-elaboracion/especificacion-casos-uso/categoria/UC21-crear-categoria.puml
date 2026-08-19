@@ -1,0 +1,13 @@
+@startuml UC21-crear-categoria
+hide empty description
+
+state "SIN_CATEGORIA" as Pre
+state "crearCategoria()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CATEGORIA_CREADA" as Post
+
+Pre --> UC : <b>Administrador</b> completa nombre\ny Equipo (opcional), envía
+UC --> Post : <b>Sistema</b> valida y crea la Categoría
+@enduml
