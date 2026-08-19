@@ -23,6 +23,7 @@ package Tickets {
   usecase "Comentar Ticket" as UC06
   usecase "Confirmar Cierre de Ticket" as UC07
   usecase "Reabrir Ticket" as UC08
+  usecase "Adjuntar Archivo a Ticket" as UC42
 }
 
 UC01 -- Solicitante
@@ -36,4 +37,5 @@ Solicitante -- UC05
 Solicitante -- UC06
 Solicitante -- UC07
 Solicitante -- UC08
+Solicitante -- UC42
 @enduml

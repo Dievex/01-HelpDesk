@@ -18,6 +18,7 @@ package "Base de Conocimiento" {
   usecase "Crear Artículo de Conocimiento" as UC15
   usecase "Editar Artículo de Conocimiento" as UC16
   usecase "Eliminar Artículo de Conocimiento" as UC17
+  usecase "Vincular Artículo de Conocimiento a Ticket" as UC43
 }
 
 package Tickets {
@@ -30,6 +31,7 @@ package Tickets {
 UC15 -- Agente
 UC16 -- Agente
 UC17 -- Agente
+UC43 -- Agente
 
 Agente -- UC11
 Agente -- UC12

@@ -36,17 +36,18 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 | UC-01 | Iniciar Sesión | Autenticarse en el sistema |
 | UC-02 | Cerrar Sesión | Finalizar la sesión activa |
 | UC-03 | Crear Ticket | Reportar una incidencia o solicitud |
-| UC-04 | Ver Ticket | Ver el detalle de un ticket propio |
+| UC-04 | Ver Ticket | Ver el detalle de un ticket propio, incluido su historial de auditoría |
 | UC-05 | Listar Tickets Propios | Ver el listado de tickets que reportó |
 | UC-06 | Comentar Ticket | Agregar información adicional a un ticket propio |
 | UC-07 | Confirmar Cierre de Ticket | Aceptar que la solución resolvió el problema |
 | UC-08 | Reabrir Ticket | Rechazar una solución y devolver el ticket a atención |
 | UC-09 | Ver Artículo de Conocimiento | Ver el contenido de un artículo con visibilidad Público |
 | UC-10 | Listar Artículos de Conocimiento | Buscar, entre los artículos con visibilidad Público, uno que resuelva su problema |
+| UC-42 | Adjuntar Archivo a Ticket | Agregar un archivo (captura, log, documento) como evidencia a un ticket propio |
 
 ### Agente de Soporte
 
-*Hereda todo lo de Solicitante (UC-01 a UC-10) — incluye Ver/Listar Artículo de Conocimiento (UC-09, UC-10), solo que al ejecutarlos como Agente el alcance es mayor: ve artículos Público **e** Interno, por ser personal técnico. Aquí se agrega además lo que puede hacer con ellos (crearlos, editarlos).*
+*Hereda todos los casos de uso de Solicitante (tabla de arriba, incluido UC-42) — incluye Ver/Listar Artículo de Conocimiento, solo que al ejecutarlos como Agente el alcance es mayor: ve artículos Público **e** Interno, por ser personal técnico. Aquí se agrega además lo que puede hacer con ellos (crearlos, editarlos).*
 
 <table>
 <tr><td align="center">
@@ -64,10 +65,11 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 | UC-15 | Crear Artículo de Conocimiento | Documentar una solución reutilizable, definiendo su visibilidad |
 | UC-16 | Editar Artículo de Conocimiento | Actualizar un artículo existente, incluida su visibilidad |
 | UC-17 | Eliminar Artículo de Conocimiento | Retirar un artículo obsoleto |
+| UC-43 | Vincular Artículo de Conocimiento a Ticket | Asociar un artículo existente a un ticket como referencia de solución |
 
 ### Supervisor
 
-*Hereda todo lo de Agente de Soporte (UC-11 a UC-17) y, transitivamente, de Solicitante (UC-01 a UC-10).*
+*Hereda todos los casos de uso de Agente de Soporte (tabla de arriba, incluido UC-43) y, transitivamente, todos los de Solicitante (incluido UC-42).*
 
 <table>
 <tr><td align="center">
@@ -85,7 +87,7 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 
 ### Administrador del Sistema
 
-*Hereda todo lo de Solicitante (UC-01 a UC-10).*
+*Hereda todos los casos de uso de Solicitante (tabla de arriba, incluido UC-42).*
 
 <table>
 <tr><td align="center">
@@ -149,3 +151,6 @@ Cada actor tiene su diagrama con los casos de uso que introduce (no repite los h
 - **`Asignar Ticket` y `Reasignar Ticket` son casos de uso distintos, no uno solo.** Tienen precondiciones distintas: Asignar parte de un ticket sin dueño (viene de la cola del equipo), Reasignar parte de un ticket que ya tiene un agente asignado. Fusionarlos hubiera vuelto a caer en un caso de uso ambiguo, lo mismo que se evitó con "Gestionar" y "Atender".
 - **`Ver`/`Listar Artículo de Conocimiento` no se duplican por rol.** El alcance (solo Público vs. Público+Interno) depende de quién ejecuta el mismo caso de uso, no de un caso de uso distinto por actor — es una regla de negocio del flujo (ya capturada en el [Modelo de Dominio](modelo-dominio/README.md)), no una razón para crear "Ver Artículo de Conocimiento (Interno)" aparte.
 - **`UC-41 Priorizar Ticket` (Supervisor) se agregó al detallar el flujo de `Crear Ticket` en Elaboración**, no se detectó en el listado inicial. Quedó numerado fuera de secuencia (después de UC-40) para no tener que renumerar y re-renderizar los otros 20 casos de uso ya cerrados — la lista de casos de uso es un artefacto vivo, no se congela tras la primera pasada. El motivo de fondo: el Solicitante no debe elegir la Prioridad de su propio ticket (todo le parece urgente); la fija el Supervisor al triar. Ver [Especificación — Tickets](../02-fase-elaboracion/especificacion-casos-uso/tickets.md).
+- **"Auditar quién hizo qué sobre un ticket" (necesidad explícita del Supervisor, Documento de Visión 3.4) no tiene caso de uso propio — vive dentro de `Ver Ticket` (UC-04).** No se creó un "Ver Historial de Auditoría" aparte porque el historial es parte del detalle de un ticket, no un recurso independiente que se consulte solo; mismo motivo que los comentarios no tienen su propio "Ver Comentarios".
+- **No existe "Editar Ticket".** Es deliberado, no un olvido: los datos propios de un ticket (título, descripción, categoría) no se editan una vez creado, precisamente porque la trazabilidad/auditoría es un requisito fuerte del producto (Documento de Visión, sección 7) y permitir edición libre la debilitaría. Una corrección o aclaración se hace vía `Comentar Ticket` (UC-06), que sí queda en el historial. Mismo criterio que "Se eliminó 'Atender Ticket'": si algo no tiene un objetivo propio y verificable distinto de lo que ya cubren otros casos de uso, no se agrega.
+- **`UC-42 Adjuntar Archivo a Ticket` y `UC-43 Vincular Artículo de Conocimiento a Ticket` se agregaron tras una auditoría externa** (ver [`audit/auditoria-fase-inicio.md`](../../audit/auditoria-fase-inicio.md)): el Modelo de Dominio ya modelaba `Adjunto` (composición de `Ticket`) y la relación `Ticket — ArticuloConocimiento`, pero ningún caso de uso los ejercitaba — exactamente el mismo tipo de "clase huérfana" que el propio modelo se cuida de evitar, solo que a nivel de casos de uso. `UC-42` queda en Solicitante (como `Comentar Ticket`, se hereda hacia arriba); `UC-43` queda en Agente porque vincular un artículo de solución es parte de resolver, no de reportar. No se agregó "Eliminar" para ninguno de los dos por ahora — mismo criterio de alcance mínimo que ya se aplicó a `Comentario` (que tampoco tiene "Eliminar Comentario" en el catálogo).
