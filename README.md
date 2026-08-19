@@ -4,7 +4,7 @@ Sistema de gestión de mesa de ayuda, self-hosted: creación, seguimiento, asign
 
 ## Estado del proyecto
 
-En fase de **Inicio** (definición de visión y alcance). Aún no hay build ejecutable.
+En fase de **Elaboración**. Aún no hay build ejecutable.
 
 ## Documentación
 
