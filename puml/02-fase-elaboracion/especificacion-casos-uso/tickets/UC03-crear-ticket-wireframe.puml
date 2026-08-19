@@ -1,0 +1,14 @@
+@startsalt UC03-crear-ticket-wireframe
+{
+  <b>Crear Ticket
+  ..
+  {#
+    Título        | "                              "
+    Descripción   | "                              "
+                   | "                              "
+    Categoría      | ^Selecciona una categoría^
+  }
+  ..
+  [Cancelar] | [Crear Ticket]
+}
+@endsalt
