@@ -73,3 +73,19 @@ El resto del catálogo (CRUDs de Equipo, Prioridad y Usuario siguiendo la planti
 Se considera cerrada cuando estos 7 casos de uso (UC-05, 15, 16, 17, 18, 19, 43) tengan flujo básico, diagrama de flujo y wireframe documentados, y cuando queden resueltas explícitamente estas dos decisiones de diseño: cómo se registra en `EventoAuditoria` el cambio de UC-18/UC-19, y si `ArticuloConocimiento` genera `EventoAuditoria` y necesita historial de versiones.
 
 **Cerrada.** UC-19 Reasignar Ticket introduce un tipo de `EventoAuditoria` nuevo, "Reasignación", distinto de "Asignación" (que UC-18 reutiliza de UC-11) — porque reasignar no cambia el `estado` del `Ticket`, solo su `AgenteSoporte`. `ArticuloConocimiento` ganó una relación `autor` hacia `Usuario` en el [Diagrama de Clases](modelo-dominio/diagrama-clases.md) (gap descubierto al detallar UC-15), pero se decidió que no genera `EventoAuditoria` propio (sigue siendo composición exclusiva de `Ticket`) ni necesita historial de versiones — el `autor` alcanza para la trazabilidad mínima que pide el caso de uso, sin abrir alcance que ningún requisito del Documento de Visión pide.
+
+## Cuarta iteración de Elaboración
+
+La tercera iteración agotó los frentes de `Ticket` y `ArticuloConocimiento` que tocaban decisiones de diseño nuevas. Del catálogo restante, los CRUD de Equipo, Prioridad y Usuario son mecánicos — siguen la plantilla que ya fijó `UC-21 Crear Categoría` — y no aportan incertidumbre nueva por separado, pero sí quedan sin ejercitar: es la cuarta iteración la que los cierra, dejando `UC-20 Ver Dashboard de Métricas` aparte porque ese sí exige resolver el cálculo real de cumplimiento de SLA.
+
+| Caso de uso | Por qué entra en la cuarta iteración |
+|---|---|
+| UC-26 Crear / UC-27 Ver / UC-28 Listar / UC-29 Editar / UC-30 Eliminar Equipo | Repiten la plantilla de UC-21. Eliminar Equipo no queda bloqueado: `Categoria — Equipo` y `AgenteSoporte — Equipo` ya son opcionales, así que categorías y agentes quedan "sin Equipo" |
+| UC-31 Crear / UC-32 Ver / UC-33 Listar / UC-34 Editar / UC-35 Eliminar Prioridad | Crear/Editar incluyen el `SLA` (`tiempoPrimeraRespuesta`, `tiempoResolucion`), que no tiene CRUD propio. Eliminar sí introduce una validación nueva: `Ticket — Prioridad` es obligatoria, así que no se puede eliminar una Prioridad referenciada por algún `Ticket` |
+| UC-36 Crear / UC-37 Ver / UC-38 Listar / UC-39 Editar / UC-40 Eliminar Usuario | Editar Usuario es donde se reasigna el Equipo de un Agente (cierra la nota que dejó abierta R-04 en la [Lista de Riesgos](lista-riesgos.md)). Eliminar introduce otra validación nueva: no se puede eliminar un Usuario que sea Solicitante de algún `Ticket` (relación `reporta` obligatoria) ni un Agente con tickets activos asignados |
+
+El resto del catálogo (`UC-20 Ver Dashboard de Métricas`, y `UC-22` a `UC-25` Ver/Listar/Editar/Eliminar Categoría, que quedaron fuera del alcance aprobado para esta iteración) se detalla en iteraciones posteriores.
+
+### Criterio de éxito de la cuarta iteración
+
+Se considera cerrada cuando estos 15 casos de uso (UC-26 a UC-40) tengan flujo básico, diagrama de flujo y wireframe documentados, y cuando las dos validaciones de bloqueo de borrado (Prioridad en uso, Usuario con tickets asociados) queden escritas como flujo alternativo explícito, no solo mencionadas en prosa.
