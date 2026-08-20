@@ -6,11 +6,11 @@ Vocabulario común del dominio. Sirve de base directa para el [Modelo de Dominio
 
 | Término | Definición |
 | --- | --- |
-| Adjunto | Archivo adjunto a un ticket como evidencia (captura de pantalla, registro, documento). |
+| Adjunto | Archivo adjunto a un ticket como evidencia (captura de pantalla, registro, documento), con el Usuario que lo subió y la fecha. |
 | Administrador del Sistema | Usuario responsable de configurar categorías, equipos, SLA, usuarios y permisos dentro de una instancia. |
 | Agente de Soporte | Usuario responsable de atender y resolver tickets asignados. Se clasifica por nivel (N1, N2, N3) según la complejidad que puede resolver, y pertenece a un Equipo. |
-| Artículo de Conocimiento | Documento reutilizable que describe la solución a un problema común, vinculable a uno o varios tickets. Tiene una visibilidad: Público (cualquier Solicitante) o Interno (solo personal técnico: Agente, Supervisor, Administrador). |
-| Auditoría (Evento de Auditoría) | Registro inmutable de un cambio ocurrido sobre un ticket: autor, fecha y tipo de cambio. |
+| Artículo de Conocimiento | Documento reutilizable que describe la solución a un problema común, con el Usuario autor que lo escribió, vinculable a uno o varios tickets. Tiene una visibilidad: Público (cualquier Solicitante) o Interno (solo personal técnico: Agente, Supervisor, Administrador). |
+| Auditoría (Evento de Auditoría) | Registro inmutable de un cambio ocurrido sobre un ticket: autor (opcional, puede ser el propio Sistema), fecha y tipo de cambio — Creación, Asignación, Reasignación, Resolución, Escalamiento, Cierre, Reapertura, Priorización o Vinculación. |
 | Base de Conocimiento | Colección de Artículos de Conocimiento disponible para agentes. |
 | Categoría | Clasificación temática de un ticket (ej. Hardware, Software, Red, Cuentas de usuario). Determina el Equipo que la atiende. |
 | Comentario | Anotación de texto agregada a un ticket por un Usuario, para dar seguimiento o aportar información adicional sin cambiar sus datos. |

@@ -41,7 +41,7 @@
 
 ### Reglas de negocio relacionadas
 
-- **Dejar "Equipo" sin asignar es una opción válida, no un error.** Es la relación opcional (`0..1`) documentada en el [Diagrama de Clases](../../../01-fase-inicio/modelo-dominio/diagrama-clases.md). Una `Categoria` creada así no aparecerá en ninguna cola hasta que se le asigne un Equipo vía [UC-24 Editar Categoría](../../../01-fase-inicio/casos-de-uso.md) — mismo caso ya identificado en [UC-03, FA-2](../tickets/UC-03-crear-ticket.md#flujos-alternativos) y en [UC-14](../tickets/UC-14-listar-cola-de-tickets.md).
+- **Dejar "Equipo" sin asignar es una opción válida, no un error.** Es la relación opcional (`0..1`) documentada en el [Diagrama de Clases](../../../01-fase-inicio/modelo-dominio/diagrama-clases.md). Una `Categoria` creada así no aparecerá en ninguna cola hasta que se le asigne un Equipo vía [UC-24 Editar Categoría](UC-24-editar-categoria.md) — mismo caso ya identificado en [UC-03, FA-2](../tickets/UC-03-crear-ticket.md#flujos-alternativos) y en [UC-14](../tickets/UC-14-listar-cola-de-tickets.md).
 - **Este caso de uso no genera `EventoAuditoria`.** A diferencia de `Ticket`, las entidades de configuración (`Categoria`, `Equipo`, `Prioridad`, `Usuario`) no están modeladas con auditoría propia — el requisito de trazabilidad del Documento de Visión (3.4, 7) es específicamente sobre tickets, no sobre configuración de la instancia. Es una decisión deliberada, no un olvido: vale para este caso de uso y para el resto de los CRUD de configuración que se detallen después (mismo patrón — `Equipo`, `Prioridad`, `Usuario`).
 
 ### Nota para los próximos CRUD

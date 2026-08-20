@@ -41,4 +41,4 @@
 
 ### Reglas de negocio relacionadas
 
-- **Editar el `SLA` no recalcula tickets ya resueltos.** `Ticket.fechaResolucion` es un dato fijo de cada instancia (ver [Diagrama de Clases](../../../01-fase-inicio/modelo-dominio/diagrama-clases.md)) — el nuevo `SLA` solo aplica hacia adelante, para el cálculo de cumplimiento que hará [UC-20 Ver Dashboard de Métricas](../reportes/README.md).
+- **Editar el `SLA` no recalcula tickets ya resueltos.** `Ticket.fechaResolucion` es un dato fijo de cada instancia (ver [Diagrama de Clases](../../../01-fase-inicio/modelo-dominio/diagrama-clases.md)) — el nuevo `SLA` solo aplica hacia adelante, para el cálculo de cumplimiento que hará [UC-20 Ver Dashboard de Métricas](../reportes/UC-20-ver-dashboard-metricas.md).
