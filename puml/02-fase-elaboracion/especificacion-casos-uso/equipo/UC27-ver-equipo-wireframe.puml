@@ -1,0 +1,12 @@
+@startsalt UC27-ver-equipo-wireframe
+{
+  <b>Equipo — Infraestructura
+  ..
+  <b>Miembros
+  {
+    Nombre | Correo
+    "Marta López" | marta@empresa.com
+    "Juan Pérez" | juan@empresa.com
+  }
+}
+@endsalt

@@ -1,0 +1,13 @@
+@startuml UC26-crear-equipo
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "crearEquipo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "EQUIPO_CREADO" as Post
+
+Pre --> UC : <b>Administrador</b> completa el nombre
+UC --> Post : <b>Sistema</b> crea el Equipo
+@enduml

@@ -1,0 +1,9 @@
+@startsalt UC30-eliminar-equipo-wireframe
+{
+  <b>Eliminar Equipo
+  ..
+  ¿Eliminar "Infraestructura"? 3 Categorías y 2 Agentes quedarán sin Equipo asignado.
+  ..
+  [Cancelar] | [Eliminar Equipo]
+}
+@endsalt

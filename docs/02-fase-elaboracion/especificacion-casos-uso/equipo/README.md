@@ -4,8 +4,8 @@
 
 | ID | Caso de uso | Actor | Estado |
 |---|---|---|---|
-| UC-26 | Crear Equipo | Administrador del Sistema | Pendiente |
-| UC-27 | Ver Equipo | Administrador del Sistema | Pendiente |
-| UC-28 | Listar Equipos | Administrador del Sistema | Pendiente |
-| UC-29 | Editar Equipo | Administrador del Sistema | Pendiente |
-| UC-30 | Eliminar Equipo | Administrador del Sistema | Pendiente |
+| [UC-26](UC-26-crear-equipo.md) | Crear Equipo | Administrador del Sistema | Detallado |
+| [UC-27](UC-27-ver-equipo.md) | Ver Equipo | Administrador del Sistema | Detallado |
+| [UC-28](UC-28-listar-equipos.md) | Listar Equipos | Administrador del Sistema | Detallado |
+| [UC-29](UC-29-editar-equipo.md) | Editar Equipo | Administrador del Sistema | Detallado |
+| [UC-30](UC-30-eliminar-equipo.md) | Eliminar Equipo | Administrador del Sistema | Detallado |

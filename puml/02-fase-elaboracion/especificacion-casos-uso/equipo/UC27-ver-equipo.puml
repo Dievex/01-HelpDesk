@@ -1,0 +1,13 @@
+@startuml UC27-ver-equipo
+hide empty description
+
+state "EQUIPO_EXISTENTE" as Pre
+state "verEquipo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "DETALLE_VISIBLE" as Post
+
+Pre --> UC : <b>Administrador</b> abre un Equipo del listado
+UC --> Post : <b>Sistema</b> muestra el Equipo y sus miembros
+@enduml

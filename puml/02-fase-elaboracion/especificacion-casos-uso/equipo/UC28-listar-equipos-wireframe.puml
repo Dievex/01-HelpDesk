@@ -1,0 +1,12 @@
+@startsalt UC28-listar-equipos-wireframe
+{
+  <b>Equipos
+  ..
+  {
+    Nombre
+    "Infraestructura"
+    "Cuentas"
+    "Hardware"
+  }
+}
+@endsalt

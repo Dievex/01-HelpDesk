@@ -1,0 +1,9 @@
+@startsalt UC26-crear-equipo-wireframe
+{
+  <b>Crear Equipo
+  ..
+  Nombre | "Infraestructura"
+  ..
+  [Cancelar] | [Crear Equipo]
+}
+@endsalt

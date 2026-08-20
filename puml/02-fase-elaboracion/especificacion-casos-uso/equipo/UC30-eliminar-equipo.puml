@@ -1,0 +1,13 @@
+@startuml UC30-eliminar-equipo
+hide empty description
+
+state "EQUIPO_EXISTENTE" as Pre
+state "eliminarEquipo()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "EQUIPO_ELIMINADO" as Post
+
+Pre --> UC : <b>Administrador</b> confirma la eliminación
+UC --> Post : <b>Sistema</b> elimina el Equipo y libera sus Categorías y Agentes
+@enduml

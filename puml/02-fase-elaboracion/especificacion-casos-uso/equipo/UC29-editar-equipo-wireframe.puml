@@ -1,0 +1,9 @@
+@startsalt UC29-editar-equipo-wireframe
+{
+  <b>Editar Equipo
+  ..
+  Nombre | "Infraestructura"
+  ..
+  [Cancelar] | [Guardar Cambios]
+}
+@endsalt
