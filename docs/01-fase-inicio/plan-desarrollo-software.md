@@ -91,3 +91,23 @@ El resto del catálogo (`UC-20 Ver Dashboard de Métricas`, y `UC-22` a `UC-25` 
 Se considera cerrada cuando estos 15 casos de uso (UC-26 a UC-40) tengan flujo básico, diagrama de flujo y wireframe documentados, y cuando las dos validaciones de bloqueo de borrado (Prioridad en uso, Usuario con tickets asociados) queden escritas como flujo alternativo explícito, no solo mencionadas en prosa.
 
 **Cerrada.** Eliminar Prioridad (UC-35) y Eliminar Usuario (UC-40) quedaron bloqueados con un flujo alternativo explícito (FA-1) cuando la entidad está en uso por algún `Ticket`, en vez de solo mencionarlo en prosa. Editar Usuario (UC-39) cerró la nota que dejó pendiente **R-04** sobre gestión de miembros de Equipo. Crear/Editar Usuario dejaron anotada, sin resolverla, la tensión entre el rol como jerarquía de clases del Modelo de Dominio y una única operación CRUD de `Usuario` — queda pendiente para el Modelo de Análisis/Diseño.
+
+Fuera de esta iteración formal, también se completó el resto del CRUD de Categoría (UC-22 a UC-25) que había quedado pendiente desde la primera iteración, siguiendo el mismo patrón de bloqueo de borrado que Prioridad (`Ticket — Categoria` también es una relación obligatoria).
+
+## Quinta iteración de Elaboración
+
+Con las cuatro iteraciones anteriores completas, el único caso de uso que queda en todo el catálogo es `UC-20 Ver Dashboard de Métricas` — deliberadamente aislado en su propia iteración porque, a diferencia de los CRUD de catálogo, exige resolver el cálculo real de cumplimiento de SLA que R-07 dejó pendiente desde la Fase de Inicio.
+
+| Caso de uso | Por qué entra en la quinta iteración |
+|---|---|
+| UC-20 Ver Dashboard de Métricas | Cierra R-07 del todo: resuelve cómo se calcula el cumplimiento de `tiempoResolucion` y `tiempoPrimeraRespuesta` del `SLA` en vivo, sin almacenarlo. Es el único caso de uso que consume ese cálculo |
+
+Antes de detallarlo se resolvieron tres decisiones de diseño con el usuario, porque el Modelo de Dominio no tenía ninguna marca de "primera respuesta" a un ticket:
+
+- **`tiempoPrimeraRespuesta` se deriva del primer `Comentario` hecho por un Agente de Soporte** en el ticket, sin agregar estructura nueva al Modelo de Dominio. Limitación aceptada: un ticket resuelto sin que el Agente haya comentado (solo tomado y resuelto) no aporta dato a esa métrica específica — queda excluido del cálculo, no cuenta como incumplimiento.
+- **El Dashboard se acota al Equipo del Supervisor**, mismo criterio que [UC-14](../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-14-listar-cola-de-tickets.md), [UC-18](../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-18-asignar-ticket.md) y [UC-19](../02-fase-elaboracion/especificacion-casos-uso/tickets/UC-19-reasignar-ticket.md) — no hay vista global de todos los equipos.
+- **El rango temporal es un selector de fechas (desde/hasta)**, filtrando por `Ticket.fechaCreacion` — así todas las métricas del período (volumen, tiempos, cumplimiento) se calculan sobre la misma cohorte de tickets.
+
+### Criterio de éxito de la quinta iteración
+
+Se considera cerrada cuando UC-20 tenga flujo básico, diagrama de flujo y wireframe documentados, y cuando R-07 quede cerrado del todo en la Lista de Riesgos.
