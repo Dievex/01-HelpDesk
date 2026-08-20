@@ -1,0 +1,23 @@
+@startuml patron07-dashboard-metricas
+hide empty members
+skinparam classAttributeIconSize 0
+
+class MetricsDashboardView <<View>> {
+  +seleccionarRango(desde, hasta)
+}
+
+class ReportsController <<Controller>> {
+  +obtenerMetricas(equipoId, desde, hasta)
+}
+
+class Ticket <<Model>>
+class Comentario <<Model>>
+class Prioridad <<Model>>
+class SLA <<Model>>
+
+MetricsDashboardView --> ReportsController
+ReportsController --> Ticket : agrega por estado, calcula tiempos
+ReportsController --> Comentario : deriva "primera respuesta"
+ReportsController --> Prioridad : obtiene la Prioridad confirmada
+ReportsController --> SLA : compara cumplimiento
+@enduml

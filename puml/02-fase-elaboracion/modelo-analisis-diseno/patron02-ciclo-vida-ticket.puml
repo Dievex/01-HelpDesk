@@ -1,0 +1,32 @@
+@startuml patron02-ciclo-vida-ticket
+hide empty members
+skinparam classAttributeIconSize 0
+
+class TicketActionsView <<View>> {
+  +confirmarAccion(datos)
+}
+
+class TicketController <<Controller>> {
+  +crear(datos)
+  +tomar(ticketId)
+  +resolver(ticketId)
+  +escalar(ticketId, motivo)
+  +asignar(ticketId, agenteId)
+  +reasignar(ticketId, agenteId)
+  +priorizar(ticketId, prioridadId)
+  +confirmarCierre(ticketId)
+  +reabrir(ticketId, motivo)
+}
+
+class Ticket <<Model>> {
+  +estado
+  +prioridadConfirmada
+}
+class EventoAuditoria <<Model>>
+class Notificacion <<Model>>
+
+TicketActionsView --> TicketController
+TicketController --> Ticket : valida estado y muta
+TicketController --> EventoAuditoria : registra
+TicketController --> Notificacion : dispara según la regla del caso de uso
+@enduml

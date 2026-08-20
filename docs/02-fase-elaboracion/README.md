@@ -10,4 +10,4 @@ Punto de partida: [Lista de Riesgos](../01-fase-inicio/lista-riesgos.md) y [Plan
 
 - [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — **catálogo completo, 43/43 casos de uso detallados** (primera a quinta iteración de Elaboración, más UC-02 y UC-22 a 25 detallados fuera de iteración formal)
 - [Decisión de Arquitectura y Stack Tecnológico](arquitectura.md)
-- Modelo de Análisis/Diseño — pendiente
+- [Modelo de Análisis/Diseño (MVC)](modelo-analisis-diseno/README.md) — completo, 7 patrones de flujo cubren los 43 casos de uso

@@ -1,0 +1,25 @@
+@startuml patron03-consulta-tickets
+hide empty members
+skinparam classAttributeIconSize 0
+
+class TicketListView <<View>>
+class TicketDetailView <<View>>
+
+class TicketController <<Controller>> {
+  +verDetalle(ticketId, actor)
+  +listarPropios(usuarioId)
+  +listarCola(equipoId, agenteId)
+}
+
+class Ticket <<Model>>
+class Comentario <<Model>>
+class Adjunto <<Model>>
+class EventoAuditoria <<Model>>
+
+TicketListView --> TicketController
+TicketDetailView --> TicketController
+TicketController --> Ticket : consulta (sin mutar)
+TicketController --> Comentario : compone (solo en detalle)
+TicketController --> Adjunto : compone (solo en detalle)
+TicketController --> EventoAuditoria : compone (solo en detalle)
+@enduml

@@ -1,0 +1,32 @@
+@startuml patron06-crud-generico
+hide empty members
+skinparam classAttributeIconSize 0
+
+class EntityForm <<View>> {
+  +submit(datos)
+}
+class EntityListView <<View>>
+class DeleteConfirmDialog <<View>>
+
+class EntityController <<Controller>> {
+  +crear(datos)
+  +editar(id, datos)
+  +eliminar(id)
+}
+
+class Entidad <<Model>> {
+  +atributos propios
+}
+
+EntityForm --> EntityController
+EntityListView --> EntityController
+DeleteConfirmDialog --> EntityController
+EntityController --> Entidad : valida y persiste
+
+note right of EntityController
+  Genérico: en Construcción son
+  CategoriaController, EquipoController,
+  PrioridadController, UsuarioController
+  y KnowledgeBaseController
+end note
+@enduml

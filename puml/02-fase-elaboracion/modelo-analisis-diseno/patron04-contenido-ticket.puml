@@ -1,0 +1,27 @@
+@startuml patron04-contenido-ticket
+hide empty members
+skinparam classAttributeIconSize 0
+
+class CommentForm <<View>>
+class AttachmentUploader <<View>>
+class LinkArticleForm <<View>>
+
+class TicketController <<Controller>> {
+  +comentar(ticketId, actor, texto)
+  +adjuntar(ticketId, actor, archivo)
+  +vincularArticulo(ticketId, actor, articuloId)
+}
+
+class Comentario <<Model>>
+class Adjunto <<Model>>
+class ArticuloConocimiento <<Model>>
+class EventoAuditoria <<Model>>
+
+CommentForm --> TicketController
+AttachmentUploader --> TicketController
+LinkArticleForm --> TicketController
+TicketController --> Comentario : crea (autor, fecha)
+TicketController --> Adjunto : crea (autor, fecha) + guarda archivo en volumen
+TicketController --> ArticuloConocimiento : asocia al Ticket
+TicketController --> EventoAuditoria : registra (solo al vincular artículo)
+@enduml

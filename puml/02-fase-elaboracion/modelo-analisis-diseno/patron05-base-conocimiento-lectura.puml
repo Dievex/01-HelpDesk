@@ -1,0 +1,20 @@
+@startuml patron05-base-conocimiento-lectura
+hide empty members
+skinparam classAttributeIconSize 0
+
+class ArticleListView <<View>>
+class ArticleDetailView <<View>>
+
+class KnowledgeBaseController <<Controller>> {
+  +ver(articuloId, rolActor)
+  +listar(rolActor, textoBusqueda)
+}
+
+class ArticuloConocimiento <<Model>> {
+  +visibilidad
+}
+
+ArticleListView --> KnowledgeBaseController
+ArticleDetailView --> KnowledgeBaseController
+KnowledgeBaseController --> ArticuloConocimiento : filtra por visibilidad y rol
+@enduml

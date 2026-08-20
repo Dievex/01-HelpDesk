@@ -1,0 +1,22 @@
+@startuml patron01-acceso-sesion
+hide empty members
+skinparam classAttributeIconSize 0
+
+class LoginForm <<View>> {
+  +submit(correo, contrasena)
+}
+
+class AuthController <<Controller>> {
+  +login(correo, contrasena)
+  +logout()
+}
+
+class Usuario <<Model>> {
+  +correo
+  +contrasenaHash
+}
+
+LoginForm --> AuthController : POST /auth/login
+AuthController --> Usuario : valida credenciales
+AuthController ..> LoginForm : set-cookie JWT httpOnly
+@enduml
