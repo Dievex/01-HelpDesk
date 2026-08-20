@@ -1,0 +1,70 @@
+@startuml diagramaContextoSupervisor
+
+left to right direction
+skinparam linetype polyline
+
+state SESION_CERRADA
+state TICKETS_PROPIOS_ABIERTO
+state TICKET_ABIERTO
+state COLA_TICKETS_ABIERTO
+state ARTICULOS_CONOCIMIENTO_ABIERTO
+state ARTICULO_CONOCIMIENTO_ABIERTO
+state DASHBOARD_METRICAS_ABIERTO
+
+[*] --> SESION_CERRADA
+
+' Hereda completo de Agente de Soporte (que a su vez hereda de Solicitante)
+SESION_CERRADA --> TICKETS_PROPIOS_ABIERTO : iniciarSesion()
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+TICKETS_PROPIOS_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : crearTicket()
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+TICKET_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+TICKET_ABIERTO --> TICKET_ABIERTO : comentarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : confirmarCierreTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : reabrirTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : adjuntarArchivoATicket()
+
+TICKETS_PROPIOS_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+
+TICKETS_PROPIOS_ABIERTO --> COLA_TICKETS_ABIERTO : abrirColaTickets()
+COLA_TICKETS_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+TICKET_ABIERTO --> COLA_TICKETS_ABIERTO : abrirColaTickets()
+
+COLA_TICKETS_ABIERTO --> TICKET_ABIERTO : tomarTicket()
+COLA_TICKETS_ABIERTO --> COLA_TICKETS_ABIERTO : tomarTicket()
+COLA_TICKETS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+
+TICKET_ABIERTO --> TICKET_ABIERTO : resolverTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : escalarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : vincularArticuloConocimiento()
+
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : crearArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : editarArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : eliminarArticuloConocimiento()
+
+' -- lo que agrega Supervisor --
+
+' UC-18 Asignar: mismo patrón que Tomar (UC-11), parte de la Cola sin abrir el
+' detalle antes; éxito navega al detalle, FA-1 (condición de carrera) vuelve a la cola
+COLA_TICKETS_ABIERTO --> TICKET_ABIERTO : asignarTicket()
+COLA_TICKETS_ABIERTO --> COLA_TICKETS_ABIERTO : asignarTicket()
+
+' UC-19 Reasignar y UC-41 Priorizar: a diferencia de Asignar, parten de un Ticket
+' ya abierto (UC-19 lo dice explícito) y se quedan en el detalle, incluida su
+' propia condición de carrera (también self-loop, según UC-19)
+TICKET_ABIERTO --> TICKET_ABIERTO : reasignarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : priorizarTicket()
+
+' UC-20: pantalla autocontenida, sin navegación hacia ningún otro estado del
+' catálogo; el selector de rango de fechas (éxito o sin resultados) es self-loop
+TICKETS_PROPIOS_ABIERTO --> DASHBOARD_METRICAS_ABIERTO : abrirDashboardMetricas()
+DASHBOARD_METRICAS_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+DASHBOARD_METRICAS_ABIERTO --> DASHBOARD_METRICAS_ABIERTO : verDashboardMetricas()
+
+@enduml

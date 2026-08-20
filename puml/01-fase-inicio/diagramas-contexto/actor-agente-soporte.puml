@@ -1,0 +1,61 @@
+@startuml diagramaContextoAgenteSoporte
+
+left to right direction
+skinparam linetype polyline
+
+state SESION_CERRADA
+state TICKETS_PROPIOS_ABIERTO
+state TICKET_ABIERTO
+state COLA_TICKETS_ABIERTO
+state ARTICULOS_CONOCIMIENTO_ABIERTO
+state ARTICULO_CONOCIMIENTO_ABIERTO
+
+[*] --> SESION_CERRADA
+
+' Hereda completo de Solicitante (login, Mis Tickets, Ver/Comentar/Confirmar
+' Cierre/Reabrir/Adjuntar Ticket, Ver/Listar Artículo) -- el login siempre aterriza
+' en TICKETS_PROPIOS_ABIERTO por consistencia entre los cuatro diagramas, aunque
+' el trabajo principal del Agente viva en la Cola
+SESION_CERRADA --> TICKETS_PROPIOS_ABIERTO : iniciarSesion()
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+TICKETS_PROPIOS_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : crearTicket()
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+TICKET_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+TICKET_ABIERTO --> TICKET_ABIERTO : comentarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : confirmarCierreTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : reabrirTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : adjuntarArchivoATicket()
+
+' A diferencia de Solicitante, aquí no hay self-loop de "visibilidad denegada":
+' el Agente ve artículos Público e Interno, el FA-1 de UC-09 no le aplica
+TICKETS_PROPIOS_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+
+' -- lo que agrega Agente de Soporte --
+
+TICKETS_PROPIOS_ABIERTO --> COLA_TICKETS_ABIERTO : abrirColaTickets()
+COLA_TICKETS_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+TICKET_ABIERTO --> COLA_TICKETS_ABIERTO : abrirColaTickets()
+
+' UC-11: éxito navega al detalle; FA-1 (condición de carrera) vuelve a la cola actualizada
+COLA_TICKETS_ABIERTO --> TICKET_ABIERTO : tomarTicket()
+COLA_TICKETS_ABIERTO --> COLA_TICKETS_ABIERTO : tomarTicket()
+COLA_TICKETS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+
+TICKET_ABIERTO --> TICKET_ABIERTO : resolverTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : escalarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : vincularArticuloConocimiento()
+
+' UC-15/16/17: a diferencia de Solicitante (solo lectura), Agente escribe sobre
+' Artículo de Conocimiento -- crear aterriza en el detalle (mismo criterio que
+' Crear Ticket), eliminar no tiene flujo de bloqueo documentado, vuelve al listado
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : crearArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : editarArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : eliminarArticuloConocimiento()
+
+@enduml

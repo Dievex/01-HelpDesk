@@ -1,0 +1,41 @@
+@startuml diagramaContextoSolicitante
+
+left to right direction
+skinparam linetype polyline
+
+state SESION_CERRADA
+state TICKETS_PROPIOS_ABIERTO
+state TICKET_ABIERTO
+state ARTICULOS_CONOCIMIENTO_ABIERTO
+state ARTICULO_CONOCIMIENTO_ABIERTO
+
+[*] --> SESION_CERRADA
+
+SESION_CERRADA --> TICKETS_PROPIOS_ABIERTO : iniciarSesion()
+' credenciales inválidas (FA-1 de UC-01): self-loop explícito en la especificación
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+TICKETS_PROPIOS_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+' UC-03: la especificación dice "confirmación, con el ticket recién creado" -- se
+' interpreta como aterrizar en el detalle, igual que crear en el ejemplo de referencia
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : crearTicket()
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+TICKET_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+' UC-06, UC-07, UC-08, UC-42: ninguno especifica pantalla final en su flujo básico,
+' pero todos parten del detalle y actualizan el propio Ticket -- se asume self-loop,
+' igual que el patrón dominante del resto de acciones sobre un Ticket abierto
+TICKET_ABIERTO --> TICKET_ABIERTO : comentarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : confirmarCierreTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : reabrirTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : adjuntarArchivoATicket()
+
+TICKETS_PROPIOS_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+' FA-1 de UC-09: visibilidad denegada -- no revela contenido, se queda en el listado
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+
+@enduml

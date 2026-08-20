@@ -1,0 +1,97 @@
+@startuml diagramaContextoAdministrador
+
+left to right direction
+skinparam linetype polyline
+
+state SESION_CERRADA
+state TICKETS_PROPIOS_ABIERTO
+state TICKET_ABIERTO
+state ARTICULOS_CONOCIMIENTO_ABIERTO
+state ARTICULO_CONOCIMIENTO_ABIERTO
+state ADMINISTRACION_ABIERTO
+state CATEGORIAS_ABIERTO
+state CATEGORIA_ABIERTA
+state EQUIPOS_ABIERTO
+state EQUIPO_ABIERTO
+state PRIORIDADES_ABIERTO
+state PRIORIDAD_ABIERTA
+state USUARIOS_ABIERTO
+state USUARIO_ABIERTO
+
+[*] --> SESION_CERRADA
+
+' Administrador hereda de Solicitante directamente (no de Agente/Supervisor --
+' ver generalización en el Modelo de Casos de Uso), así que aquí no hay Cola de
+' Tickets ni Dashboard, solo lo que ya tenía Solicitante más su propia configuración
+SESION_CERRADA --> TICKETS_PROPIOS_ABIERTO : iniciarSesion()
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+TICKETS_PROPIOS_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : crearTicket()
+TICKETS_PROPIOS_ABIERTO --> TICKET_ABIERTO : abrirTicket()
+TICKET_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+TICKET_ABIERTO --> TICKET_ABIERTO : comentarTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : confirmarCierreTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : reabrirTicket()
+TICKET_ABIERTO --> TICKET_ABIERTO : adjuntarArchivoATicket()
+
+TICKETS_PROPIOS_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
+ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
+
+' -- lo que agrega Administrador del Sistema --
+
+' Un menú "Administración" agrupa los 4 CRUD de configuración -- a diferencia de
+' Guía/Referencias/Ponderaciones (dos recursos colgando directo del padre), aquí
+' son cuatro, así que un estado intermedio evita saturar TICKETS_PROPIOS_ABIERTO
+' de aristas de entrada/salida
+TICKETS_PROPIOS_ABIERTO --> ADMINISTRACION_ABIERTO : abrirAdministracion()
+ADMINISTRACION_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+
+' Categoría (UC-21 a UC-25): Eliminar parte del detalle (paso 1 de UC-25 abre la
+' Categoría antes de eliminar) y tiene flujo de bloqueo (FA-1, en uso) -- éxito
+' vuelve al listado, bloqueada se queda en el detalle
+ADMINISTRACION_ABIERTO --> CATEGORIAS_ABIERTO : abrirCategorias()
+CATEGORIAS_ABIERTO --> ADMINISTRACION_ABIERTO : abrirAdministracion()
+CATEGORIAS_ABIERTO --> CATEGORIA_ABIERTA : crearCategoria()
+CATEGORIAS_ABIERTO --> CATEGORIA_ABIERTA : abrirCategoria()
+CATEGORIA_ABIERTA --> CATEGORIAS_ABIERTO : abrirCategorias()
+CATEGORIA_ABIERTA --> CATEGORIA_ABIERTA : editarCategoria()
+CATEGORIA_ABIERTA --> CATEGORIAS_ABIERTO : eliminarCategoria()
+CATEGORIA_ABIERTA --> CATEGORIA_ABIERTA : eliminarCategoria()
+
+' Equipo (UC-26 a UC-30): mismo patrón, pero Eliminar Equipo no tiene flujo de
+' bloqueo (la relación con Categoría/Agente es opcional) -- una sola arista, siempre al listado
+ADMINISTRACION_ABIERTO --> EQUIPOS_ABIERTO : abrirEquipos()
+EQUIPOS_ABIERTO --> ADMINISTRACION_ABIERTO : abrirAdministracion()
+EQUIPOS_ABIERTO --> EQUIPO_ABIERTO : crearEquipo()
+EQUIPOS_ABIERTO --> EQUIPO_ABIERTO : abrirEquipo()
+EQUIPO_ABIERTO --> EQUIPOS_ABIERTO : abrirEquipos()
+EQUIPO_ABIERTO --> EQUIPO_ABIERTO : editarEquipo()
+EQUIPO_ABIERTO --> EQUIPOS_ABIERTO : eliminarEquipo()
+
+' Prioridad (UC-31 a UC-35): mismo patrón que Categoría, con flujo de bloqueo (en uso)
+ADMINISTRACION_ABIERTO --> PRIORIDADES_ABIERTO : abrirPrioridades()
+PRIORIDADES_ABIERTO --> ADMINISTRACION_ABIERTO : abrirAdministracion()
+PRIORIDADES_ABIERTO --> PRIORIDAD_ABIERTA : crearPrioridad()
+PRIORIDADES_ABIERTO --> PRIORIDAD_ABIERTA : abrirPrioridad()
+PRIORIDAD_ABIERTA --> PRIORIDADES_ABIERTO : abrirPrioridades()
+PRIORIDAD_ABIERTA --> PRIORIDAD_ABIERTA : editarPrioridad()
+PRIORIDAD_ABIERTA --> PRIORIDADES_ABIERTO : eliminarPrioridad()
+PRIORIDAD_ABIERTA --> PRIORIDAD_ABIERTA : eliminarPrioridad()
+
+' Usuario (UC-36 a UC-40): mismo patrón que Categoría/Prioridad, con flujo de
+' bloqueo (usuario con tickets asociados)
+ADMINISTRACION_ABIERTO --> USUARIOS_ABIERTO : abrirUsuarios()
+USUARIOS_ABIERTO --> ADMINISTRACION_ABIERTO : abrirAdministracion()
+USUARIOS_ABIERTO --> USUARIO_ABIERTO : crearUsuario()
+USUARIOS_ABIERTO --> USUARIO_ABIERTO : abrirUsuario()
+USUARIO_ABIERTO --> USUARIOS_ABIERTO : abrirUsuarios()
+USUARIO_ABIERTO --> USUARIO_ABIERTO : editarUsuario()
+USUARIO_ABIERTO --> USUARIOS_ABIERTO : eliminarUsuario()
+USUARIO_ABIERTO --> USUARIO_ABIERTO : eliminarUsuario()
+
+@enduml
