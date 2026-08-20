@@ -8,6 +8,6 @@ Punto de partida: [Lista de Riesgos](../01-fase-inicio/lista-riesgos.md) y [Plan
 
 ## Artefactos
 
-- [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — primera iteración completa (UC-01, 03, 11 a 14, 21); segunda iteración completa (UC-04, 06 a 10, 42); tercera iteración completa (UC-05, 15 a 19, 43)
+- [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — primera iteración completa (UC-01, 03, 11 a 14, 21); segunda iteración completa (UC-04, 06 a 10, 42); tercera iteración completa (UC-05, 15 a 19, 43); cuarta iteración completa (UC-26 a 40)
 - [Decisión de Arquitectura y Stack Tecnológico](arquitectura.md)
 - Modelo de Análisis/Diseño — pendiente

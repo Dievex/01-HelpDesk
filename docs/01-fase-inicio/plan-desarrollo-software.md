@@ -89,3 +89,5 @@ El resto del catálogo (`UC-20 Ver Dashboard de Métricas`, y `UC-22` a `UC-25` 
 ### Criterio de éxito de la cuarta iteración
 
 Se considera cerrada cuando estos 15 casos de uso (UC-26 a UC-40) tengan flujo básico, diagrama de flujo y wireframe documentados, y cuando las dos validaciones de bloqueo de borrado (Prioridad en uso, Usuario con tickets asociados) queden escritas como flujo alternativo explícito, no solo mencionadas en prosa.
+
+**Cerrada.** Eliminar Prioridad (UC-35) y Eliminar Usuario (UC-40) quedaron bloqueados con un flujo alternativo explícito (FA-1) cuando la entidad está en uso por algún `Ticket`, en vez de solo mencionarlo en prosa. Editar Usuario (UC-39) cerró la nota que dejó pendiente **R-04** sobre gestión de miembros de Equipo. Crear/Editar Usuario dejaron anotada, sin resolverla, la tensión entre el rol como jerarquía de clases del Modelo de Dominio y una única operación CRUD de `Usuario` — queda pendiente para el Modelo de Análisis/Diseño.
