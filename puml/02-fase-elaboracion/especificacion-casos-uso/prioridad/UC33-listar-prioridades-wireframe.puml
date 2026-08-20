@@ -1,0 +1,13 @@
+@startsalt UC33-listar-prioridades-wireframe
+{
+  <b>Prioridades
+  ..
+  {
+    Nombre    | Primera respuesta | Resolución
+    "Crítica" | 30 min | 4 h
+    "Alta"    | 2 h    | 24 h
+    "Media"   | 8 h    | 72 h
+    "Baja"    | 24 h   | 120 h
+  }
+}
+@endsalt

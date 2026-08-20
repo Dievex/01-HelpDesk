@@ -1,0 +1,10 @@
+@startsalt UC32-ver-prioridad-wireframe
+{
+  <b>Prioridad — Alta
+  ..
+  {#
+    Tiempo primera respuesta | 2 horas
+    Tiempo de resolución     | 24 horas
+  }
+}
+@endsalt

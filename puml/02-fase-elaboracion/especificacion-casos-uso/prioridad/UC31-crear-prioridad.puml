@@ -1,0 +1,13 @@
+@startuml UC31-crear-prioridad
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "crearPrioridad()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "PRIORIDAD_CREADA" as Post
+
+Pre --> UC : <b>Administrador</b> completa nombre y SLA
+UC --> Post : <b>Sistema</b> crea la Prioridad y su SLA
+@enduml

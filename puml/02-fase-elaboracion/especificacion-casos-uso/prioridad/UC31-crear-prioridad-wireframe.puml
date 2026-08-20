@@ -1,0 +1,13 @@
+@startsalt UC31-crear-prioridad-wireframe
+{
+  <b>Crear Prioridad
+  ..
+  {
+    Nombre                        | "Alta"
+    Tiempo primera respuesta (h)  | "2"
+    Tiempo de resolución (h)      | "24"
+  }
+  ..
+  [Cancelar] | [Crear Prioridad]
+}
+@endsalt

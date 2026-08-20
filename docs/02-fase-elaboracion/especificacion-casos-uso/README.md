@@ -16,7 +16,7 @@ Cada caso de uso tiene su propio diagrama de flujo en PlantUML (precondición �
 | [Reportes](reportes/README.md) | UC-20 | Pendiente |
 | [Categoría](categoria/README.md) | UC-21 a UC-25 | En curso (UC-21) |
 | [Equipo](equipo/README.md) | UC-26 a UC-30 | Completo |
-| [Prioridad](prioridad/README.md) | UC-31 a UC-35 | Pendiente |
+| [Prioridad](prioridad/README.md) | UC-31 a UC-35 | Completo |
 | [Usuario](usuario/README.md) | UC-36 a UC-40 | Pendiente |
 
 La [primera iteración de Elaboración](../../01-fase-inicio/plan-desarrollo-software.md#primera-iteración-de-elaboración) priorizó UC-01, UC-03, UC-11 a UC-14 y UC-21. La [segunda iteración](../../01-fase-inicio/plan-desarrollo-software.md#segunda-iteración-de-elaboración) agregó UC-04, UC-06 a UC-10 y UC-42. La [tercera iteración](../../01-fase-inicio/plan-desarrollo-software.md#tercera-iteración-de-elaboración) agregó UC-05, UC-15 a UC-19 y UC-43, y ya está completa — los paquetes Tickets y Base de Conocimiento quedan sin casos de uso pendientes. El resto del catálogo (CRUDs de Equipo, Prioridad y Usuario, y UC-20) se completa en iteraciones posteriores.

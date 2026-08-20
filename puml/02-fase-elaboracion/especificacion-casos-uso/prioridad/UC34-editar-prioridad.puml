@@ -1,0 +1,13 @@
+@startuml UC34-editar-prioridad
+hide empty description
+
+state "PRIORIDAD_EXISTENTE" as Pre
+state "editarPrioridad()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "PRIORIDAD_ACTUALIZADA" as Post
+
+Pre --> UC : <b>Administrador</b> modifica nombre y/o SLA
+UC --> Post : <b>Sistema</b> actualiza la Prioridad
+@enduml

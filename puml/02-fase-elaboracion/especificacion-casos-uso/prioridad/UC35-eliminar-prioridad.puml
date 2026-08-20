@@ -1,0 +1,13 @@
+@startuml UC35-eliminar-prioridad
+hide empty description
+
+state "PRIORIDAD_EXISTENTE" as Pre
+state "eliminarPrioridad()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "PRIORIDAD_ELIMINADA" as Post
+
+Pre --> UC : <b>Administrador</b> confirma la eliminación
+UC --> Post : <b>Sistema</b> elimina la Prioridad si ningún Ticket la usa
+@enduml

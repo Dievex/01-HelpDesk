@@ -1,0 +1,9 @@
+@startsalt UC35-eliminar-prioridad-wireframe
+{
+  <b>Eliminar Prioridad
+  ..
+  ¿Eliminar "Alta"? Esta acción no se puede deshacer.
+  ..
+  [Cancelar] | [Eliminar Prioridad]
+}
+@endsalt

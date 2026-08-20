@@ -1,0 +1,13 @@
+@startsalt UC34-editar-prioridad-wireframe
+{
+  <b>Editar Prioridad
+  ..
+  {
+    Nombre                        | "Alta"
+    Tiempo primera respuesta (h)  | "2"
+    Tiempo de resolución (h)      | "24"
+  }
+  ..
+  [Cancelar] | [Guardar Cambios]
+}
+@endsalt
