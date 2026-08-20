@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 04 · Contenido asociado a un Ticket
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron04-contenido-ticket.svg" alt="Modelo/Vista/Controlador — Contenido asociado a un Ticket">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron04-contenido-ticket.svg" alt="Modelo/Vista/Controlador — Contenido asociado a un Ticket">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron04-contenido-ticket.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron04-contenido-ticket.puml">Código fuente</a></i></td></tr>
 </table>
 
 ## Vistas — `CommentForm`, `AttachmentUploader`, `LinkArticleForm`

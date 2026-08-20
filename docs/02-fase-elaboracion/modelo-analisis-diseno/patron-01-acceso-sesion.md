@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 01 · Acceso y Sesión
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron01-acceso-sesion.svg" alt="Modelo/Vista/Controlador — Acceso y Sesión">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron01-acceso-sesion.svg" alt="Modelo/Vista/Controlador — Acceso y Sesión">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron01-acceso-sesion.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron01-acceso-sesion.puml">Código fuente</a></i></td></tr>
 </table>
 
 ## Vista — `LoginForm`

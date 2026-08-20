@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 02 · Ciclo de vida del Ticket
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron02-ciclo-vida-ticket.svg" alt="Modelo/Vista/Controlador — Ciclo de vida del Ticket">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron02-ciclo-vida-ticket.svg" alt="Modelo/Vista/Controlador — Ciclo de vida del Ticket">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron02-ciclo-vida-ticket.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron02-ciclo-vida-ticket.puml">Código fuente</a></i></td></tr>
 </table>
 
 ## Vista — `TicketActionsView`

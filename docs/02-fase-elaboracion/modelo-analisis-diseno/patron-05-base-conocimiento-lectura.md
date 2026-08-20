@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 05 · Base de Conocimiento (lectura)
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron05-base-conocimiento-lectura.svg" alt="Modelo/Vista/Controlador — Base de Conocimiento (lectura)">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron05-base-conocimiento-lectura.svg" alt="Modelo/Vista/Controlador — Base de Conocimiento (lectura)">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron05-base-conocimiento-lectura.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron05-base-conocimiento-lectura.puml">Código fuente</a></i></td></tr>
 </table>
 
 ## Vistas — `ArticleListView`, `ArticleDetailView`

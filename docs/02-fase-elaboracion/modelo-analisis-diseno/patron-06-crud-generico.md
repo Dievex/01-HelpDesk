@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 06 · CRUD de configuración y contenido
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron06-crud-generico.svg" alt="Modelo/Vista/Controlador — CRUD de configuración y contenido">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron06-crud-generico.svg" alt="Modelo/Vista/Controlador — CRUD de configuración y contenido">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron06-crud-generico.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron06-crud-generico.puml">Código fuente</a></i></td></tr>
 </table>
 
 El diagrama usa nombres genéricos (`EntityForm`, `EntityController`, `Entidad`) porque las 5 entidades comparten exactamente la misma forma — no porque exista un único Controller genérico en la implementación real. En Construcción esto se traduce en cinco Controllers concretos: `CategoriaController`, `EquipoController`, `PrioridadController`, `UsuarioController`, y el `KnowledgeBaseController` del [Patrón 05](patron-05-base-conocimiento-lectura.md), que gana los métodos de escritura para `ArticuloConocimiento`.

@@ -1,4 +1,4 @@
-[HelpDesk](../../../README.md) / [Fase de Elaboración](../../README.md) / [Modelo de Análisis/Diseño](README.md)
+[HelpDesk](../../README.md) / [Fase de Elaboración](../README.md) / [Modelo de Análisis/Diseño](README.md)
 
 # Patrón 07 · Dashboard de Métricas
 
@@ -9,9 +9,9 @@
 
 <table>
 <tr><td align="center">
-<img src="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron07-dashboard-metricas.svg" alt="Modelo/Vista/Controlador — Dashboard de Métricas">
+<img src="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron07-dashboard-metricas.svg" alt="Modelo/Vista/Controlador — Dashboard de Métricas">
 </td></tr>
-<tr><td align="center"><i><a href="../../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron07-dashboard-metricas.puml">Código fuente</a></i></td></tr>
+<tr><td align="center"><i><a href="../../../puml/02-fase-elaboracion/modelo-analisis-diseno/patron07-dashboard-metricas.puml">Código fuente</a></i></td></tr>
 </table>
 
 ## Vista — `MetricsDashboardView`
