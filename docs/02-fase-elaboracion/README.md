@@ -8,6 +8,6 @@ Punto de partida: [Lista de Riesgos](../01-fase-inicio/lista-riesgos.md) y [Plan
 
 ## Artefactos
 
-- [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — primera iteración completa (UC-01, 03, 11 a 14, 21); segunda iteración completa (UC-04, 06 a 10, 42); tercera iteración completa (UC-05, 15 a 19, 43); cuarta iteración completa (UC-26 a 40); resto del CRUD de Categoría completado fuera de iteración (UC-22 a 25); quinta iteración completa (UC-20), cierra R-07. Solo queda pendiente UC-02 Cerrar Sesión
+- [Especificación de Casos de Uso](especificacion-casos-uso/README.md) — **catálogo completo, 43/43 casos de uso detallados** (primera a quinta iteración de Elaboración, más UC-02 y UC-22 a 25 detallados fuera de iteración formal)
 - [Decisión de Arquitectura y Stack Tecnológico](arquitectura.md)
 - Modelo de Análisis/Diseño — pendiente

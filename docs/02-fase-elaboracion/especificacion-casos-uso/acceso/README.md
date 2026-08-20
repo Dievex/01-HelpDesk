@@ -5,4 +5,4 @@
 | ID | Caso de uso | Actor | Estado |
 |---|---|---|---|
 | [UC-01](UC-01-iniciar-sesion.md) | Iniciar Sesión | Solicitante | Detallado |
-| UC-02 | Cerrar Sesión | Solicitante | Pendiente |
+| [UC-02](UC-02-cerrar-sesion.md) | Cerrar Sesión | Solicitante | Detallado |

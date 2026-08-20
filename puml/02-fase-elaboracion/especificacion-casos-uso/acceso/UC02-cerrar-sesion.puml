@@ -1,0 +1,13 @@
+@startuml UC02-cerrar-sesion
+hide empty description
+
+state "SESION_ACTIVA" as Pre
+state "cerrarSesion()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "SESION_CERRADA" as Post
+
+Pre --> UC : <b>Actor</b> selecciona "Cerrar Sesión"
+UC --> Post : <b>Sistema</b> invalida la cookie de sesión
+@enduml
