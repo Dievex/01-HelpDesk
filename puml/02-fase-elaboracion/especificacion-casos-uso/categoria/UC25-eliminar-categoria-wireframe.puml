@@ -1,0 +1,9 @@
+@startsalt UC25-eliminar-categoria-wireframe
+{
+  <b>Eliminar Categoría
+  ..
+  ¿Eliminar "Cuentas"? Esta acción no se puede deshacer.
+  ..
+  [Cancelar] | [Eliminar Categoría]
+}
+@endsalt

@@ -1,0 +1,12 @@
+@startsalt UC24-editar-categoria-wireframe
+{
+  <b>Editar Categoría
+  ..
+  {
+    Nombre | "Cuentas"
+    Equipo | ^Infraestructura^
+  }
+  ..
+  [Cancelar] | [Guardar Cambios]
+}
+@endsalt

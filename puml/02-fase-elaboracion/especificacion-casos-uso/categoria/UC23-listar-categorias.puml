@@ -1,0 +1,13 @@
+@startuml UC23-listar-categorias
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "listarCategorias()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CATALOGO_VISIBLE" as Post
+
+Pre --> UC : <b>Administrador</b> abre "Categorías"
+UC --> Post : <b>Sistema</b> muestra el catálogo completo
+@enduml

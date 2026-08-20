@@ -1,0 +1,12 @@
+@startsalt UC23-listar-categorias-wireframe
+{
+  <b>Categorías
+  ..
+  {
+    Nombre | Equipo
+    "Cuentas" | Infraestructura
+    "Hardware" | Hardware
+    "Accesos" | Sin equipo asignado
+  }
+}
+@endsalt

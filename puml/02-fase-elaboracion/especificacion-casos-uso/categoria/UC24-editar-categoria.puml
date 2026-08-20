@@ -1,0 +1,13 @@
+@startuml UC24-editar-categoria
+hide empty description
+
+state "CATEGORIA_EXISTENTE" as Pre
+state "editarCategoria()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CATEGORIA_ACTUALIZADA" as Post
+
+Pre --> UC : <b>Administrador</b> modifica nombre y/o Equipo
+UC --> Post : <b>Sistema</b> actualiza la Categoría
+@enduml

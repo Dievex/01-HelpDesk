@@ -1,0 +1,13 @@
+@startuml UC25-eliminar-categoria
+hide empty description
+
+state "CATEGORIA_EXISTENTE" as Pre
+state "eliminarCategoria()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CATEGORIA_ELIMINADA" as Post
+
+Pre --> UC : <b>Administrador</b> confirma la eliminación
+UC --> Post : <b>Sistema</b> elimina la Categoría si ningún Ticket la usa
+@enduml
