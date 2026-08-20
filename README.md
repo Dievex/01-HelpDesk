@@ -4,7 +4,7 @@ Sistema de gestión de mesa de ayuda, self-hosted: creación, seguimiento, asign
 
 ## Estado del proyecto
 
-En fase de **Elaboración**. Aún no hay build ejecutable.
+Fase de **Elaboración** cerrada (hito LCAM). Fase de **Construcción** aún no iniciada — no hay build ejecutable.
 
 ## Documentación
 
