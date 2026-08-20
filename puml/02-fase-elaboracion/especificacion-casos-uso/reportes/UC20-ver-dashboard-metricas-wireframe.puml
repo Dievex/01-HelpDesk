@@ -1,0 +1,31 @@
+@startsalt UC20-ver-dashboard-metricas-wireframe
+{
+  <b>Dashboard de Métricas — Equipo Infraestructura
+  ..
+  Desde | "01/08/2026"  Hasta | "31/08/2026"  [Aplicar]
+  ..
+  <b>Volumen
+  {#
+    Total      | 42
+    Abierto    | 5
+    Asignado   | 8
+    EnProgreso | 6
+    Escalado   | 2
+    Resuelto   | 12
+    Reabierto  | 1
+    Cerrado    | 8
+  }
+  ..
+  <b>Tiempos promedio
+  {#
+    Primera respuesta | 3.2 h
+    Resolución         | 18.4 h
+  }
+  ..
+  <b>Cumplimiento de SLA
+  {#
+    Primera respuesta | 87%
+    Resolución         | 91%
+  }
+}
+@endsalt

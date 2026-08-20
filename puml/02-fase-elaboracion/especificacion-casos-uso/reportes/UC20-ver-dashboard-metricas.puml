@@ -1,0 +1,13 @@
+@startuml UC20-ver-dashboard-metricas
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "verDashboardMetricas()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "METRICAS_VISIBLES" as Post
+
+Pre --> UC : <b>Supervisor</b> elige un rango de fechas
+UC --> Post : <b>Sistema</b> calcula y muestra volumen, tiempos y cumplimiento de SLA
+@enduml

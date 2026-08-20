@@ -13,10 +13,10 @@ Cada caso de uso tiene su propio diagrama de flujo en PlantUML (precondición �
 | [Acceso](acceso/README.md) | UC-01, UC-02 | En curso (UC-01) |
 | [Tickets](tickets/README.md) | UC-03 a UC-08, UC-11 a UC-14, UC-18, UC-19, UC-41, UC-42 | Completo |
 | [Base de Conocimiento](base-conocimiento/README.md) | UC-09, UC-10, UC-15 a UC-17, UC-43 | Completo |
-| [Reportes](reportes/README.md) | UC-20 | Pendiente |
+| [Reportes](reportes/README.md) | UC-20 | Completo |
 | [Categoría](categoria/README.md) | UC-21 a UC-25 | Completo |
 | [Equipo](equipo/README.md) | UC-26 a UC-30 | Completo |
 | [Prioridad](prioridad/README.md) | UC-31 a UC-35 | Completo |
 | [Usuario](usuario/README.md) | UC-36 a UC-40 | Completo |
 
-La [primera iteración de Elaboración](../../01-fase-inicio/plan-desarrollo-software.md#primera-iteración-de-elaboración) priorizó UC-01, UC-03, UC-11 a UC-14 y UC-21. La [segunda iteración](../../01-fase-inicio/plan-desarrollo-software.md#segunda-iteración-de-elaboración) agregó UC-04, UC-06 a UC-10 y UC-42. La [tercera iteración](../../01-fase-inicio/plan-desarrollo-software.md#tercera-iteración-de-elaboración) agregó UC-05, UC-15 a UC-19 y UC-43. La [cuarta iteración](../../01-fase-inicio/plan-desarrollo-software.md#cuarta-iteración-de-elaboración) agregó UC-26 a UC-40. Fuera de esa iteración formal, también se completó el resto del CRUD de Categoría (UC-22 a UC-25), que había quedado pendiente desde la primera iteración. El único caso de uso que falta en todo el catálogo es UC-20 Ver Dashboard de Métricas.
+La [primera iteración de Elaboración](../../01-fase-inicio/plan-desarrollo-software.md#primera-iteración-de-elaboración) priorizó UC-01, UC-03, UC-11 a UC-14 y UC-21. La [segunda iteración](../../01-fase-inicio/plan-desarrollo-software.md#segunda-iteración-de-elaboración) agregó UC-04, UC-06 a UC-10 y UC-42. La [tercera iteración](../../01-fase-inicio/plan-desarrollo-software.md#tercera-iteración-de-elaboración) agregó UC-05, UC-15 a UC-19 y UC-43. La [cuarta iteración](../../01-fase-inicio/plan-desarrollo-software.md#cuarta-iteración-de-elaboración) agregó UC-26 a UC-40. Fuera de esa iteración formal, también se completó el resto del CRUD de Categoría (UC-22 a UC-25), que había quedado pendiente desde la primera iteración. La [quinta iteración](../../01-fase-inicio/plan-desarrollo-software.md#quinta-iteración-de-elaboración) agregó UC-20, cerrando R-07 del todo. Del catálogo de 43 casos de uso solo queda pendiente UC-02 Cerrar Sesión (paquete Acceso), que nunca estuvo en el alcance de ninguna iteración de Elaboración.

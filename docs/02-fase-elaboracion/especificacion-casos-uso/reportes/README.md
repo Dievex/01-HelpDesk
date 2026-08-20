@@ -4,4 +4,4 @@
 
 | ID | Caso de uso | Actor | Estado |
 |---|---|---|---|
-| UC-20 | Ver Dashboard de Métricas | Supervisor | Pendiente |
+| [UC-20](UC-20-ver-dashboard-metricas.md) | Ver Dashboard de Métricas | Supervisor | Detallado |
