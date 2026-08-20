@@ -1,0 +1,13 @@
+@startuml UC37-ver-usuario
+hide empty description
+
+state "USUARIO_EXISTENTE" as Pre
+state "verUsuario()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "DETALLE_VISIBLE" as Post
+
+Pre --> UC : <b>Administrador</b> abre un Usuario del listado
+UC --> Post : <b>Sistema</b> muestra sus datos, rol y Equipo
+@enduml

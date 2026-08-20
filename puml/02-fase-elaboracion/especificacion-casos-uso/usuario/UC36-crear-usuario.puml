@@ -1,0 +1,13 @@
+@startuml UC36-crear-usuario
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "crearUsuario()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "USUARIO_CREADO" as Post
+
+Pre --> UC : <b>Administrador</b> completa datos y rol
+UC --> Post : <b>Sistema</b> crea el Usuario con el rol elegido
+@enduml

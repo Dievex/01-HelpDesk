@@ -1,0 +1,14 @@
+@startsalt UC36-crear-usuario-wireframe
+{
+  <b>Crear Usuario
+  ..
+  {
+    Nombre | "Marta López"
+    Correo | "marta@empresa.com"
+    Rol    | ^Agente de Soporte^
+    Equipo | ^Infraestructura^
+  }
+  ..
+  [Cancelar] | [Crear Usuario]
+}
+@endsalt

@@ -1,0 +1,13 @@
+@startuml UC40-eliminar-usuario
+hide empty description
+
+state "USUARIO_EXISTENTE" as Pre
+state "eliminarUsuario()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "USUARIO_ELIMINADO" as Post
+
+Pre --> UC : <b>Administrador</b> confirma la eliminación
+UC --> Post : <b>Sistema</b> elimina el Usuario si no tiene tickets asociados
+@enduml

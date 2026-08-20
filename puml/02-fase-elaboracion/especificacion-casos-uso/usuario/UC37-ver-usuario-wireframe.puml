@@ -1,0 +1,11 @@
+@startsalt UC37-ver-usuario-wireframe
+{
+  <b>Usuario — Marta López
+  ..
+  {#
+    Correo | marta@empresa.com
+    Rol    | Agente de Soporte
+    Equipo | Infraestructura
+  }
+}
+@endsalt

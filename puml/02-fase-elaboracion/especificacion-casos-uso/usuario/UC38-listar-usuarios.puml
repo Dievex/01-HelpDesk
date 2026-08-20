@@ -1,0 +1,13 @@
+@startuml UC38-listar-usuarios
+hide empty description
+
+state "EN_EL_SISTEMA" as Pre
+state "listarUsuarios()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "CATALOGO_VISIBLE" as Post
+
+Pre --> UC : <b>Administrador</b> abre "Usuarios"
+UC --> Post : <b>Sistema</b> muestra el catálogo completo
+@enduml

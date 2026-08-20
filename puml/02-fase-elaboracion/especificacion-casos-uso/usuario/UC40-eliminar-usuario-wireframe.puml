@@ -1,0 +1,9 @@
+@startsalt UC40-eliminar-usuario-wireframe
+{
+  <b>Eliminar Usuario
+  ..
+  ¿Eliminar "Ana Ruiz"? Esta acción no se puede deshacer.
+  ..
+  [Cancelar] | [Eliminar Usuario]
+}
+@endsalt

@@ -1,0 +1,13 @@
+@startuml UC39-editar-usuario
+hide empty description
+
+state "USUARIO_EXISTENTE" as Pre
+state "editarUsuario()" as UC {
+  [*] --> fin
+  fin --> [*]
+}
+state "USUARIO_ACTUALIZADO" as Post
+
+Pre --> UC : <b>Administrador</b> modifica datos, rol y/o Equipo
+UC --> Post : <b>Sistema</b> actualiza el Usuario
+@enduml

@@ -1,0 +1,12 @@
+@startsalt UC38-listar-usuarios-wireframe
+{
+  <b>Usuarios
+  ..
+  {
+    Nombre | Correo | Rol
+    "Marta López" | marta@empresa.com | Agente de Soporte
+    "Juan Pérez"  | juan@empresa.com  | Supervisor
+    "Ana Ruiz"    | ana@empresa.com   | Solicitante
+  }
+}
+@endsalt
