@@ -38,8 +38,9 @@ TICKET_ABIERTO --> TICKET_ABIERTO : adjuntarArchivoATicket()
 
 TICKETS_PROPIOS_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
 ARTICULOS_CONOCIMIENTO_ABIERTO --> TICKETS_PROPIOS_ABIERTO : abrirTicketsPropios()
+' A diferencia de Solicitante, aquí no hay self-loop de "visibilidad denegada":
+' el Administrador ve artículos Público e Interno, el FA-1 de UC-09 no le aplica
 ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULO_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
-ARTICULOS_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticuloConocimiento()
 ARTICULO_CONOCIMIENTO_ABIERTO --> ARTICULOS_CONOCIMIENTO_ABIERTO : abrirArticulosConocimiento()
 
 ' -- lo que agrega Administrador del Sistema --

@@ -14,4 +14,4 @@ Objetivo de la fase: establecer si el producto vale la pena construirse, fijando
 - [Modelo de Casos de Uso](casos-de-uso.md)
 - [Lista de Riesgos](lista-riesgos.md)
 - [Plan de Desarrollo de Software](plan-desarrollo-software.md)
-- [Diagramas de Contexto](diagramas-contexto.md) — añadido tras el cierre de la fase, ver nota en el documento
+- [Diagramas de Contexto](diagramas-contexto.md)

@@ -12,7 +12,7 @@ Todas las fases tocan varias disciplinas, con distinto peso relativo:
 | [01 · Inicio](01-fase-inicio/README.md) | Requisitos / Negocio |
 | [02 · Elaboración](02-fase-elaboracion/README.md) | Análisis y Diseño |
 | [03 · Construcción](03-fase-construccion/README.md) | Implementación / Pruebas |
-| [04 · Transición`](04-fase-transicion/README.md) | Despliegue |
+| 04 · Transición | Despliegue |
 
 ## Estado
 
