@@ -4,8 +4,8 @@
 
 Objetivo de la fase: completar la implementación funcional del producto, desarrollando y probando el resto de casos de uso sobre la arquitectura baseline fijada en Elaboración. Cierra con el hito **Initial Operational Capability Milestone (IOCM)**.
 
-**Estado: no iniciada.**
+**Estado: en curso.** Roadmap de iteraciones y estructura de carpetas acordados con el usuario; Iteración 0 (entorno y esqueleto) e Iteración 1 (Acceso y Sesión + Usuario) cerradas.
 
 ## Artefactos
 
-(pendiente)
+- [Decisiones Técnicas por Iteración](decisiones-tecnicas.md) — registro vivo, se actualiza al cerrar cada iteración
