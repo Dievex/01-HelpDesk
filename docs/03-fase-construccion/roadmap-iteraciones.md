@@ -47,7 +47,7 @@ Estos existen solo en la base de datos de la sesión de desarrollo actual — si
 | 4 | Ticket, resto del ciclo de vida | ✅ Cerrada |
 | 5 | Contenido de Ticket + Base de Conocimiento | ✅ Cerrada |
 | 6 | Dashboard de Métricas | ✅ Cerrada |
-| — | Cierre de fase / hardening (IOCM) | ⏳ **Siguiente** |
+| — | Cierre de fase / hardening (IOCM) | ✅ Cerrado |
 
 ### Resumen de lo ya construido (iteraciones 0 a 6)
 
@@ -57,10 +57,10 @@ Estos existen solo en la base de datos de la sesión de desarrollo actual — si
 - **Infraestructura**: Docker Compose (app + Postgres), volúmenes con nombre para BD y adjuntos, `node-cron` para el cierre automático, `multer` para subida de archivos.
 - **Módulo `reports`** (`server/src/modules/reports/`, `client/src/pages/reportes/`): único módulo puramente de lectura/cálculo, sin modelo propio — ver Iteración 6 en `decisiones-tecnicas.md`.
 
-## Cierre de fase / hardening (siguiente)
+## Cierre de fase / hardening — ✅ Completo, IOCM alcanzado
 
-No es una iteración de casos de uso, es el checklist final antes de declarar IOCM:
-- Regresión completa por rol (probar los 4 roles de punta a punta otra vez).
-- Reconfirmar portabilidad real entre las 2 PCs del usuario (clon limpio + `docker compose up`).
+Checklist final antes de declarar IOCM, los 4 puntos cerrados:
+- [x] **Regresión completa por rol**: los 4 roles probados de punta a punta en navegador real contra el entorno de desarrollo acumulado (Administrador: nav + CRUD Usuarios; Sara/Supervisor: Dashboard con datos reales, 9 tickets, desglose correcto; Alex/Agente: Mi Cola; Pepe/Solicitante: creación de ticket de punta a punta). Sin regresiones — incluido el fix de `res.clearCookie` de la pasada de pruebas automatizadas, logout verificado en los 4 roles.
+- [x] **Portabilidad reconfirmada con clon limpio**: repo clonado desde cero en un directorio nuevo, `docker compose up --build` + `prisma migrate deploy` + seed + los 46 tests automatizados, todo sin ningún paso manual oculto más allá de lo documentado en "Cómo levantar el entorno".
 - [x] **Pruebas automatizadas del backend escritas retroactivas** (Vitest + Supertest, según la estrategia fijada en la Iteración 0) — 46 tests / 8 archivos en `server/tests/`, cubriendo las reglas de negocio ya verificadas manualmente en cada cierre de iteración (guards de condición de carrera, control de acceso por rol/equipo, cascadas de borrado, cálculo del Dashboard). Ver detalle en `decisiones-tecnicas.md`. Pendiente, fuera de alcance de esta pasada: tests de frontend (React Testing Library, ya está en `client/package.json` pero sin usar).
-- Actualizar `docs/03-fase-construccion/README.md` con el estado final.
+- [x] `docs/03-fase-construccion/README.md` actualizado con el estado final de la fase.
