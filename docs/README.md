@@ -17,3 +17,5 @@ Todas las fases tocan varias disciplinas, con distinto peso relativo:
 ## Estado
 
 Cada carpeta de fase se completa de forma incremental y se cierra con la validación del hito correspondiente antes de abrir la siguiente.
+
+Las 4 fases están cerradas: Inicio (LCOM), Elaboración (LCAM), Construcción (IOCM) y Transición (PRM). El producto está en un estado usable/desplegable — ver el [manual de instalación self-hosted](04-fase-transicion/manual-instalacion.md).

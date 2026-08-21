@@ -4,8 +4,12 @@ Sistema de gestión de mesa de ayuda, self-hosted: creación, seguimiento, asign
 
 ## Estado del proyecto
 
-Fase de **Construcción** cerrada (hito IOCM) — catálogo completo de 44 casos de uso implementado y operable. Fase de **Transición** en curso: Iteración 1 (empaquetado de producción) cerrada, falta el manual de instalación y la validación end-to-end antes del hito PRM.
+Las 4 fases de RUP están cerradas — Inicio (LCOM), Elaboración (LCAM), Construcción (IOCM) y Transición (PRM). Catálogo completo de 44 casos de uso implementado y operable, con despliegue de producción empaquetado (Docker + reverse proxy con HTTPS automático) y documentado.
 
 ## Documentación
 
-El producto se desarrolla siguiendo un proceso RUP (iterativo, por fases). Toda la documentación vive en [`docs/`](docs/README.md).
+El producto se desarrolló siguiendo un proceso RUP (iterativo, por fases). Toda la documentación vive en [`docs/`](docs/README.md).
+
+## Instalación self-hosted
+
+Ver el [manual de instalación](docs/04-fase-transicion/manual-instalacion.md).
