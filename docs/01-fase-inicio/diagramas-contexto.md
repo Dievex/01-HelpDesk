@@ -2,12 +2,6 @@
 
 # Diagramas de Contexto
 
-> Artefacto añadido tras el cierre formal de la Fase de Inicio (hito LCOM), como refinamiento del [Modelo de Casos de Uso](casos-de-uso.md) ya cerrado.
-
-Un diagrama de estados (UML State Machine, en PlantUML) por cada actor del sistema: cada estado es una "pantalla" (`RECURSO_ABIERTO` para un listado, `RECURSO_ABIERTA`/`RECURSO_ABIERTO` para un detalle) y cada transición es una operación que el actor dispara desde ahí, con bucles (self-loop) cuando la operación no cambia de pantalla. El objetivo es mostrar, de un vistazo, por dónde navega cada actor y qué puede hacer en cada punto — complementa al [Modelo de Casos de Uso](casos-de-uso.md), que dice *qué* casos de uso existen, con *cómo se encadenan* en la experiencia real de cada actor.
-
-Cada diagrama muestra la navegación **completa** de ese actor, incluida la heredada de los actores que generaliza (ver tabla de [Actores](casos-de-uso.md#actores)) — no repite solo lo que introduce, para que cada diagrama sea autocontenido.
-
 ### Solicitante
 
 <table>
