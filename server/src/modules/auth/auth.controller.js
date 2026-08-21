@@ -26,7 +26,10 @@ export async function login(req, res, next) {
 }
 
 export function logout(req, res) {
-  res.clearCookie(COOKIE_NAME, cookieOptions);
+  // clearCookie no acepta maxAge (deprecado) -- reutiliza el resto de atributos para
+  // que el navegador reconozca la cookie a limpiar.
+  const { maxAge, ...clearOptions } = cookieOptions;
+  res.clearCookie(COOKIE_NAME, clearOptions);
   res.status(204).end();
 }
 

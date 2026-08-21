@@ -15,6 +15,7 @@ docker compose up --build
 - Modo de desarrollo: todo corre dentro de Docker (bind-mount + hot-reload), decisión tomada para portabilidad entre las 2 PCs del usuario — ver Iteración 0 en `decisiones-tecnicas.md`.
 - Seed (`docker compose exec app npm run db:seed`, o se ejecuta con el propio `npm run dev`... **no**, hay que correrlo a mano tras la primera migración): crea el Administrador inicial y el catálogo base (Equipo "Soporte General", Categoría "General", Prioridades Baja/Media/Alta).
 - **Gotcha conocido:** si `npm run dev` falla con "not found" tras añadir una dependencia nueva, el volumen `node_modules` quedó desactualizado — `docker compose down && docker volume rm 01-helpdesk_app-node-modules && docker compose up --build`.
+- **Pruebas automatizadas del backend** (`docker compose exec app npm run test --workspace=server`): usan una base de datos propia (`helpdesk_test`, misma instancia de Postgres) que se crea y migra sola en el primer run — no requiere pasos manuales. Ver "Cierre de fase" más abajo y Iteración 6/hardening en `decisiones-tecnicas.md`.
 
 ### Usuarios de prueba creados a mano durante Construcción (no están en el seed)
 
@@ -61,5 +62,5 @@ Estos existen solo en la base de datos de la sesión de desarrollo actual — si
 No es una iteración de casos de uso, es el checklist final antes de declarar IOCM:
 - Regresión completa por rol (probar los 4 roles de punta a punta otra vez).
 - Reconfirmar portabilidad real entre las 2 PCs del usuario (clon limpio + `docker compose up`).
-- Revisar cobertura de pruebas automatizadas contra la estrategia fijada en la Iteración 0 (Vitest + Supertest; ⚠️ **nota**: hasta la Iteración 5 no se han escrito pruebas automatizadas todavía, solo verificación manual/API en cada cierre — esto es una desviación del plan original que vale la pena decidir explícitamente con el usuario antes de declarar IOCM: ¿se escriben ahora, retroactivas, o se documenta como decisión consciente de alcance?).
+- [x] **Pruebas automatizadas del backend escritas retroactivas** (Vitest + Supertest, según la estrategia fijada en la Iteración 0) — 46 tests / 8 archivos en `server/tests/`, cubriendo las reglas de negocio ya verificadas manualmente en cada cierre de iteración (guards de condición de carrera, control de acceso por rol/equipo, cascadas de borrado, cálculo del Dashboard). Ver detalle en `decisiones-tecnicas.md`. Pendiente, fuera de alcance de esta pasada: tests de frontend (React Testing Library, ya está en `client/package.json` pero sin usar).
 - Actualizar `docs/03-fase-construccion/README.md` con el estado final.
