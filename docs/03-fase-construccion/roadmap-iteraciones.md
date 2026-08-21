@@ -45,32 +45,18 @@ Estos existen solo en la base de datos de la sesión de desarrollo actual — si
 | 3 | Ticket, flujo mínimo viable | ✅ Cerrada |
 | 4 | Ticket, resto del ciclo de vida | ✅ Cerrada |
 | 5 | Contenido de Ticket + Base de Conocimiento | ✅ Cerrada |
-| 6 | Dashboard de Métricas | ⏳ **Siguiente** |
-| — | Cierre de fase / hardening (IOCM) | Pendiente |
+| 6 | Dashboard de Métricas | ✅ Cerrada |
+| — | Cierre de fase / hardening (IOCM) | ⏳ **Siguiente** |
 
-### Resumen de lo ya construido (iteraciones 0 a 5)
+### Resumen de lo ya construido (iteraciones 0 a 6)
 
-- **Backend**: `server/src/modules/{auth,usuarios,categorias,equipos,prioridades,tickets,articulos}` — Express + Prisma, JWT en cookie httpOnly, 8 Controllers según el Modelo de Análisis/Diseño.
+- **Backend**: `server/src/modules/{auth,usuarios,categorias,equipos,prioridades,tickets,articulos,reports}` — Express + Prisma, JWT en cookie httpOnly, 8 Controllers según el Modelo de Análisis/Diseño.
 - **Frontend**: `client/src/pages/{usuarios,categorias,equipos,prioridades,tickets,articulos}` — React + Vite + react-router-dom, sin Redux ni librería de estado (Context API para auth, `useState`/`useEffect` para el resto).
-- **43 casos de uso del catálogo**: implementados hasta ahora — UC-01 a UC-20 (parcial, falta Dashboard), UC-36 a UC-43, y todo el CRUD de Categoría/Equipo/Prioridad/Usuario/Artículo. El ciclo de vida completo del Ticket (9 transiciones + cierre automático) está operable.
+- **44 casos de uso del catálogo**: UC-01 a UC-20 (completo, incluye Dashboard), UC-36 a UC-43, y todo el CRUD de Categoría/Equipo/Prioridad/Usuario/Artículo. El ciclo de vida completo del Ticket (9 transiciones + cierre automático) está operable.
 - **Infraestructura**: Docker Compose (app + Postgres), volúmenes con nombre para BD y adjuntos, `node-cron` para el cierre automático, `multer` para subida de archivos.
+- **Módulo `reports`** (`server/src/modules/reports/`, `client/src/pages/reportes/`): único módulo puramente de lectura/cálculo, sin modelo propio — ver Iteración 6 en `decisiones-tecnicas.md`.
 
-## Iteración 6 — Dashboard de Métricas (siguiente)
-
-**Alcance:** UC-20 Ver Dashboard de Métricas, exclusivo de Supervisor.
-
-**Lo que hay que construir** (Patrón 07 del Modelo de Análisis/Diseño, `docs/02-fase-elaboracion/modelo-analisis-diseno/patron-07-dashboard-metricas.md`):
-- `ReportsController.obtenerMetricas(equipoId, desde, hasta)` — una única consulta agregada, sin mutación.
-- Filtra `Ticket` por Categorías del Equipo del Supervisor + `fechaCreacion` dentro del rango de fechas elegido.
-- KPIs: volumen de tickets, tiempos promedio, cumplimiento de SLA.
-- **Tiempo de primera respuesta se deriva** del primer `Comentario` hecho por un Agente de Soporte en el ticket (no hay columna propia). Un ticket resuelto sin que el Agente haya comentado queda excluido de esa métrica específica.
-- **Cumplimiento de SLA se calcula en vivo**, comparando `fechaResolucion - fechaCreacion` contra `SLA.tiempoResolucion` de la Prioridad confirmada del ticket — sin almacenar el resultado.
-- Selector de rango de fechas (desde/hasta) filtrando por `fechaCreacion`, mismo criterio para todas las métricas del período.
-- Es autocontenido: no navega a ninguna otra pantalla del catálogo (ver `docs/01-fase-inicio/diagramas-contexto.md`, diagrama de Supervisor).
-
-**Criterio de cierre:** cumplimiento de SLA calculado en vivo y correcto sobre datos de prueba reales, acotado al Equipo del Supervisor, con el filtro de rango de fechas funcionando.
-
-## Cierre de fase / hardening (después de la Iteración 6)
+## Cierre de fase / hardening (siguiente)
 
 No es una iteración de casos de uso, es el checklist final antes de declarar IOCM:
 - Regresión completa por rol (probar los 4 roles de punta a punta otra vez).

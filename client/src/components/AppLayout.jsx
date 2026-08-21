@@ -13,6 +13,7 @@ export default function AppLayout() {
           <strong>HelpDesk</strong>
           <NavLink to="/">Mis Tickets</NavLink>
           {ROLES_AGENTE.includes(usuario?.rol) && <NavLink to="/cola">Mi Cola</NavLink>}
+          {usuario?.rol === 'SUPERVISOR' && <NavLink to="/dashboard">Dashboard</NavLink>}
           <NavLink to="/base-conocimiento">Base de Conocimiento</NavLink>
           {usuario?.rol === 'ADMINISTRADOR' && (
             <>

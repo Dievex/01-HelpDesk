@@ -17,6 +17,7 @@ import PrioridadesListPage from './pages/prioridades/PrioridadesListPage.jsx';
 import PrioridadFormPage from './pages/prioridades/PrioridadFormPage.jsx';
 import ArticulosListPage from './pages/articulos/ArticulosListPage.jsx';
 import ArticuloFormPage from './pages/articulos/ArticuloFormPage.jsx';
+import DashboardMetricasPage from './pages/reportes/DashboardMetricasPage.jsx';
 
 export default function App() {
   return (
@@ -33,6 +34,11 @@ export default function App() {
 
               <Route element={<ProtectedRoute roles={['AGENTE', 'SUPERVISOR']} />}>
                 <Route path="cola" element={<ColaPage />} />
+              </Route>
+
+              {/* UC-20: exclusivo de Supervisor. */}
+              <Route element={<ProtectedRoute roles={['SUPERVISOR']} />}>
+                <Route path="dashboard" element={<DashboardMetricasPage />} />
               </Route>
 
               {/* UC-09/UC-10: lectura abierta a cualquier autenticado. */}
