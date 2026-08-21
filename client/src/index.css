@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.app-user {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.app-main {
+  padding: 1.5rem;
+}
+
+.login-page {
+  max-width: 360px;
+  margin: 4rem auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.form input,
+.form select {
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+
+.form-page {
+  max-width: 420px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-top: 1px solid #eee;
+}
+
+.error {
+  color: crimson;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.danger {
+  color: crimson;
+  border-color: crimson;
+}

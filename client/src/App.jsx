@@ -1,25 +1,34 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { ProtectedRoute } from './routes/ProtectedRoute.jsx';
+import AppLayout from './components/AppLayout.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import HomePage from './pages/HomePage.jsx';
+import UsuariosListPage from './pages/usuarios/UsuariosListPage.jsx';
+import UsuarioFormPage from './pages/usuarios/UsuarioFormPage.jsx';
 
-// Esqueleto de Iteración 0: solo prueba que el pipeline completo
-// (Vite -> proxy -> Express -> respuesta) funciona dentro de Docker.
-// Las pantallas reales llegan en las iteraciones 1 en adelante.
 export default function App() {
-  const [apiStatus, setApiStatus] = useState('comprobando...');
-
-  useEffect(() => {
-    fetch('/api/health')
-      .then((res) => res.json())
-      .then((data) => setApiStatus(data.status))
-      .catch(() => setApiStatus('sin conexión con el servidor'));
-  }, []);
-
   return (
-    <main style={{ fontFamily: 'system-ui, sans-serif', padding: '2rem' }}>
-      <h1>HelpDesk</h1>
-      <p>Fase de Construcción — Iteración 0 (entorno y esqueleto).</p>
-      <p>
-        Estado de la API: <strong>{apiStatus}</strong>
-      </p>
-    </main>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route element={<AppLayout />}>
+              <Route index element={<HomePage />} />
+
+              <Route path="usuarios" element={<ProtectedRoute roles={['ADMINISTRADOR']} />}>
+                <Route index element={<UsuariosListPage />} />
+                <Route path="nuevo" element={<UsuarioFormPage />} />
+                <Route path=":id" element={<UsuarioFormPage />} />
+              </Route>
+            </Route>
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

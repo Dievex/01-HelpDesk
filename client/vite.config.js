@@ -6,10 +6,11 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    watch: {
+      usePolling: true, // el bind-mount de Docker en Windows no siempre avisa de cambios
+    },
     proxy: {
-      // Ambos procesos (Vite y Express) corren en el mismo contenedor en dev
-      // (ver docker-compose.yml + package.json "dev"), así que localhost resuelve.
-      '/api': 'http://localhost:3000',
+      '/api': 'http://localhost:3000', // ambos procesos corren en el mismo contenedor
     },
   },
 });

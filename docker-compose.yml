@@ -34,11 +34,11 @@ services:
       timeout: 5s
       retries: 5
 
+# Volúmenes con nombre (portabilidad entre PCs): docs/03-fase-construccion/decisiones-tecnicas.md
 volumes:
-  # Con nombre, no bind-mounts a rutas del host: `docker compose up` se comporta
-  # igual en las dos PCs sin depender de dónde esté clonado el repo en cada una.
   db-data:
   uploads:
-  # Volumen anónimo-con-nombre para node_modules: evita que el bind-mount de arriba
-  # (`.:/app`) tape los node_modules instalados dentro de la imagen.
+  # Si `npm run dev` da "not found" tras cambiar un package.json, este volumen
+  # quedó desactualizado -- arreglo:
+  #   docker compose down && docker volume rm 01-helpdesk_app-node-modules && docker compose up --build
   app-node-modules:

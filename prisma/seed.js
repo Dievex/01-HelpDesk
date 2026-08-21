@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Rompe el arranque circular: sin ningún Usuario no se puede hacer login,
-// sin login no se puede crear ningún Usuario desde la UI (Iteración 1).
+// sin login no se puede crear ningún Usuario desde la UI.
 async function main() {
   const correo = process.env.ADMIN_SEED_EMAIL ?? 'admin@helpdesk.local';
   const contrasena = process.env.ADMIN_SEED_PASSWORD ?? 'admin123';
@@ -28,7 +28,7 @@ async function main() {
   });
 
   console.log(`[seed] Administrador creado -- correo: ${correo} / contraseña: ${contrasena}`);
-  console.log('[seed] cámbiala en cuanto tengas Editar Usuario (Iteración 1) disponible.');
+  console.log('[seed] cámbiala cuanto antes desde Editar Usuario.');
 }
 
 main()

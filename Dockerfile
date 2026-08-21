@@ -1,13 +1,14 @@
+# Decisiones de este Dockerfile: docs/03-fase-construccion/decisiones-tecnicas.md
+
 # ---- base: dependencias compartidas por dev y build ----
 FROM node:22-alpine AS base
-# Prisma necesita OpenSSL para sus motores binarios -- Alpine no lo trae por defecto.
+# Prisma necesita OpenSSL; Alpine no lo trae.
 RUN apk add --no-cache openssl
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY client/package.json client/package.json
 COPY server/package.json server/package.json
-# El schema tiene que estar presente ya aquí: "npm ci" dispara el postinstall
-# ("prisma generate"), que falla si prisma/schema.prisma todavía no existe.
+# Lo necesita el postinstall (prisma generate).
 COPY prisma/schema.prisma prisma/schema.prisma
 RUN npm ci
 
@@ -29,9 +30,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 COPY server/package.json server/package.json
-# --ignore-scripts: "prisma" (CLI) es devDependency, omitida aquí -- el postinstall
-# "prisma generate" fallaría al no encontrarla. El cliente ya generado se copia
-# abajo desde el stage "build", que sí tiene la CLI completa.
+# --ignore-scripts: sin la CLI de prisma (devDependency) no puede correr postinstall.
 RUN npm ci --omit=dev --workspace=server --ignore-scripts
 COPY --from=build /app/node_modules/.prisma node_modules/.prisma
 COPY --from=build /app/node_modules/@prisma/client node_modules/@prisma/client
