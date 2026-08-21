@@ -25,6 +25,20 @@ export async function listar() {
   });
 }
 
+// UC-18/UC-19: el Supervisor necesita ver a los Agentes de su propio Equipo para
+// asignar/reasignar, sin el acceso completo al CRUD de Usuario (exclusivo de
+// Administrador).
+export async function listarDeMiEquipo(actorId) {
+  const actor = await prisma.usuario.findUnique({ where: { id: actorId } });
+  if (!actor.equipoId) return [];
+
+  return prisma.usuario.findMany({
+    where: { equipoId: actor.equipoId, rol: { in: ROLES_CON_NIVEL } },
+    select: SELECT_PUBLICO,
+    orderBy: { nombre: 'asc' },
+  });
+}
+
 export async function obtener(id) {
   const usuario = await prisma.usuario.findUnique({ where: { id }, select: SELECT_PUBLICO });
   if (!usuario) {

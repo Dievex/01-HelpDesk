@@ -7,4 +7,10 @@ export const ticketsApi = {
   listarCola: () => http.get('/tickets/cola'),
   tomar: (id) => http.post(`/tickets/${id}/tomar`),
   resolver: (id, datos) => http.post(`/tickets/${id}/resolver`, datos),
+  escalar: (id, datos) => http.post(`/tickets/${id}/escalar`, datos),
+  asignar: (id, datos) => http.post(`/tickets/${id}/asignar`, datos),
+  reasignar: (id, datos) => http.post(`/tickets/${id}/reasignar`, datos),
+  priorizar: (id, datos) => http.post(`/tickets/${id}/priorizar`, datos),
+  confirmarCierre: (id) => http.post(`/tickets/${id}/confirmar-cierre`),
+  reabrir: (id, datos) => http.post(`/tickets/${id}/reabrir`, datos),
 };

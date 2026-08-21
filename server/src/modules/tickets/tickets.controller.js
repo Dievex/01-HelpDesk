@@ -53,3 +53,57 @@ export async function resolver(req, res, next) {
     next(err);
   }
 }
+
+export async function escalar(req, res, next) {
+  try {
+    const ticket = await ticketsService.escalar(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function asignar(req, res, next) {
+  try {
+    const ticket = await ticketsService.asignar(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function reasignar(req, res, next) {
+  try {
+    const ticket = await ticketsService.reasignar(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function priorizar(req, res, next) {
+  try {
+    const ticket = await ticketsService.priorizar(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function confirmarCierre(req, res, next) {
+  try {
+    const ticket = await ticketsService.confirmarCierre(req.params.id, req.usuario.sub);
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function reabrir(req, res, next) {
+  try {
+    const ticket = await ticketsService.reabrir(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}

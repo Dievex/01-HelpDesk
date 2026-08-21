@@ -8,6 +8,14 @@ export async function listar(req, res, next) {
   }
 }
 
+export async function listarDeMiEquipo(req, res, next) {
+  try {
+    res.json({ usuarios: await usuariosService.listarDeMiEquipo(req.usuario.sub) });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function obtener(req, res, next) {
   try {
     res.json({ usuario: await usuariosService.obtener(req.params.id) });

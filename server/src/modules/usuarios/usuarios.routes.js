@@ -4,8 +4,18 @@ import { requireAuth, requireRole } from '../../middleware/auth.js';
 
 export const usuariosRouter = Router();
 
-// UC-36 a UC-40: todo el CRUD de Usuario es exclusivo del Administrador.
-usuariosRouter.use(requireAuth, requireRole('ADMINISTRADOR'));
+usuariosRouter.use(requireAuth);
+
+// UC-18/UC-19: el Supervisor ve a los Agentes de su propio Equipo, sin acceso al
+// CRUD completo. Va antes del guard de Administrador y de "/:id" para no chocar.
+usuariosRouter.get(
+  '/mi-equipo',
+  requireRole('AGENTE', 'SUPERVISOR'),
+  usuariosController.listarDeMiEquipo,
+);
+
+// UC-36 a UC-40: el resto del CRUD de Usuario es exclusivo del Administrador.
+usuariosRouter.use(requireRole('ADMINISTRADOR'));
 
 usuariosRouter.get('/', usuariosController.listar);
 usuariosRouter.get('/:id', usuariosController.obtener);

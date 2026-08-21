@@ -14,6 +14,16 @@ ticketsRouter.get('/propios', ticketsController.listarPropios);
 ticketsRouter.get('/cola', requireRole('AGENTE', 'SUPERVISOR'), ticketsController.listarCola);
 ticketsRouter.post('/:id/tomar', requireRole('AGENTE', 'SUPERVISOR'), ticketsController.tomar);
 ticketsRouter.post('/:id/resolver', requireRole('AGENTE', 'SUPERVISOR'), ticketsController.resolver);
+ticketsRouter.post('/:id/escalar', requireRole('AGENTE', 'SUPERVISOR'), ticketsController.escalar);
+
+// Exclusivas de Supervisor.
+ticketsRouter.post('/:id/asignar', requireRole('SUPERVISOR'), ticketsController.asignar);
+ticketsRouter.post('/:id/reasignar', requireRole('SUPERVISOR'), ticketsController.reasignar);
+ticketsRouter.post('/:id/priorizar', requireRole('SUPERVISOR'), ticketsController.priorizar);
+
+// De Solicitante (el control de que sea quien reportó el ticket vive en el servicio).
+ticketsRouter.post('/:id/confirmar-cierre', ticketsController.confirmarCierre);
+ticketsRouter.post('/:id/reabrir', ticketsController.reabrir);
 
 // El control de acceso fino (solicitante/agente/equipo) vive en el servicio.
 ticketsRouter.get('/:id', ticketsController.obtener);
