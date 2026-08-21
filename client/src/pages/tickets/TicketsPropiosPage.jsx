@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
-import { ESTADO_LABEL } from './estados.js';
+import EstadoBadge from '../../components/EstadoBadge.jsx';
 
 // UC-05 Listar Tickets Propios
 export default function TicketsPropiosPage() {
@@ -56,7 +56,9 @@ export default function TicketsPropiosPage() {
                 </td>
                 <td>{t.categoria.nombre}</td>
                 <td>{t.prioridad.nombre}</td>
-                <td>{ESTADO_LABEL[t.estado]}</td>
+                <td>
+                  <EstadoBadge estado={t.estado} />
+                </td>
               </tr>
             ))}
           </tbody>

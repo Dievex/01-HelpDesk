@@ -5,7 +5,7 @@ import { usuariosApi } from '../../api/usuarios.js';
 import { prioridadesApi } from '../../api/prioridades.js';
 import { articulosApi } from '../../api/articulos.js';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { ESTADO_LABEL } from './estados.js';
+import EstadoBadge from '../../components/EstadoBadge.jsx';
 
 const ROLES_AGENTE = ['AGENTE', 'SUPERVISOR'];
 const ESTADOS_TOMABLES = ['ABIERTO', 'ESCALADO'];
@@ -174,7 +174,9 @@ export default function TicketDetailPage() {
 
       <dl className="ticket-meta">
         <dt>Estado</dt>
-        <dd>{ESTADO_LABEL[ticket.estado]}</dd>
+        <dd>
+          <EstadoBadge estado={ticket.estado} />
+        </dd>
         <dt>Categoría</dt>
         <dd>{ticket.categoria.nombre}</dd>
         <dt>Prioridad</dt>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
-import { ESTADO_LABEL } from './estados.js';
+import EstadoBadge from '../../components/EstadoBadge.jsx';
 
 // UC-14 Listar Cola de Tickets
 export default function ColaPage() {
@@ -70,7 +70,9 @@ export default function ColaPage() {
                 </td>
                 <td>{t.categoria.nombre}</td>
                 <td>{t.prioridad.nombre}</td>
-                <td>{ESTADO_LABEL[t.estado]}</td>
+                <td>
+                  <EstadoBadge estado={t.estado} />
+                </td>
                 <td>
                   <button type="button" onClick={() => handleTomar(t.id)} disabled={tomandoId === t.id}>
                     {tomandoId === t.id ? 'Tomando…' : 'Tomar'}
@@ -103,7 +105,9 @@ export default function ColaPage() {
                 </td>
                 <td>{t.categoria.nombre}</td>
                 <td>{t.prioridad.nombre}</td>
-                <td>{ESTADO_LABEL[t.estado]}</td>
+                <td>
+                  <EstadoBadge estado={t.estado} />
+                </td>
               </tr>
             ))}
           </tbody>
