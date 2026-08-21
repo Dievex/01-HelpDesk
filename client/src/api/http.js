@@ -1,9 +1,13 @@
 const BASE = '/api';
 
 async function request(path, options = {}) {
+  // FormData (subida de archivos): el navegador pone su propio Content-Type con
+  // el boundary correcto -- forzar 'application/json' rompería la petición.
+  const esFormData = options.body instanceof FormData;
+
   const res = await fetch(`${BASE}${path}`, {
     credentials: 'include', // manda la cookie httpOnly del JWT
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers: esFormData ? options.headers : { 'Content-Type': 'application/json', ...options.headers },
     ...options,
   });
 
@@ -23,4 +27,5 @@ export const http = {
   post: (path, body) => request(path, { method: 'POST', body: body && JSON.stringify(body) }),
   put: (path, body) => request(path, { method: 'PUT', body: JSON.stringify(body) }),
   delete: (path) => request(path, { method: 'DELETE' }),
+  postForm: (path, formData) => request(path, { method: 'POST', body: formData }),
 };

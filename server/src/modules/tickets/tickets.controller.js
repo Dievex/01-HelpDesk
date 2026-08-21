@@ -1,4 +1,7 @@
+import path from 'node:path';
 import * as ticketsService from './tickets.service.js';
+import { env } from '../../config/env.js';
+import { AppError } from '../../utils/AppError.js';
 
 export async function crear(req, res, next) {
   try {
@@ -102,6 +105,49 @@ export async function confirmarCierre(req, res, next) {
 export async function reabrir(req, res, next) {
   try {
     const ticket = await ticketsService.reabrir(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function comentar(req, res, next) {
+  try {
+    const ticket = await ticketsService.comentar(req.params.id, req.usuario.sub, req.body ?? {});
+    res.json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function adjuntar(req, res, next) {
+  try {
+    if (!req.file) {
+      throw new AppError('Selecciona un archivo', 400);
+    }
+    const ticket = await ticketsService.adjuntar(req.params.id, req.usuario.sub, req.file);
+    res.status(201).json({ ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function descargarAdjunto(req, res, next) {
+  try {
+    const adjunto = await ticketsService.obtenerAdjuntoParaDescarga(
+      req.params.id,
+      req.params.adjuntoId,
+      req.usuario.sub,
+    );
+    res.download(path.join(env.uploadsDir, adjunto.nombreFisico), adjunto.nombreArchivo);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function vincularArticulo(req, res, next) {
+  try {
+    const ticket = await ticketsService.vincularArticulo(req.params.id, req.usuario.sub, req.body ?? {});
     res.json({ ticket });
   } catch (err) {
     next(err);

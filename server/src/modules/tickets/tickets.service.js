@@ -9,7 +9,9 @@ const ESTADOS_TOMABLES = { ABIERTO: 'ASIGNADO', ESCALADO: 'EN_PROGRESO' };
 // Escalado->EnProgreso.
 const ESTADOS_RESOLUBLES = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
 const ESTADOS_ESCALABLES = ['ASIGNADO', 'EN_PROGRESO'];
-const ESTADOS_REASIGNABLES = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
+// Mismo conjunto para UC-19 Reasignar y UC-43 Vincular Artículo: ambas exigen
+// "Ticket asignado al actor" en Asignado/EnProgreso/Reabierto.
+const ESTADOS_CON_AGENTE_ACTIVO = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
 
 const AUTOR_SELECT = { select: { id: true, nombre: true } };
 
@@ -23,6 +25,7 @@ const INCLUDE_DETALLE = {
   comentarios: { include: { autor: AUTOR_SELECT }, orderBy: { fecha: 'asc' } },
   adjuntos: { include: { autor: AUTOR_SELECT }, orderBy: { fecha: 'asc' } },
   eventosAuditoria: { include: { autor: AUTOR_SELECT }, orderBy: { fecha: 'asc' } },
+  articulos: { select: { id: true, titulo: true } },
 };
 
 // UC-03: Prioridad "Baja" por defecto -- el Solicitante no la elige.
@@ -214,7 +217,7 @@ export async function reasignar(ticketId, supervisorId, { agenteId }) {
   // FA-1: condición de carrera -- el ticket cambió de agente o de estado mientras
   // el Supervisor decidía (p.ej. el agente original ya lo resolvió o escaló).
   const resultado = await prisma.ticket.updateMany({
-    where: { id: ticketId, agenteId: ticket.agenteId, estado: { in: ESTADOS_REASIGNABLES } },
+    where: { id: ticketId, agenteId: ticket.agenteId, estado: { in: ESTADOS_CON_AGENTE_ACTIVO } },
     data: { agenteId },
   });
   if (resultado.count === 0) {
@@ -295,6 +298,75 @@ export async function reabrir(ticketId, solicitanteId, { motivo }) {
   return cargarConDetalle(ticketId);
 }
 
+// UC-06: no cambia estado ni ningún otro dato del Ticket, no genera notificación.
+export async function comentar(ticketId, actorId, { texto }) {
+  validarTexto(texto, 'El comentario');
+  await cargarTicketConAcceso(ticketId, actorId);
+
+  await prisma.comentario.create({ data: { ticketId, autorId: actorId, texto: texto.trim() } });
+  return cargarConDetalle(ticketId);
+}
+
+// UC-42: el archivo ya está guardado en el volumen por el middleware de subida
+// (server/src/middleware/upload.js) -- aquí solo se crea el registro.
+export async function adjuntar(ticketId, actorId, archivo) {
+  await cargarTicketConAcceso(ticketId, actorId);
+
+  await prisma.adjunto.create({
+    data: {
+      ticketId,
+      autorId: actorId,
+      nombreArchivo: archivo.originalname,
+      nombreFisico: archivo.filename,
+    },
+  });
+  return cargarConDetalle(ticketId);
+}
+
+export async function obtenerAdjuntoParaDescarga(ticketId, adjuntoId, actorId) {
+  await cargarTicketConAcceso(ticketId, actorId);
+
+  const adjunto = await prisma.adjunto.findUnique({ where: { id: adjuntoId } });
+  if (!adjunto || adjunto.ticketId !== ticketId) {
+    throw new AppError('Adjunto no encontrado', 404);
+  }
+  return adjunto;
+}
+
+// UC-43: la asociación no tiene atributos propios -- se registra solo vía
+// EventoAuditoria, mismo mecanismo que Asignar/Escalar/Resolver.
+export async function vincularArticulo(ticketId, agenteId, { articuloId }) {
+  const ticket = await prisma.ticket.findUnique({ where: { id: ticketId } });
+  if (!ticket) {
+    throw new AppError('Ticket no encontrado', 404);
+  }
+  // FA-1: condición de carrera -- el ticket dejó de estar asignado al actor.
+  if (ticket.agenteId !== agenteId || !ESTADOS_CON_AGENTE_ACTIVO.includes(ticket.estado)) {
+    throw new AppError('Solo puedes vincular artículos a un ticket que tengas asignado', 409);
+  }
+
+  const articulo = await prisma.articuloConocimiento.findUnique({ where: { id: articuloId } });
+  if (!articulo) {
+    throw new AppError('El artículo indicado no existe', 400);
+  }
+
+  // FA-2: no duplicar el vínculo si ya existía.
+  const yaVinculado = await prisma.ticket.findFirst({
+    where: { id: ticketId, articulos: { some: { id: articuloId } } },
+  });
+  if (yaVinculado) {
+    throw new AppError('Este artículo ya está vinculado al ticket', 409);
+  }
+
+  await prisma.ticket.update({
+    where: { id: ticketId },
+    data: { articulos: { connect: { id: articuloId } } },
+  });
+  await registrarEvento(ticketId, 'VINCULACION', agenteId);
+
+  return cargarConDetalle(ticketId);
+}
+
 // FA-1 de UC-07: cierre automático disparado por el Sistema al vencer el Plazo de
 // Reapertura -- mismo resultado que Confirmar Cierre, pero con autor = ninguno.
 export async function cerrarPorVencimiento() {
@@ -313,6 +385,19 @@ export async function cerrarPorVencimiento() {
   }
 
   return vencidos.length;
+}
+
+// Mismo control de acceso que UC-04 Ver Ticket, reutilizado por UC-06/UC-42/descarga.
+async function cargarTicketConAcceso(ticketId, actorId) {
+  const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }, include: { categoria: true } });
+  if (!ticket) {
+    throw new AppError('Ticket no encontrado', 404);
+  }
+  const actor = await prisma.usuario.findUnique({ where: { id: actorId } });
+  if (!tieneAcceso(actor, ticket)) {
+    throw new AppError('No tienes acceso a este ticket', 403);
+  }
+  return ticket;
 }
 
 async function cargarTicketDelEquipoSupervisor(ticketId, supervisorId) {

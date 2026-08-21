@@ -167,6 +167,9 @@ model Comentario {
 model Adjunto {
   id            String   @id @default(uuid())
   nombreArchivo String
+  // Nombre real en el volumen (UUID + extensión) -- nombreArchivo es el original,
+  // para mostrar; separarlos evita colisiones y problemas de sanitización de rutas.
+  nombreFisico  String
   fecha         DateTime @default(now())
 
   ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)

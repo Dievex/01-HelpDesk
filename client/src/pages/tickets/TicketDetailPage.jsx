@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
 import { usuariosApi } from '../../api/usuarios.js';
 import { prioridadesApi } from '../../api/prioridades.js';
+import { articulosApi } from '../../api/articulos.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { ESTADO_LABEL } from './estados.js';
 
@@ -11,6 +12,7 @@ const ESTADOS_TOMABLES = ['ABIERTO', 'ESCALADO'];
 const ESTADOS_RESOLUBLES = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
 const ESTADOS_ESCALABLES = ['ASIGNADO', 'EN_PROGRESO'];
 const ESTADOS_REASIGNABLES = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
+const ESTADOS_CON_AGENTE_ACTIVO = ['ASIGNADO', 'EN_PROGRESO', 'REABIERTO'];
 
 // UC-04 Ver Ticket, con el resto del ciclo de vida del Patrón 02 embebido en la
 // misma pantalla (mismo TicketController/TicketActionsView del Modelo de
@@ -27,6 +29,7 @@ export default function TicketDetailPage() {
 
   const [agentesEquipo, setAgentesEquipo] = useState([]);
   const [prioridades, setPrioridades] = useState([]);
+  const [articulosDisponibles, setArticulosDisponibles] = useState([]);
 
   const [comentarioResolucion, setComentarioResolucion] = useState('');
   const [motivoEscalar, setMotivoEscalar] = useState('');
@@ -34,6 +37,9 @@ export default function TicketDetailPage() {
   const [agenteReasignar, setAgenteReasignar] = useState('');
   const [prioridadElegida, setPrioridadElegida] = useState('');
   const [motivoReabrir, setMotivoReabrir] = useState('');
+  const [comentarioNuevo, setComentarioNuevo] = useState('');
+  const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
+  const [articuloVincular, setArticuloVincular] = useState('');
 
   useEffect(() => {
     cargarTicket();
@@ -43,6 +49,11 @@ export default function TicketDetailPage() {
     if (usuario.rol !== 'SUPERVISOR') return;
     usuariosApi.listarDeMiEquipo().then(({ usuarios }) => setAgentesEquipo(usuarios));
     prioridadesApi.listar().then(({ prioridades }) => setPrioridades(prioridades));
+  }, [usuario.rol]);
+
+  useEffect(() => {
+    if (!ROLES_AGENTE.includes(usuario.rol)) return;
+    articulosApi.listar().then(({ articulos }) => setArticulosDisponibles(articulos));
   }, [usuario.rol]);
 
   async function cargarTicket() {
@@ -112,6 +123,27 @@ export default function TicketDetailPage() {
     if (ok) setMotivoReabrir('');
   }
 
+  async function handleComentar(e) {
+    e.preventDefault();
+    const ok = await ejecutarAccion(() => ticketsApi.comentar(id, { texto: comentarioNuevo }));
+    if (ok) setComentarioNuevo('');
+  }
+
+  async function handleAdjuntar(e) {
+    e.preventDefault();
+    if (!archivoSeleccionado) return;
+    const formData = new FormData();
+    formData.append('archivo', archivoSeleccionado);
+    const ok = await ejecutarAccion(() => ticketsApi.adjuntar(id, formData));
+    if (ok) setArchivoSeleccionado(null);
+  }
+
+  async function handleVincularArticulo(e) {
+    e.preventDefault();
+    const ok = await ejecutarAccion(() => ticketsApi.vincularArticulo(id, { articuloId: articuloVincular }));
+    if (ok) setArticuloVincular('');
+  }
+
   if (cargando) return <p>Cargando…</p>;
   if (error && !ticket) return <p className="error">{error}</p>;
   if (!ticket) return null;
@@ -131,6 +163,10 @@ export default function TicketDetailPage() {
   const puedePriorizar = esSupervisor && !ticket.prioridadConfirmada;
   const puedeConfirmarCierre = esSolicitanteDelTicket && ticket.estado === 'RESUELTO';
   const puedeReabrir = esSolicitanteDelTicket && ticket.estado === 'RESUELTO';
+  const puedeVincularArticulo = esAgente && esMiTicket && ESTADOS_CON_AGENTE_ACTIVO.includes(ticket.estado);
+  const articulosParaVincular = articulosDisponibles.filter(
+    (a) => !ticket.articulos.some((v) => v.id === a.id),
+  );
 
   return (
     <section className="ticket-detail">
@@ -301,6 +337,82 @@ export default function TicketDetailPage() {
             </li>
           ))}
         </ul>
+      )}
+      <form onSubmit={handleComentar} className="form">
+        <label>
+          Añadir comentario
+          <textarea
+            value={comentarioNuevo}
+            onChange={(e) => setComentarioNuevo(e.target.value)}
+            rows={2}
+            required
+          />
+        </label>
+        <button type="submit" disabled={enviando}>
+          Comentar
+        </button>
+      </form>
+
+      <h2>Adjuntos</h2>
+      {ticket.adjuntos.length === 0 ? (
+        <p>Sin adjuntos todavía.</p>
+      ) : (
+        <ul className="comment-list">
+          {ticket.adjuntos.map((a) => (
+            <li key={a.id}>
+              <a href={ticketsApi.urlDescargaAdjunto(id, a.id)} target="_blank" rel="noreferrer">
+                {a.nombreArchivo}
+              </a>{' '}
+              — {a.autor.nombre}, {new Date(a.fecha).toLocaleString()}
+            </li>
+          ))}
+        </ul>
+      )}
+      <form onSubmit={handleAdjuntar} className="form">
+        <label>
+          Adjuntar archivo
+          <input
+            type="file"
+            onChange={(e) => setArchivoSeleccionado(e.target.files[0] ?? null)}
+            required
+          />
+        </label>
+        <button type="submit" disabled={enviando || !archivoSeleccionado}>
+          Subir adjunto
+        </button>
+      </form>
+
+      <h2>Artículos de Conocimiento vinculados</h2>
+      {ticket.articulos.length === 0 ? (
+        <p>Ninguno todavía.</p>
+      ) : (
+        <ul className="comment-list">
+          {ticket.articulos.map((a) => (
+            <li key={a.id}>
+              <Link to={`/base-conocimiento/${a.id}`}>{a.titulo}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      {puedeVincularArticulo && (
+        <form onSubmit={handleVincularArticulo} className="form">
+          <label>
+            Vincular artículo
+            <select value={articuloVincular} onChange={(e) => setArticuloVincular(e.target.value)} required>
+              <option value="" disabled>
+                Selecciona…
+              </option>
+              {articulosParaVincular.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.titulo}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button type="submit" disabled={enviando}>
+            Vincular
+          </button>
+        </form>
       )}
 
       <h2>Historial</h2>

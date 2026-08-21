@@ -15,6 +15,8 @@ import EquiposListPage from './pages/equipos/EquiposListPage.jsx';
 import EquipoFormPage from './pages/equipos/EquipoFormPage.jsx';
 import PrioridadesListPage from './pages/prioridades/PrioridadesListPage.jsx';
 import PrioridadFormPage from './pages/prioridades/PrioridadFormPage.jsx';
+import ArticulosListPage from './pages/articulos/ArticulosListPage.jsx';
+import ArticuloFormPage from './pages/articulos/ArticuloFormPage.jsx';
 
 export default function App() {
   return (
@@ -31,6 +33,16 @@ export default function App() {
 
               <Route element={<ProtectedRoute roles={['AGENTE', 'SUPERVISOR']} />}>
                 <Route path="cola" element={<ColaPage />} />
+              </Route>
+
+              {/* UC-09/UC-10: lectura abierta a cualquier autenticado. */}
+              <Route path="base-conocimiento">
+                <Route index element={<ArticulosListPage />} />
+                <Route path=":id" element={<ArticuloFormPage />} />
+              </Route>
+              {/* UC-15 Crear Artículo: exclusivo de Agente de Soporte / Supervisor. */}
+              <Route element={<ProtectedRoute roles={['AGENTE', 'SUPERVISOR']} />}>
+                <Route path="base-conocimiento/nuevo" element={<ArticuloFormPage />} />
               </Route>
 
               <Route element={<ProtectedRoute roles={['ADMINISTRADOR']} />}>

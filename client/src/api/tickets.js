@@ -13,4 +13,8 @@ export const ticketsApi = {
   priorizar: (id, datos) => http.post(`/tickets/${id}/priorizar`, datos),
   confirmarCierre: (id) => http.post(`/tickets/${id}/confirmar-cierre`),
   reabrir: (id, datos) => http.post(`/tickets/${id}/reabrir`, datos),
+  comentar: (id, datos) => http.post(`/tickets/${id}/comentarios`, datos),
+  adjuntar: (id, formData) => http.postForm(`/tickets/${id}/adjuntos`, formData),
+  urlDescargaAdjunto: (id, adjuntoId) => `/api/tickets/${id}/adjuntos/${adjuntoId}`,
+  vincularArticulo: (id, datos) => http.post(`/tickets/${id}/vincular-articulo`, datos),
 };
