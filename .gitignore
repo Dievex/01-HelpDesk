@@ -1,2 +1,8 @@
 .claude
 skills-lock.json
+
+# Construcción
+.env
+node_modules/
+client/dist/
+*.log

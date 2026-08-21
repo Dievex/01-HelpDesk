@@ -1,0 +1,235 @@
+// Traduce el Modelo de Dominio (docs/01-fase-inicio/modelo-dominio/diagrama-clases.md, 14 clases)
+// y los patrones del Modelo de Análisis/Diseño (docs/02-fase-elaboracion/modelo-analisis-diseno/)
+// a un esquema real. Decisión de Iteración 0 (diferida por Elaboración): la jerarquía de rol
+// (Usuario <- AgenteSoporte <- Supervisor, Usuario <- Administrador) se traduce a una única
+// tabla `Usuario` con enum `rol` + campos nullable `nivel`/`equipoId` (single-table inheritance),
+// en vez de una tabla por subtipo -- evita repartir las FK de Ticket (solicitante/agente) entre
+// varias tablas distintas para un caso de uso que en la práctica siempre trata a "quien reporta"
+// y "quien atiende" como el mismo concepto (Usuario).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  SOLICITANTE
+  AGENTE
+  SUPERVISOR
+  ADMINISTRADOR
+}
+
+// Solo tiene sentido cuando rol = AGENTE o SUPERVISOR; nullable para el resto -- mismo
+// trade-off documentado de la single-table inheritance.
+enum NivelAgente {
+  N1
+  N2
+  N3
+}
+
+// Ver docs/01-fase-inicio/modelo-dominio/diagrama-estados.md para las transiciones válidas;
+// la validación de transición vive en el TicketController (Iteración 3/4), no en el esquema.
+enum EstadoTicket {
+  ABIERTO
+  ASIGNADO
+  EN_PROGRESO
+  ESCALADO
+  RESUELTO
+  REABIERTO
+  CERRADO
+}
+
+enum Visibilidad {
+  PUBLICO
+  INTERNO
+}
+
+// 9 valores en uso, confirmados en las 43 especificaciones de caso de uso
+// (ver docs/01-fase-inicio/modelo-dominio/diagrama-clases.md, decisiones de modelado).
+enum TipoEventoAuditoria {
+  CREACION
+  ASIGNACION
+  REASIGNACION
+  RESOLUCION
+  ESCALAMIENTO
+  CIERRE
+  REAPERTURA
+  PRIORIZACION
+  VINCULACION
+}
+
+model Usuario {
+  id             String       @id @default(uuid())
+  nombre         String
+  correo         String       @unique
+  contrasenaHash String
+  rol            Rol
+  nivel          NivelAgente?
+
+  equipo   Equipo? @relation(fields: [equipoId], references: [id])
+  equipoId String?
+
+  ticketsReportados Ticket[] @relation("TicketSolicitante")
+  ticketsAtendidos  Ticket[] @relation("TicketAgente")
+
+  comentarios      Comentario[]
+  adjuntos         Adjunto[]
+  eventosAuditoria EventoAuditoria[]
+  articulos        ArticuloConocimiento[]
+  notificaciones   Notificacion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Equipo {
+  id     String @id @default(uuid())
+  nombre String @unique
+
+  miembros   Usuario[]
+  categorias Categoria[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Categoria {
+  id     String @id @default(uuid())
+  nombre String @unique
+
+  // Opcional: una categoría puede no tener aún un equipo que la atienda.
+  equipo   Equipo? @relation(fields: [equipoId], references: [id])
+  equipoId String?
+
+  tickets Ticket[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prioridad {
+  id     String @id @default(uuid())
+  nombre String @unique
+
+  sla     SLA?
+  tickets Ticket[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SLA {
+  id                     String @id @default(uuid())
+  // En minutos -- unidad fijada aquí porque el Modelo de Dominio no la especificaba.
+  tiempoPrimeraRespuesta Int
+  tiempoResolucion       Int
+
+  prioridad   Prioridad @relation(fields: [prioridadId], references: [id], onDelete: Cascade)
+  prioridadId String    @unique
+}
+
+model Ticket {
+  id                    String       @id @default(uuid())
+  titulo                String
+  descripcion           String
+  estado                EstadoTicket @default(ABIERTO)
+  fechaCreacion         DateTime     @default(now())
+  fechaResolucion       DateTime?
+  prioridadConfirmada   Boolean      @default(false)
+  fechaLimiteReapertura DateTime?
+
+  solicitante   Usuario @relation("TicketSolicitante", fields: [solicitanteId], references: [id])
+  solicitanteId String
+
+  // Opcional: un ticket puede no tener agente asignado todavía.
+  agente   Usuario? @relation("TicketAgente", fields: [agenteId], references: [id])
+  agenteId String?
+
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId String
+
+  prioridad   Prioridad @relation(fields: [prioridadId], references: [id])
+  prioridadId String
+
+  comentarios      Comentario[]
+  adjuntos         Adjunto[]
+  eventosAuditoria EventoAuditoria[]
+  // "Se resuelve con" -- muchos a muchos, opcional en ambos lados.
+  articulos        ArticuloConocimiento[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comentario {
+  id    String   @id @default(uuid())
+  texto String
+  fecha DateTime @default(now())
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId String
+
+  autor   Usuario @relation(fields: [autorId], references: [id])
+  autorId String
+}
+
+model Adjunto {
+  id            String   @id @default(uuid())
+  nombreArchivo String
+  fecha         DateTime @default(now())
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId String
+
+  autor   Usuario @relation(fields: [autorId], references: [id])
+  autorId String
+}
+
+model EventoAuditoria {
+  id         String              @id @default(uuid())
+  tipoEvento TipoEventoAuditoria
+  fecha      DateTime            @default(now())
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId String
+
+  // Opcional: eventos disparados por el propio Sistema (p.ej. cierre automático) no tienen autor.
+  autor   Usuario? @relation(fields: [autorId], references: [id])
+  autorId String?
+
+  notificaciones Notificacion[]
+}
+
+model ArticuloConocimiento {
+  id          String      @id @default(uuid())
+  titulo      String
+  contenido   String
+  visibilidad Visibilidad
+
+  autor   Usuario @relation(fields: [autorId], references: [id])
+  autorId String
+
+  tickets Ticket[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notificacion {
+  id         String   @id @default(uuid())
+  mensaje    String
+  fechaEnvio DateTime @default(now())
+  // Campo técnico sin equivalente en el Modelo de Dominio: necesario para la decisión de
+  // Iteración 3 de entregar Notificacion como lista in-app (sin email) -- ver plan de Construcción.
+  leida      Boolean  @default(false)
+
+  destinatario   Usuario @relation(fields: [destinatarioId], references: [id])
+  destinatarioId String
+
+  evento   EventoAuditoria? @relation(fields: [eventoId], references: [id])
+  eventoId String?
+}
