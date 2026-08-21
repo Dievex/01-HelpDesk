@@ -51,13 +51,56 @@ body {
 }
 
 .form input,
-.form select {
+.form select,
+.form textarea {
   padding: 0.4rem;
   font-size: 1rem;
+  font-family: inherit;
 }
 
 .form-page {
   max-width: 420px;
+}
+
+.ticket-detail {
+  max-width: 720px;
+}
+
+.ticket-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 1rem 0;
+}
+
+.ticket-meta dt {
+  font-weight: 600;
+  color: #555;
+}
+
+.ticket-meta dd {
+  margin: 0;
+}
+
+.comment-list,
+.audit-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-list li {
+  border-top: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+
+.comment-list p {
+  margin: 0.25rem 0 0;
+}
+
+.audit-list li {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 0.2rem 0;
 }
 
 .form-actions {

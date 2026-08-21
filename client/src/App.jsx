@@ -3,7 +3,10 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import { ProtectedRoute } from './routes/ProtectedRoute.jsx';
 import AppLayout from './components/AppLayout.jsx';
 import LoginPage from './pages/LoginPage.jsx';
-import HomePage from './pages/HomePage.jsx';
+import TicketsPropiosPage from './pages/tickets/TicketsPropiosPage.jsx';
+import TicketNuevoPage from './pages/tickets/TicketNuevoPage.jsx';
+import TicketDetailPage from './pages/tickets/TicketDetailPage.jsx';
+import ColaPage from './pages/tickets/ColaPage.jsx';
 import UsuariosListPage from './pages/usuarios/UsuariosListPage.jsx';
 import UsuarioFormPage from './pages/usuarios/UsuarioFormPage.jsx';
 import CategoriasListPage from './pages/categorias/CategoriasListPage.jsx';
@@ -22,7 +25,13 @@ export default function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<TicketsPropiosPage />} />
+              <Route path="tickets/nuevo" element={<TicketNuevoPage />} />
+              <Route path="tickets/:id" element={<TicketDetailPage />} />
+
+              <Route element={<ProtectedRoute roles={['AGENTE', 'SUPERVISOR']} />}>
+                <Route path="cola" element={<ColaPage />} />
+              </Route>
 
               <Route element={<ProtectedRoute roles={['ADMINISTRADOR']} />}>
                 <Route path="usuarios">

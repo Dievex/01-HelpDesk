@@ -32,7 +32,14 @@ async function seedAdministrador() {
 }
 
 // Catálogo mínimo para poder crear un Ticket sin pasar antes por toda la UI de
-// configuración (Categoría y Prioridad son obligatorias en todo Ticket).
+// configuración. "Baja" es obligatoria: UC-03 crea todo ticket nuevo con esa
+// Prioridad por defecto.
+const PRIORIDADES_BASE = [
+  { nombre: 'Baja', tiempoPrimeraRespuesta: 240, tiempoResolucion: 2880 },
+  { nombre: 'Media', tiempoPrimeraRespuesta: 60, tiempoResolucion: 480 },
+  { nombre: 'Alta', tiempoPrimeraRespuesta: 15, tiempoResolucion: 120 },
+];
+
 async function seedCatalogoBase() {
   const equipo = await prisma.equipo.upsert({
     where: { nombre: 'Soporte General' },
@@ -46,16 +53,15 @@ async function seedCatalogoBase() {
     create: { nombre: 'General', equipoId: equipo.id },
   });
 
-  await prisma.prioridad.upsert({
-    where: { nombre: 'Media' },
-    update: {},
-    create: {
-      nombre: 'Media',
-      sla: { create: { tiempoPrimeraRespuesta: 60, tiempoResolucion: 480 } },
-    },
-  });
+  for (const { nombre, tiempoPrimeraRespuesta, tiempoResolucion } of PRIORIDADES_BASE) {
+    await prisma.prioridad.upsert({
+      where: { nombre },
+      update: {},
+      create: { nombre, sla: { create: { tiempoPrimeraRespuesta, tiempoResolucion } } },
+    });
+  }
 
-  console.log('[seed] catálogo base: Equipo "Soporte General", Categoría "General", Prioridad "Media".');
+  console.log('[seed] catálogo base: Equipo "Soporte General", Categoría "General", Prioridades Baja/Media/Alta.');
 }
 
 main()

@@ -13,4 +13,6 @@ export const env = {
   port: Number(process.env.PORT ?? 3000),
   databaseUrl: required('DATABASE_URL'),
   jwtSecret: required('JWT_SECRET'),
+  // Configuración de instancia, no un valor fijo del producto (arquitectura.md).
+  plazoReaperturaMinutos: Number(process.env.REOPEN_GRACE_DAYS ?? 7) * 24 * 60,
 };

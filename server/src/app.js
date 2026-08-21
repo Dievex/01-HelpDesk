@@ -7,6 +7,7 @@ import { usuariosRouter } from './modules/usuarios/usuarios.routes.js';
 import { categoriasRouter } from './modules/categorias/categorias.routes.js';
 import { equiposRouter } from './modules/equipos/equipos.routes.js';
 import { prioridadesRouter } from './modules/prioridades/prioridades.routes.js';
+import { ticketsRouter } from './modules/tickets/tickets.routes.js';
 
 export function createApp() {
   const app = express();
@@ -23,6 +24,7 @@ export function createApp() {
   app.use('/api/categorias', categoriasRouter);
   app.use('/api/equipos', equiposRouter);
   app.use('/api/prioridades', prioridadesRouter);
+  app.use('/api/tickets', ticketsRouter);
 
   // En producción, Express sirve también el build estático de React (ver Dockerfile,
   // stage "prod") -- en desarrollo el cliente corre aparte en el servidor de Vite.
