@@ -23,6 +23,13 @@ FROM base AS build
 COPY . .
 RUN npm run build --workspace=client
 
+# ---- migrate: aplica migraciones de Prisma contra una BD de producción ----
+# Target aparte porque el stage "prod" no tiene la CLI de Prisma (devDependency,
+# omitida con --omit=dev) -- ver Iteración 0 en decisiones-tecnicas.md de Construcción.
+FROM base AS migrate
+COPY . .
+CMD ["npx", "prisma", "migrate", "deploy"]
+
 # ---- prod: un único contenedor sirviendo API + cliente estático (Decisión de Arquitectura) ----
 FROM node:22-alpine AS prod
 RUN apk add --no-cache openssl

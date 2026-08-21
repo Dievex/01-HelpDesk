@@ -4,7 +4,7 @@ Sistema de gestión de mesa de ayuda, self-hosted: creación, seguimiento, asign
 
 ## Estado del proyecto
 
-Fase de **Elaboración** cerrada (hito LCAM). Fase de **Construcción** aún no iniciada — no hay build ejecutable.
+Fase de **Construcción** cerrada (hito IOCM) — catálogo completo de 44 casos de uso implementado y operable. Fase de **Transición** en curso: Iteración 1 (empaquetado de producción) cerrada, falta el manual de instalación y la validación end-to-end antes del hito PRM.
 
 ## Documentación
 

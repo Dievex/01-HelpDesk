@@ -1,0 +1,73 @@
+# Despliegue de producción -- ver docs/04-fase-transicion/manual-instalacion.md
+# Diferencias clave contra docker-compose.yml (dev):
+#   - "app" usa el target "prod" (un contenedor, API + cliente estático) y no publica
+#     puertos al host -- solo es alcanzable a través de "caddy".
+#   - "db" no publica su puerto al host (superficie de ataque mínima).
+#   - "migrate" aplica las migraciones de Prisma antes de que "app" arranque
+#     (el target "prod" no trae la CLI de Prisma -- ver Dockerfile).
+#   - "caddy" termina TLS (HTTPS automático vía Let's Encrypt) y hace de reverse proxy.
+
+services:
+  migrate:
+    build:
+      context: .
+      target: migrate
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  app:
+    build:
+      context: .
+      target: prod
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  uploads:
+  caddy-data:
+  caddy-config:

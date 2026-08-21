@@ -1,0 +1,9 @@
+# Reverse proxy de producción -- ver docs/04-fase-transicion/manual-instalacion.md
+#
+# Caddy obtiene y renueva el certificado HTTPS solo (Let's Encrypt) para {$DOMAIN},
+# siempre que el puerto 80 y 443 del host sean alcanzables desde internet y el DNS
+# de {$DOMAIN} ya apunte a esta máquina -- si no, falla el challenge ACME.
+
+{$DOMAIN} {
+	reverse_proxy app:3000
+}
