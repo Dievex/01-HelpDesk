@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { usuariosApi } from '../../api/usuarios.js';
+import { categoriasApi } from '../../api/categorias.js';
 import { equiposApi } from '../../api/equipos.js';
 
-// UC-38 Listar Usuarios
-export default function UsuariosListPage() {
-  const [usuarios, setUsuarios] = useState([]);
+export default function CategoriasListPage() {
+  const [categorias, setCategorias] = useState([]);
   const [equiposPorId, setEquiposPorId] = useState({});
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
@@ -18,11 +17,11 @@ export default function UsuariosListPage() {
     setCargando(true);
     setError(null);
     try {
-      const [{ usuarios }, { equipos }] = await Promise.all([
-        usuariosApi.listar(),
+      const [{ categorias }, { equipos }] = await Promise.all([
+        categoriasApi.listar(),
         equiposApi.listar(),
       ]);
-      setUsuarios(usuarios);
+      setCategorias(categorias);
       setEquiposPorId(Object.fromEntries(equipos.map((e) => [e.id, e.nombre])));
     } catch (err) {
       setError(err.message);
@@ -34,8 +33,8 @@ export default function UsuariosListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Usuarios</h1>
-        <Link to="/usuarios/nuevo">+ Crear usuario</Link>
+        <h1>Categorías</h1>
+        <Link to="/categorias/nueva">+ Crear categoría</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
@@ -46,22 +45,16 @@ export default function UsuariosListPage() {
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Correo</th>
-              <th>Rol</th>
-              <th>Nivel</th>
               <th>Equipo</th>
             </tr>
           </thead>
           <tbody>
-            {usuarios.map((u) => (
-              <tr key={u.id}>
+            {categorias.map((c) => (
+              <tr key={c.id}>
                 <td>
-                  <Link to={`/usuarios/${u.id}`}>{u.nombre}</Link>
+                  <Link to={`/categorias/${c.id}`}>{c.nombre}</Link>
                 </td>
-                <td>{u.correo}</td>
-                <td>{u.rol}</td>
-                <td>{u.nivel ?? '—'}</td>
-                <td>{u.equipoId ? equiposPorId[u.equipoId] : '—'}</td>
+                <td>{c.equipoId ? equiposPorId[c.equipoId] : '—'}</td>
               </tr>
             ))}
           </tbody>

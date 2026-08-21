@@ -39,3 +39,14 @@ Registro de las decisiones de implementación tomadas en cada iteración de Cons
 - El volumen con nombre de `node_modules` no se refresca solo al reconstruir la imagen tras añadir una dependencia nueva — hay que borrarlo a mano (`docker volume rm 01-helpdesk_app-node-modules`) cuando pase. Documentado también como comentario corto en `docker-compose.yml`.
 
 **Cierre:** probado en navegador real (no solo por API): login con el admin seedeado y con un usuario recién creado, guardia de rol en frontend y backend, CRUD completo de Usuario (crear con campo "Nivel" condicional, ver/editar precargado, eliminar con confirmación).
+
+## Iteración 2 — Catálogo: Categoría, Equipo, Prioridad+SLA
+
+- **`onDelete: SetNull` añadido explícitamente en `Usuario.equipo` y `Categoria.equipo`** — resultó ser ya el comportamiento por defecto de Prisma en relaciones opcionales (no generó migración), pero se deja explícito en el schema porque documenta la intención ("Eliminar Equipo no bloquea, cascada a sin equipo") sin tener que ir a buscar la regla en la documentación de Prisma.
+- **`SLA` se crea/edita anidado dentro de `Prioridad`** (`sla: { create/update: {...} }` de Prisma), sin ruta ni Controller propios — coherente con la decisión ya tomada en Elaboración de que `SLA` no tiene CRUD propio.
+- **Sin componente compartido de lista/formulario entre Categoría, Equipo y Prioridad**, aunque el Patrón 06 los modela como un único `EntityForm`/`EntityListView` genérico. Los tres campos que varían (Categoría con selector de Equipo, Prioridad con los dos campos de SLA, Equipo sin nada extra) hacían que una abstracción genérica necesitara props de configuración por campo — más indirección que las ~60 líneas que cuesta repetir cada página. Revisar si vale la pena extraerla si aparece una quinta entidad con la misma forma.
+- **`equipoId` de Usuario completado** (pendiente desde la Iteración 1): selector condicional a rol Agente/Supervisor, igual criterio que el campo Nivel.
+- **UC-25/UC-35 (bloqueo de borrado de Categoría/Prioridad en uso): validación escrita y activa**, mismo caso que UC-40 en la Iteración 1 — no demostrable hasta que `Ticket` tenga datos reales (Iteración 3).
+- **Seed extendido con catálogo base** (Equipo "Soporte General", Categoría "General", Prioridad "Media" con SLA 60/480 min) usando `upsert` idempotente, para no depender de crear todo a mano antes de poder probar un Ticket en la Iteración 3.
+
+**Cierre:** probado en navegador real: CRUD completo de las 3 entidades, selector de Equipo en Categoría y en Usuario, SLA precargado al editar una Prioridad, y el caso de borrado en cascada verificado visualmente — al eliminar un Equipo en uso, la Categoría y el Usuario que lo referenciaban pasan a mostrar "—"/"Sin equipo" sin error.

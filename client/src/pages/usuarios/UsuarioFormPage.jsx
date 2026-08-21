@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usuariosApi } from '../../api/usuarios.js';
+import { equiposApi } from '../../api/equipos.js';
 
 const ROLES = ['SOLICITANTE', 'AGENTE', 'SUPERVISOR', 'ADMINISTRADOR'];
 const NIVELES = ['N1', 'N2', 'N3'];
 const ROLES_CON_NIVEL = ['AGENTE', 'SUPERVISOR'];
 
-const FORM_VACIO = { nombre: '', correo: '', contrasena: '', rol: 'SOLICITANTE', nivel: '' };
+const FORM_VACIO = {
+  nombre: '',
+  correo: '',
+  contrasena: '',
+  rol: 'SOLICITANTE',
+  nivel: '',
+  equipoId: '',
+};
 
 // UC-36 Crear, UC-37 Ver, UC-39 Editar, UC-40 Eliminar Usuario.
 export default function UsuarioFormPage() {
@@ -15,15 +23,27 @@ export default function UsuarioFormPage() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(FORM_VACIO);
-  const [cargando, setCargando] = useState(editando);
+  const [equipos, setEquipos] = useState([]);
+  const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const [enviando, setEnviando] = useState(false);
 
   useEffect(() => {
-    if (!editando) return;
-    usuariosApi
-      .obtener(id)
-      .then(({ usuario }) => setForm({ ...usuario, contrasena: '', nivel: usuario.nivel ?? '' }))
+    const cargas = [equiposApi.listar()];
+    if (editando) cargas.push(usuariosApi.obtener(id));
+
+    Promise.all(cargas)
+      .then(([{ equipos }, usuarioRes]) => {
+        setEquipos(equipos);
+        if (usuarioRes) {
+          setForm({
+            ...usuarioRes.usuario,
+            contrasena: '',
+            nivel: usuarioRes.usuario.nivel ?? '',
+            equipoId: usuarioRes.usuario.equipoId ?? '',
+          });
+        }
+      })
       .catch((err) => setError(err.message))
       .finally(() => setCargando(false));
   }, [id, editando]);
@@ -38,7 +58,12 @@ export default function UsuarioFormPage() {
     setEnviando(true);
     try {
       const datos = { ...form };
-      if (!ROLES_CON_NIVEL.includes(datos.rol)) datos.nivel = null;
+      if (!ROLES_CON_NIVEL.includes(datos.rol)) {
+        datos.nivel = null;
+        datos.equipoId = null;
+      } else {
+        datos.equipoId = datos.equipoId || null;
+      }
       if (editando && !datos.contrasena) delete datos.contrasena;
 
       if (editando) {
@@ -123,6 +148,22 @@ export default function UsuarioFormPage() {
               {NIVELES.map((n) => (
                 <option key={n} value={n}>
                   {n}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        {ROLES_CON_NIVEL.includes(form.rol) && (
+          <label>
+            Equipo
+            <select
+              value={form.equipoId}
+              onChange={(e) => actualizarCampo('equipoId', e.target.value)}
+            >
+              <option value="">Sin equipo</option>
+              {equipos.map((eq) => (
+                <option key={eq.id} value={eq.id}>
+                  {eq.nombre}
                 </option>
               ))}
             </select>

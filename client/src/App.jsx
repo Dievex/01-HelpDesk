@@ -6,6 +6,12 @@ import LoginPage from './pages/LoginPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import UsuariosListPage from './pages/usuarios/UsuariosListPage.jsx';
 import UsuarioFormPage from './pages/usuarios/UsuarioFormPage.jsx';
+import CategoriasListPage from './pages/categorias/CategoriasListPage.jsx';
+import CategoriaFormPage from './pages/categorias/CategoriaFormPage.jsx';
+import EquiposListPage from './pages/equipos/EquiposListPage.jsx';
+import EquipoFormPage from './pages/equipos/EquipoFormPage.jsx';
+import PrioridadesListPage from './pages/prioridades/PrioridadesListPage.jsx';
+import PrioridadFormPage from './pages/prioridades/PrioridadFormPage.jsx';
 
 export default function App() {
   return (
@@ -18,10 +24,27 @@ export default function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
 
-              <Route path="usuarios" element={<ProtectedRoute roles={['ADMINISTRADOR']} />}>
-                <Route index element={<UsuariosListPage />} />
-                <Route path="nuevo" element={<UsuarioFormPage />} />
-                <Route path=":id" element={<UsuarioFormPage />} />
+              <Route element={<ProtectedRoute roles={['ADMINISTRADOR']} />}>
+                <Route path="usuarios">
+                  <Route index element={<UsuariosListPage />} />
+                  <Route path="nuevo" element={<UsuarioFormPage />} />
+                  <Route path=":id" element={<UsuarioFormPage />} />
+                </Route>
+                <Route path="categorias">
+                  <Route index element={<CategoriasListPage />} />
+                  <Route path="nueva" element={<CategoriaFormPage />} />
+                  <Route path=":id" element={<CategoriaFormPage />} />
+                </Route>
+                <Route path="equipos">
+                  <Route index element={<EquiposListPage />} />
+                  <Route path="nuevo" element={<EquipoFormPage />} />
+                  <Route path=":id" element={<EquipoFormPage />} />
+                </Route>
+                <Route path="prioridades">
+                  <Route index element={<PrioridadesListPage />} />
+                  <Route path="nueva" element={<PrioridadFormPage />} />
+                  <Route path=":id" element={<PrioridadFormPage />} />
+                </Route>
               </Route>
             </Route>
           </Route>

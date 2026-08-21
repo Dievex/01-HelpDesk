@@ -33,11 +33,11 @@ export async function obtener(id) {
   return usuario;
 }
 
-export async function crear({ nombre, correo, contrasena, rol, nivel }) {
+export async function crear({ nombre, correo, contrasena, rol, nivel, equipoId }) {
   validarDatosBasicos({ nombre, correo, rol, nivel });
   validarContrasena(contrasena);
-
   await validarCorreoDisponible(correo);
+  await validarEquipoExiste(equipoId);
 
   const contrasenaHash = await bcrypt.hash(contrasena, 10);
 
@@ -48,6 +48,7 @@ export async function crear({ nombre, correo, contrasena, rol, nivel }) {
       contrasenaHash,
       rol,
       nivel: ROLES_CON_NIVEL.includes(rol) ? nivel : null,
+      equipoId: ROLES_CON_NIVEL.includes(rol) ? equipoId || null : null,
     },
     select: SELECT_PUBLICO,
   });
@@ -56,16 +57,18 @@ export async function crear({ nombre, correo, contrasena, rol, nivel }) {
 }
 
 // La contraseña solo se actualiza si se envía una nueva.
-export async function editar(id, { nombre, correo, contrasena, rol, nivel }) {
+export async function editar(id, { nombre, correo, contrasena, rol, nivel, equipoId }) {
   await obtener(id);
   validarDatosBasicos({ nombre, correo, rol, nivel });
   await validarCorreoDisponible(correo, id);
+  await validarEquipoExiste(equipoId);
 
   const data = {
     nombre,
     correo,
     rol,
     nivel: ROLES_CON_NIVEL.includes(rol) ? nivel : null,
+    equipoId: ROLES_CON_NIVEL.includes(rol) ? equipoId || null : null,
   };
 
   if (contrasena) {
@@ -118,5 +121,13 @@ async function validarCorreoDisponible(correo, idAExcluir) {
   const existente = await prisma.usuario.findUnique({ where: { correo } });
   if (existente && existente.id !== idAExcluir) {
     throw new AppError('Ya existe un usuario con ese correo', 409);
+  }
+}
+
+async function validarEquipoExiste(equipoId) {
+  if (!equipoId) return;
+  const equipo = await prisma.equipo.findUnique({ where: { id: equipoId } });
+  if (!equipo) {
+    throw new AppError('El equipo indicado no existe', 400);
   }
 }
