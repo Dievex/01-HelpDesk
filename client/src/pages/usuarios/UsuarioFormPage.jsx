@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usuariosApi } from '../../api/usuarios.js';
 import { equiposApi } from '../../api/equipos.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 const ROLES = ['SOLICITANTE', 'AGENTE', 'SUPERVISOR', 'ADMINISTRADOR'];
 const NIVELES = ['N1', 'N2', 'N3'];
@@ -96,7 +97,14 @@ export default function UsuarioFormPage() {
 
   return (
     <section className="form-page">
-      <h1>{editando ? 'Editar usuario' : 'Crear usuario'}</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.usuarios} />
+          </span>
+          <h1>{editando ? 'Editar usuario' : 'Crear usuario'}</h1>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className="form">
         <label>
           Nombre

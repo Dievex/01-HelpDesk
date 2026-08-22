@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categoriasApi } from '../../api/categorias.js';
 import { equiposApi } from '../../api/equipos.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 const FORM_VACIO = { nombre: '', equipoId: '' };
 
@@ -70,7 +71,14 @@ export default function CategoriaFormPage() {
 
   return (
     <section className="form-page">
-      <h1>{editando ? 'Editar categoría' : 'Crear categoría'}</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.etiqueta} />
+          </span>
+          <h1>{editando ? 'Editar categoría' : 'Crear categoría'}</h1>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className="form">
         <label>
           Nombre

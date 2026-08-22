@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { reportsApi } from '../../api/reports.js';
 import { ESTADO_LABEL } from '../tickets/estados.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 // UC-20: mes actual (día 1 hasta hoy) como rango por defecto.
 function rangoMesActual() {
@@ -54,7 +55,14 @@ export default function DashboardMetricasPage() {
 
   return (
     <section>
-      <h1>Dashboard de Métricas</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.dashboard} />
+          </span>
+          <h1>Dashboard de Métricas</h1>
+        </div>
+      </div>
 
       <form className="form" onSubmit={onSubmit} style={{ flexDirection: 'row', alignItems: 'flex-end', gap: '1rem' }}>
         <label>
@@ -81,14 +89,36 @@ export default function DashboardMetricasPage() {
       </form>
 
       {error && <p className="error">{error}</p>}
-      {cargando && <p>Cargando…</p>}
+      {cargando && <p className="estado-vacio">Cargando…</p>}
 
       {!cargando && metricas && metricas.volumen.total === 0 && (
-        <p>No hay tickets creados en el rango seleccionado.</p>
+        <p className="estado-vacio">No hay tickets creados en el rango seleccionado.</p>
       )}
 
       {!cargando && metricas && metricas.volumen.total > 0 && (
         <>
+          <div className="stat-grid">
+            <div className="stat-card">
+              <div className="stat-card-label">Tickets en el rango</div>
+              <div className="stat-card-value">{metricas.volumen.total}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-label">1ª respuesta promedio</div>
+              <div className="stat-card-value">{formatoMinutos(metricas.tiempos.primeraRespuestaMinutos)}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-label">Resolución promedio</div>
+              <div className="stat-card-value">{formatoMinutos(metricas.tiempos.resolucionMinutos)}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-label">SLA de resolución</div>
+              <div className="stat-card-value">{formatoPorcentaje(metricas.cumplimientoSla.resolucionPorcentaje)}</div>
+              <div className="stat-card-hint">
+                1ª respuesta: {formatoPorcentaje(metricas.cumplimientoSla.primeraRespuestaPorcentaje)}
+              </div>
+            </div>
+          </div>
+
           <h2>Volumen</h2>
           <table className="table">
             <thead>

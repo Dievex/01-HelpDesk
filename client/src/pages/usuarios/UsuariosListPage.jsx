@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usuariosApi } from '../../api/usuarios.js';
 import { equiposApi } from '../../api/equipos.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 // UC-38 Listar Usuarios
 export default function UsuariosListPage() {
@@ -34,13 +35,18 @@ export default function UsuariosListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Usuarios</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.usuarios} />
+          </span>
+          <h1>Usuarios</h1>
+        </div>
         <Link to="/usuarios/nuevo">+ Crear usuario</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : (
         <table className="table">
           <thead>

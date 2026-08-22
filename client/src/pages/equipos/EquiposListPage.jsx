@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { equiposApi } from '../../api/equipos.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 export default function EquiposListPage() {
   const [equipos, setEquipos] = useState([]);
@@ -27,13 +28,18 @@ export default function EquiposListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Equipos</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.equipos} />
+          </span>
+          <h1>Equipos</h1>
+        </div>
         <Link to="/equipos/nuevo">+ Crear equipo</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : (
         <table className="table">
           <thead>

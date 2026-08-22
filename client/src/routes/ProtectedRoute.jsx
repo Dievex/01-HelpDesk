@@ -8,7 +8,11 @@ export function ProtectedRoute({ roles }) {
   const location = useLocation();
 
   if (cargando) {
-    return <p>Cargando…</p>;
+    return (
+      <div className="full-page-loader">
+        <span className="spinner" />
+      </div>
+    );
   }
 
   if (!usuario) {

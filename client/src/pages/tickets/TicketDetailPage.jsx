@@ -168,263 +168,300 @@ export default function TicketDetailPage() {
     (a) => !ticket.articulos.some((v) => v.id === a.id),
   );
 
+  const hayAcciones =
+    puedeTomar ||
+    puedeResolver ||
+    puedeEscalar ||
+    puedeAsignar ||
+    puedeReasignar ||
+    puedePriorizar ||
+    puedeConfirmarCierre ||
+    puedeReabrir;
+
   return (
-    <section className="ticket-detail">
-      <h1>{ticket.titulo}</h1>
-
-      <dl className="ticket-meta">
-        <dt>Estado</dt>
-        <dd>
-          <EstadoBadge estado={ticket.estado} />
-        </dd>
-        <dt>Categoría</dt>
-        <dd>{ticket.categoria.nombre}</dd>
-        <dt>Prioridad</dt>
-        <dd>
-          {ticket.prioridad.nombre}
-          {!ticket.prioridadConfirmada && ' (sin confirmar)'}
-        </dd>
-        <dt>Solicitante</dt>
-        <dd>{ticket.solicitante.nombre}</dd>
-        <dt>Agente</dt>
-        <dd>{ticket.agente?.nombre ?? 'Sin asignar'}</dd>
-      </dl>
-
-      <p>{ticket.descripcion}</p>
+    <div className="ticket-detail">
+      <div className="ticket-detail-header">
+        <div>
+          <p className="ticket-detail-eyebrow">Ticket</p>
+          <h1>{ticket.titulo}</h1>
+        </div>
+        <EstadoBadge estado={ticket.estado} />
+      </div>
 
       {error && <p className="error">{error}</p>}
 
-      <div className="ticket-actions">
-        {puedeTomar && (
-          <button type="button" onClick={handleTomar} disabled={enviando}>
-            Tomar ticket
-          </button>
-        )}
+      <div className="ticket-detail-grid">
+        <div className="ticket-detail-main">
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Descripción</h2>
+            <p>{ticket.descripcion}</p>
+          </section>
 
-        {puedeResolver && (
-          <form onSubmit={handleResolver} className="form">
-            <label>
-              Resolver -- comentario de solución (opcional)
-              <textarea
-                value={comentarioResolucion}
-                onChange={(e) => setComentarioResolucion(e.target.value)}
-                rows={2}
-              />
-            </label>
-            <button type="submit" disabled={enviando}>
-              Resolver ticket
-            </button>
-          </form>
-        )}
+          {hayAcciones && (
+            <section className="ticket-panel">
+              <h2 className="ticket-panel-title">Acciones</h2>
+              <div className="ticket-actions">
+                {puedeTomar && (
+                  <button type="button" onClick={handleTomar} disabled={enviando}>
+                    Tomar ticket
+                  </button>
+                )}
 
-        {puedeEscalar && (
-          <form onSubmit={handleEscalar} className="form">
-            <label>
-              Escalar -- motivo
-              <textarea
-                value={motivoEscalar}
-                onChange={(e) => setMotivoEscalar(e.target.value)}
-                rows={2}
-                required
-              />
-            </label>
-            <button type="submit" disabled={enviando}>
-              Escalar ticket
-            </button>
-          </form>
-        )}
+                {puedeResolver && (
+                  <form onSubmit={handleResolver} className="form">
+                    <label>
+                      Resolver -- comentario de solución (opcional)
+                      <textarea
+                        value={comentarioResolucion}
+                        onChange={(e) => setComentarioResolucion(e.target.value)}
+                        rows={2}
+                      />
+                    </label>
+                    <button type="submit" disabled={enviando}>
+                      Resolver ticket
+                    </button>
+                  </form>
+                )}
 
-        {puedeAsignar && (
-          <form onSubmit={handleAsignar} className="form">
-            <label>
-              Asignar a
-              <select value={agenteAsignar} onChange={(e) => setAgenteAsignar(e.target.value)} required>
-                <option value="" disabled>
-                  Selecciona un agente…
-                </option>
-                {agentesEquipo.map((a) => (
-                  <option key={a.id} value={a.id}>
-                    {a.nombre}
-                  </option>
+                {puedeEscalar && (
+                  <form onSubmit={handleEscalar} className="form">
+                    <label>
+                      Escalar -- motivo
+                      <textarea
+                        value={motivoEscalar}
+                        onChange={(e) => setMotivoEscalar(e.target.value)}
+                        rows={2}
+                        required
+                      />
+                    </label>
+                    <button type="submit" disabled={enviando}>
+                      Escalar ticket
+                    </button>
+                  </form>
+                )}
+
+                {puedeAsignar && (
+                  <form onSubmit={handleAsignar} className="form">
+                    <label>
+                      Asignar a
+                      <select value={agenteAsignar} onChange={(e) => setAgenteAsignar(e.target.value)} required>
+                        <option value="" disabled>
+                          Selecciona un agente…
+                        </option>
+                        {agentesEquipo.map((a) => (
+                          <option key={a.id} value={a.id}>
+                            {a.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button type="submit" disabled={enviando}>
+                      Asignar ticket
+                    </button>
+                  </form>
+                )}
+
+                {puedeReasignar && (
+                  <form onSubmit={handleReasignar} className="form">
+                    <label>
+                      Reasignar a
+                      <select value={agenteReasignar} onChange={(e) => setAgenteReasignar(e.target.value)} required>
+                        <option value="" disabled>
+                          Selecciona un agente…
+                        </option>
+                        {agentesEquipo
+                          .filter((a) => a.id !== ticket.agenteId)
+                          .map((a) => (
+                            <option key={a.id} value={a.id}>
+                              {a.nombre}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                    <button type="submit" disabled={enviando}>
+                      Reasignar ticket
+                    </button>
+                  </form>
+                )}
+
+                {puedePriorizar && (
+                  <form onSubmit={handlePriorizar} className="form">
+                    <label>
+                      Confirmar Prioridad real
+                      <select
+                        value={prioridadElegida}
+                        onChange={(e) => setPrioridadElegida(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>
+                          Selecciona…
+                        </option>
+                        {prioridades.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button type="submit" disabled={enviando}>
+                      Confirmar Prioridad
+                    </button>
+                  </form>
+                )}
+
+                {puedeConfirmarCierre && (
+                  <button type="button" onClick={handleConfirmarCierre} disabled={enviando}>
+                    Confirmar cierre
+                  </button>
+                )}
+
+                {puedeReabrir && (
+                  <form onSubmit={handleReabrir} className="form">
+                    <label>
+                      Reabrir -- motivo
+                      <textarea
+                        value={motivoReabrir}
+                        onChange={(e) => setMotivoReabrir(e.target.value)}
+                        rows={2}
+                        required
+                      />
+                    </label>
+                    <button type="submit" disabled={enviando} className="danger">
+                      Reabrir ticket
+                    </button>
+                  </form>
+                )}
+              </div>
+            </section>
+          )}
+
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Comentarios</h2>
+            {ticket.comentarios.length === 0 ? (
+              <p className="estado-vacio">Sin comentarios todavía.</p>
+            ) : (
+              <ul className="comment-list">
+                {ticket.comentarios.map((c) => (
+                  <li key={c.id}>
+                    <strong>{c.autor.nombre}</strong> — {new Date(c.fecha).toLocaleString()}
+                    <p>{c.texto}</p>
+                  </li>
                 ))}
-              </select>
-            </label>
-            <button type="submit" disabled={enviando}>
-              Asignar ticket
-            </button>
-          </form>
-        )}
+              </ul>
+            )}
+            <form onSubmit={handleComentar} className="form">
+              <label>
+                Añadir comentario
+                <textarea
+                  value={comentarioNuevo}
+                  onChange={(e) => setComentarioNuevo(e.target.value)}
+                  rows={2}
+                  required
+                />
+              </label>
+              <button type="submit" disabled={enviando}>
+                Comentar
+              </button>
+            </form>
+          </section>
 
-        {puedeReasignar && (
-          <form onSubmit={handleReasignar} className="form">
-            <label>
-              Reasignar a
-              <select value={agenteReasignar} onChange={(e) => setAgenteReasignar(e.target.value)} required>
-                <option value="" disabled>
-                  Selecciona un agente…
-                </option>
-                {agentesEquipo
-                  .filter((a) => a.id !== ticket.agenteId)
-                  .map((a) => (
-                    <option key={a.id} value={a.id}>
-                      {a.nombre}
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Adjuntos</h2>
+            {ticket.adjuntos.length === 0 ? (
+              <p className="estado-vacio">Sin adjuntos todavía.</p>
+            ) : (
+              <ul className="comment-list">
+                {ticket.adjuntos.map((a) => (
+                  <li key={a.id}>
+                    <a href={ticketsApi.urlDescargaAdjunto(id, a.id)} target="_blank" rel="noreferrer">
+                      {a.nombreArchivo}
+                    </a>{' '}
+                    — {a.autor.nombre}, {new Date(a.fecha).toLocaleString()}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <form onSubmit={handleAdjuntar} className="form">
+              <label>
+                Adjuntar archivo
+                <input
+                  type="file"
+                  onChange={(e) => setArchivoSeleccionado(e.target.files[0] ?? null)}
+                  required
+                />
+              </label>
+              <button type="submit" disabled={enviando || !archivoSeleccionado}>
+                Subir adjunto
+              </button>
+            </form>
+          </section>
+
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Artículos de Conocimiento vinculados</h2>
+            {ticket.articulos.length === 0 ? (
+              <p className="estado-vacio">Ninguno todavía.</p>
+            ) : (
+              <ul className="comment-list">
+                {ticket.articulos.map((a) => (
+                  <li key={a.id}>
+                    <Link to={`/base-conocimiento/${a.id}`}>{a.titulo}</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {puedeVincularArticulo && (
+              <form onSubmit={handleVincularArticulo} className="form">
+                <label>
+                  Vincular artículo
+                  <select value={articuloVincular} onChange={(e) => setArticuloVincular(e.target.value)} required>
+                    <option value="" disabled>
+                      Selecciona…
                     </option>
-                  ))}
-              </select>
-            </label>
-            <button type="submit" disabled={enviando}>
-              Reasignar ticket
-            </button>
-          </form>
-        )}
+                    {articulosParaVincular.map((a) => (
+                      <option key={a.id} value={a.id}>
+                        {a.titulo}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button type="submit" disabled={enviando}>
+                  Vincular
+                </button>
+              </form>
+            )}
+          </section>
+        </div>
 
-        {puedePriorizar && (
-          <form onSubmit={handlePriorizar} className="form">
-            <label>
-              Confirmar Prioridad real
-              <select
-                value={prioridadElegida}
-                onChange={(e) => setPrioridadElegida(e.target.value)}
-                required
-              >
-                <option value="" disabled>
-                  Selecciona…
-                </option>
-                {prioridades.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.nombre}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button type="submit" disabled={enviando}>
-              Confirmar Prioridad
-            </button>
-          </form>
-        )}
+        <aside className="ticket-detail-sidebar">
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Detalles</h2>
+            <dl className="ticket-meta">
+              <dt>Categoría</dt>
+              <dd>{ticket.categoria.nombre}</dd>
+              <dt>Prioridad</dt>
+              <dd>
+                {ticket.prioridad.nombre}
+                {!ticket.prioridadConfirmada && ' (sin confirmar)'}
+              </dd>
+              <dt>Solicitante</dt>
+              <dd>{ticket.solicitante.nombre}</dd>
+              <dt>Agente</dt>
+              <dd>{ticket.agente?.nombre ?? 'Sin asignar'}</dd>
+            </dl>
+          </section>
 
-        {puedeConfirmarCierre && (
-          <button type="button" onClick={handleConfirmarCierre} disabled={enviando}>
-            Confirmar cierre
-          </button>
-        )}
-
-        {puedeReabrir && (
-          <form onSubmit={handleReabrir} className="form">
-            <label>
-              Reabrir -- motivo
-              <textarea
-                value={motivoReabrir}
-                onChange={(e) => setMotivoReabrir(e.target.value)}
-                rows={2}
-                required
-              />
-            </label>
-            <button type="submit" disabled={enviando} className="danger">
-              Reabrir ticket
-            </button>
-          </form>
-        )}
-      </div>
-
-      <h2>Comentarios</h2>
-      {ticket.comentarios.length === 0 ? (
-        <p>Sin comentarios todavía.</p>
-      ) : (
-        <ul className="comment-list">
-          {ticket.comentarios.map((c) => (
-            <li key={c.id}>
-              <strong>{c.autor.nombre}</strong> — {new Date(c.fecha).toLocaleString()}
-              <p>{c.texto}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-      <form onSubmit={handleComentar} className="form">
-        <label>
-          Añadir comentario
-          <textarea
-            value={comentarioNuevo}
-            onChange={(e) => setComentarioNuevo(e.target.value)}
-            rows={2}
-            required
-          />
-        </label>
-        <button type="submit" disabled={enviando}>
-          Comentar
-        </button>
-      </form>
-
-      <h2>Adjuntos</h2>
-      {ticket.adjuntos.length === 0 ? (
-        <p>Sin adjuntos todavía.</p>
-      ) : (
-        <ul className="comment-list">
-          {ticket.adjuntos.map((a) => (
-            <li key={a.id}>
-              <a href={ticketsApi.urlDescargaAdjunto(id, a.id)} target="_blank" rel="noreferrer">
-                {a.nombreArchivo}
-              </a>{' '}
-              — {a.autor.nombre}, {new Date(a.fecha).toLocaleString()}
-            </li>
-          ))}
-        </ul>
-      )}
-      <form onSubmit={handleAdjuntar} className="form">
-        <label>
-          Adjuntar archivo
-          <input
-            type="file"
-            onChange={(e) => setArchivoSeleccionado(e.target.files[0] ?? null)}
-            required
-          />
-        </label>
-        <button type="submit" disabled={enviando || !archivoSeleccionado}>
-          Subir adjunto
-        </button>
-      </form>
-
-      <h2>Artículos de Conocimiento vinculados</h2>
-      {ticket.articulos.length === 0 ? (
-        <p>Ninguno todavía.</p>
-      ) : (
-        <ul className="comment-list">
-          {ticket.articulos.map((a) => (
-            <li key={a.id}>
-              <Link to={`/base-conocimiento/${a.id}`}>{a.titulo}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
-      {puedeVincularArticulo && (
-        <form onSubmit={handleVincularArticulo} className="form">
-          <label>
-            Vincular artículo
-            <select value={articuloVincular} onChange={(e) => setArticuloVincular(e.target.value)} required>
-              <option value="" disabled>
-                Selecciona…
-              </option>
-              {articulosParaVincular.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.titulo}
-                </option>
+          <section className="ticket-panel">
+            <h2 className="ticket-panel-title">Historial</h2>
+            <ul className="audit-list">
+              {ticket.eventosAuditoria.map((ev) => (
+                <li key={ev.id}>
+                  {new Date(ev.fecha).toLocaleString()} — {ev.autor?.nombre ?? 'Sistema'}: {ev.tipoEvento}
+                </li>
               ))}
-            </select>
-          </label>
-          <button type="submit" disabled={enviando}>
-            Vincular
-          </button>
-        </form>
-      )}
-
-      <h2>Historial</h2>
-      <ul className="audit-list">
-        {ticket.eventosAuditoria.map((ev) => (
-          <li key={ev.id}>
-            {new Date(ev.fecha).toLocaleString()} — {ev.autor?.nombre ?? 'Sistema'}: {ev.tipoEvento}
-          </li>
-        ))}
-      </ul>
-    </section>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </div>
   );
 }

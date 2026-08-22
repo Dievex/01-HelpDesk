@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { articulosApi } from '../../api/articulos.js';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 const ROLES_ESCRITURA = ['AGENTE', 'SUPERVISOR'];
 const FORM_VACIO = { titulo: '', contenido: '', visibilidad: 'PUBLICO' };
@@ -72,7 +73,7 @@ export default function ArticuloFormPage() {
   // UC-09: cualquier actor sin permiso de escritura ve solo lectura.
   if (editando && !puedeEscribir) {
     return (
-      <section className="ticket-detail">
+      <section className="article-page">
         <h1>{form.titulo}</h1>
         <p className="article-visibility">{form.visibilidad === 'PUBLICO' ? 'Público' : 'Interno'}</p>
         <p>{form.contenido}</p>
@@ -82,7 +83,14 @@ export default function ArticuloFormPage() {
 
   return (
     <section className="form-page">
-      <h1>{editando ? 'Editar artículo' : 'Crear artículo'}</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.libro} />
+          </span>
+          <h1>{editando ? 'Editar artículo' : 'Crear artículo'}</h1>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className="form">
         <label>
           Título

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { articulosApi } from '../../api/articulos.js';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 const ROLES_ESCRITURA = ['AGENTE', 'SUPERVISOR'];
 
@@ -33,7 +34,12 @@ export default function ArticulosListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Base de Conocimiento</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.libro} />
+          </span>
+          <h1>Base de Conocimiento</h1>
+        </div>
         {ROLES_ESCRITURA.includes(usuario.rol) && <Link to="/base-conocimiento/nuevo">+ Crear artículo</Link>}
       </div>
 
@@ -47,9 +53,9 @@ export default function ArticulosListPage() {
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : articulos.length === 0 ? (
-        <p>No se encontraron artículos.</p>
+        <p className="estado-vacio">No se encontraron artículos.</p>
       ) : (
         <table className="table">
           <thead>

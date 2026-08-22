@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { categoriasApi } from '../../api/categorias.js';
 import { equiposApi } from '../../api/equipos.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 export default function CategoriasListPage() {
   const [categorias, setCategorias] = useState([]);
@@ -33,13 +34,18 @@ export default function CategoriasListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Categorías</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.etiqueta} />
+          </span>
+          <h1>Categorías</h1>
+        </div>
         <Link to="/categorias/nueva">+ Crear categoría</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : (
         <table className="table">
           <thead>

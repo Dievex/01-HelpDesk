@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
 import EstadoBadge from '../../components/EstadoBadge.jsx';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 // UC-14 Listar Cola de Tickets
 export default function ColaPage() {
@@ -45,12 +46,19 @@ export default function ColaPage() {
 
   return (
     <section>
-      <h1>Mi Cola</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.cola} />
+          </span>
+          <h1>Mi Cola</h1>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
 
       <h2>Sin asignar</h2>
       {cola.sinAsignar.length === 0 ? (
-        <p>No hay tickets sin asignar en tu equipo.</p>
+        <p className="estado-vacio">No hay tickets sin asignar en tu equipo.</p>
       ) : (
         <table className="table">
           <thead>
@@ -86,7 +94,7 @@ export default function ColaPage() {
 
       <h2>Asignados a mí</h2>
       {cola.asignadosAMi.length === 0 ? (
-        <p>No tienes tickets asignados.</p>
+        <p className="estado-vacio">No tienes tickets asignados.</p>
       ) : (
         <table className="table">
           <thead>

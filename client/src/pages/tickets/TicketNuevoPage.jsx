@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
 import { categoriasApi } from '../../api/categorias.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 // UC-03 Crear Ticket -- el Solicitante no elige Prioridad, la fija el Sistema (Baja
 // por defecto); el Supervisor la confirma después en UC-41 (Iteración 4).
@@ -45,7 +46,14 @@ export default function TicketNuevoPage() {
 
   return (
     <section className="form-page">
-      <h1>Crear ticket</h1>
+      <div className="section-header">
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.tickets} />
+          </span>
+          <h1>Crear ticket</h1>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className="form">
         <label>
           Título

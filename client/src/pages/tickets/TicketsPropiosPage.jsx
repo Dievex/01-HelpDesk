@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../../api/tickets.js';
 import EstadoBadge from '../../components/EstadoBadge.jsx';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 // UC-05 Listar Tickets Propios
 export default function TicketsPropiosPage() {
@@ -29,15 +30,20 @@ export default function TicketsPropiosPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Mis Tickets</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.tickets} />
+          </span>
+          <h1>Mis Tickets</h1>
+        </div>
         <Link to="/tickets/nuevo">+ Crear ticket</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : tickets.length === 0 ? (
-        <p>Todavía no has reportado ningún ticket.</p>
+        <p className="estado-vacio">Todavía no has reportado ningún ticket.</p>
       ) : (
         <table className="table">
           <thead>

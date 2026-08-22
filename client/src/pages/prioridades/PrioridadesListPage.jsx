@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { prioridadesApi } from '../../api/prioridades.js';
+import { Icono, ICONOS } from '../../components/icons.jsx';
 
 export default function PrioridadesListPage() {
   const [prioridades, setPrioridades] = useState([]);
@@ -27,13 +28,18 @@ export default function PrioridadesListPage() {
   return (
     <section>
       <div className="section-header">
-        <h1>Prioridades</h1>
+        <div className="section-header-title">
+          <span className="page-header-icon">
+            <Icono path={ICONOS.bandera} />
+          </span>
+          <h1>Prioridades</h1>
+        </div>
         <Link to="/prioridades/nueva">+ Crear prioridad</Link>
       </div>
 
       {error && <p className="error">{error}</p>}
       {cargando ? (
-        <p>Cargando…</p>
+        <p className="estado-vacio">Cargando…</p>
       ) : (
         <table className="table">
           <thead>
